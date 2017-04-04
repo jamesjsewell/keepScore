@@ -1,10 +1,13 @@
 import Backbone from 'backbone'
 import {GameCollection} from './models/gameModel.js'
+import {ArenaCollection} from './models/arenaModel.js'
 
 const STORE = Object.assign({}, Backbone.Events, {
 
 	data: {
-		gameCollection: new GameCollection() // a collection is like 
+		arenaCollection: new ArenaCollection(),
+		gameCollection: new GameCollection(),
+		 // a collection is like 
 			// an array on steroids
 	},
 

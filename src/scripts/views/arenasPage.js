@@ -2,7 +2,7 @@ import React from 'react'
 import STORE from '../store.js'
 import ACTIONS from '../actions.js'
 
-const HomePage = React.createClass({
+const ArenasPage = React.createClass({
 
 	componentWillMount: function(){
 
@@ -53,19 +53,7 @@ const HomePage = React.createClass({
 
  		return (
 
-	 		<div className='home-page-wrapper'>
-	 			<form onSubmit={this._handleLogin} className='loginWrapper'>
-	 				<input type='text' name='email' className='email-input' />
-	 				<input type='password' name='password' className='password-input' />
-	 				<button type='submit' className='login-button'/>
-	 			</form>
-	 			
-	 			<form onSubmit={this._handleRegister} className='submitWrapper'>
-	 				<input type='text' name='userName' className='password-input' />
-	 				<input type='text' name='email' className='email-input' />
-	 				<input type='password' name='password' className='password-input' />
-	 				<button type='submit' className='register-button'/>
-	 			</form>
+	 		<div className='arenas-page-wrapper'>
 
 	 			<UserArenasComponent arenas={this.state.userArenas} />
 	 			
@@ -82,7 +70,7 @@ const HomePage = React.createClass({
 const UserArenasComponent = React.createClass({
 
 	_makeArenas: function(arenas){
-		console.log(arenas)
+		console.log(arenas[0].attributes)
 		var arenaArray = []
 
 		for(var i = 0; i < arenas.length; i++){
@@ -125,7 +113,7 @@ const SingleArenaComponent = React.createClass({
 		return(
 
 			<div className = 'arena-wrapper'>
-				<h1>{this.props.arena._id}</h1>
+				<h1>{this.props.arena.attributes.players}</h1>
 			</div>
 
 		)
@@ -133,4 +121,4 @@ const SingleArenaComponent = React.createClass({
 })
 
 
-export default HomePage
+export default ArenasPage
