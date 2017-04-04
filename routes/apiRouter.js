@@ -36,39 +36,56 @@ let User = require('../db/schema.js').User
       })
     })
 
-    .delete('/users/:_id', function(req, res){
-      User.remove({ _id: req.params._id}, (err) => {
-        if(err) return res.json(err)
-        res.json({
-          msg: `record ${req.params._id} successfully deleted`,
-          _id: req.params._id
-        })
-      })  
+    .get('/users/:_id', function(req, res){
+      User.findById(req.params._id, function(err, record){
+        if(err || !record ) return res.json(err) 
+        res.json(record)
+      })
     })
 
     apiRouter
-      .get('/games', function(req, res){
+    .get('/games', function(req, res){
       Game.find(req.query, function(err, results){
         if(err) return res.json(err) 
         res.json(results)
       })
     })
-
-    apiRouter
-      .post('/games', function(request, response) {
-        // a post request will include in the request body
-          // the data that the client wants me to save under this 
-          // collection.
-          // i will make a new instance from the issue constructor, 
-          // passing in the data from the request body.
-        var newGame = new Game(request.body)
-        newGame.save(function(error, record) {
-          if (error) {
-            return response.status(400).json(error)
-          }
-          response.json(record)
-        })
+    .get('/games/:_id', function(req, res){
+      Game.findById(req.params._id, function(err, results){
+        if(err) return res.json(err) 
+        res.json(results)
       })
+    })
+    .post('/games', function(request, response) {
+      // a post request will include in the request body
+        // the data that the client wants me to save under this 
+        // collection.
+        // i will make a new instance from the issue constructor, 
+        // passing in the data from the request body.
+      var newGame = new Game(request.body)
+      newGame.save(function(error, record) {
+        if (error) {
+          return response.status(400).json(error)
+        }
+        response.json(record)
+      })
+    })
+    .put('/games/:_id', function(req, res){
+
+      Game.findByIdAndUpdate(req.params._id, req.body, function(err, record){
+          if (err) {
+            res.status(500).send(err)
+          }
+          else if (!record) {
+            res.status(400).send('no record found with that id')
+          }
+          else {
+            res.json(Object.assign({},req.body,record))
+          }
+      })
+
+    })
+
 
     // Routes for a Model(resource) should have this structure
 
