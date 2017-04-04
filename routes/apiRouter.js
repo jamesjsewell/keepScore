@@ -85,6 +85,17 @@ let User = require('../db/schema.js').User
       })
 
     })
+    .delete('/games/:gameId', function(request,response){
+      Game.remove({_id: request.params.gameId}, function(error) {
+        if (error) {
+          return response.status(400).json(error)
+        }
+        response.json({
+          msg: `target with id ${request.params.gameId} has been eliminated.`,
+          id: request.params.gameId
+        })
+      })
+    })
 
 
     // Routes for a Model(resource) should have this structure
