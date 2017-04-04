@@ -3,6 +3,7 @@ const apiRouter = Router()
 let helpers = require('../config/helpers.js')
 
 const Game = require('../db/schema.js').Game
+const Arena = require('../db/schema.js').Arena
 let User = require('../db/schema.js').User
 
   
@@ -43,6 +44,7 @@ let User = require('../db/schema.js').User
       })
     })
 
+    //GAME ROUTES
     apiRouter
     .get('/games', function(req, res){
       Game.find(req.query, function(err, results){
@@ -93,6 +95,61 @@ let User = require('../db/schema.js').User
         response.json({
           msg: `target with id ${request.params.gameId} has been eliminated.`,
           id: request.params.gameId
+        })
+      })
+    })
+
+    //ARENA ROUTES
+    apiRouter
+    .get('/arenas', function(req, res){
+      Arena.find(req.query, function(err, results){
+        if(err) return res.json(err) 
+        res.json(results)
+      })
+    })
+    .get('/arenas/:_id', function(req, res){
+      Arena.findById(req.params._id, function(err, results){
+        if(err) return res.json(err) 
+        res.json(results)
+      })
+    })
+    .post('/arenas', function(request, response) {
+      // a post request will include in the request body
+        // the data that the client wants me to save under this 
+        // collection.
+        // i will make a new instance from the issue constructor, 
+        // passing in the data from the request body.
+      var newArena = new Arena(request.body)
+      newArena.save(function(error, record) {
+        if (error) {
+          return response.status(400).json(error)
+        }
+        response.json(record)
+      })
+    })
+    .put('/arenas/:_id', function(req, res){
+
+      Arena.findByIdAndUpdate(req.params._id, req.body, function(err, record){
+          if (err) {
+            res.status(500).send(err)
+          }
+          else if (!record) {
+            res.status(400).send('no record found with that id')
+          }
+          else {
+            res.json(Object.assign({},req.body,record))
+          }
+      })
+
+    })
+    .delete('/arenas/:arenaId', function(request,response){
+      Arena.remove({_id: request.params.arenaId}, function(error) {
+        if (error) {
+          return response.status(400).json(error)
+        }
+        response.json({
+          msg: `target with id ${request.params.arenaId} has been eliminated.`,
+          id: request.params.arenaId
         })
       })
     })
