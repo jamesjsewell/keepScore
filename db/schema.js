@@ -7,11 +7,11 @@ const usersSchema = new mongoose.Schema({
   // required for authentication: DO NOT TOUCH Or You May Get Punched
   email:     { type: String, required: true },
   password:  { type: String, required: true },
-  games: {type: Array}
+  games: {type: Array},
   // x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x
   
    // example of optional fields
-  name:      { type: String },
+  name:  { type: String },
   createdAt: { type: Date, default: Date.now }
 
 })
