@@ -4,12 +4,7 @@ import User from './models/userModel.js'
 
 const ACTIONS = {
 
-	getUserId: function(){
-		console.log(User.getCurrentUser().attributes._id)
-		return User.getCurrentUser().attributes._id
-
-	},
-
+	//UPDATE STORE WITH DATA
 	fetch_arenas: function(){
 
 		// 	// we allow this function to be used with or without 
@@ -63,6 +58,7 @@ const ACTIONS = {
 			})	
 
 	},
+	//----------------------------------------------------//
 
 	//ACTIONS FOR THE ARENA
 	fetch_matches_for_arena: function(arenaId){
@@ -85,11 +81,12 @@ const ACTIONS = {
 	return_completed_matches_for_arena: function(arenaId){
 
 	},
-
+	//----------------------------------------------------//
+	
 	//USER INPUT ACTIONS
 
 	//Arena Logic
-	create_match: function(arenaId){
+	create_match: function(arenaId, matchData){
 		//will send a post or put request to update an inactive match possibly
 
 	},
@@ -112,7 +109,7 @@ const ACTIONS = {
 		//update the queue array in the database
 	},
 
-	complete_match: function(matchId, arenaId){
+	complete_match: function(matchId, arenaId, matchData){
 		//will get the queue array
 		//re-arrange the queue array
 		//update the match history section
@@ -120,7 +117,10 @@ const ACTIONS = {
 
 	modify_queue_sequence: function(arenaId, modification){
 		//will modify the sequence of the queue
-	}
+	},
+	//----------------------------------------------------//
+
+	//USER LOGIN FLOW
 
 	logout: function() {
 		User.logout()
@@ -168,6 +168,12 @@ const ACTIONS = {
 					console.log(err)
 				}
 				)
+	},
+
+	getUserId: function(){
+		console.log(User.getCurrentUser().attributes._id)
+		return User.getCurrentUser().attributes._id
+
 	}
 }
 
