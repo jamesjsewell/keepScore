@@ -86,28 +86,41 @@ const ACTIONS = {
 
 	},
 
-	//USER ACTIONS
+	//USER INPUT ACTIONS
 
 	//Arena Logic
-	create_match: function(){
+	create_match: function(arenaId){
+		//will send a post or put request to update an inactive match possibly
 
 	},
 
-	add_match_to_queue: function(){
-
+	add_match_to_queue: function(matchId, arenaId){
+		//will get the queue array
+		//put a new match id on the queue array
+		//update the queue array in the database
 	},
 
-	move_match_up_down: function(){
-
+	move_match_up_down_the_queue: function(matchId, arenaId){
+		//will get the queue array
+		//re-arrange the queue array
+		//update the queue array in the database
 	},
 
-	remove_match_from_queue: function(){
-
+	remove_match_from_queue: function(matchId, arenaId){
+		//will get the queue array
+		//re-arrange the queue array
+		//update the queue array in the database
 	},
 
-	complete_match: function(){
-
+	complete_match: function(matchId, arenaId){
+		//will get the queue array
+		//re-arrange the queue array
+		//update the match history section
 	},
+
+	modify_queue_sequence: function(arenaId, modification){
+		//will modify the sequence of the queue
+	}
 
 	logout: function() {
 		User.logout()
