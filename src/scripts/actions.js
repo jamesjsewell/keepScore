@@ -67,8 +67,38 @@ const ACTIONS = {
 	},
 
 	//user can only belong to this match
-	return_current_match_for_user: function(arenaId, playerId){
+	update_current_arena_for_player: function(newArenaId, playerId){
 
+		//var thePlayer = playerId
+		var thePlayer = User.getCurrentUser()
+
+		var existingArena = thePlayer.attributes
+
+		console.log('the current arena for the user is', existingArena.current_arena_id, 'the new arena id is', newArenaId)
+
+		if(existingArena.current_arena_id === newArenaId){
+
+			console.log('this is already the current arena for the user')
+			return null
+
+		}
+
+		else{
+
+			thePlayer.set({
+				current_arena_id: newArenaId
+			})
+
+			thePlayer.save().then(function() {
+				// do whatever, set something on store, whatever's next
+				console.log('user is now currently in a different arena')
+			},
+				function(err) {
+					console.log('could not assign user to this arena')
+					console.log(err)
+				}
+			)
+		}
 
 	},
 

@@ -12,7 +12,9 @@ const usersSchema = new mongoose.Schema({
   
    // example of optional fields
   name:  { type: String },
-  createdAt: { type: Date, default: Date.now }
+  createdAt: { type: Date, default: Date.now },
+  current_arena_id: { type: String },
+  currentMatchId: { type: String }
 
 })
 

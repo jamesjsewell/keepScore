@@ -60,9 +60,13 @@ UserAuthModel.getCurrentUser = function() {
 
 // but, you may extend the UserAuthModel Constructor (which is a Backbone Model)
 const User = UserAuthModel.extend({
-	initialize: function(){
+    initialize: function(){
+        this.on('sync', this.updateCurrentUser.bind(this))
+    },
 
-	}
+    updateCurrentUser: function() {
+        localStorage.setItem('hashiru_user', JSON.stringify(this.attributes))
+    }
 })
 
 export default User

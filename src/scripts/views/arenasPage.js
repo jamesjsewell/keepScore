@@ -9,6 +9,7 @@ const ArenasPage = React.createClass({
 		var userId = ACTIONS.getUserId()
 		ACTIONS.fetch_arenas()
 		ACTIONS.get_arenas_for_user(userId)
+		
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
 		})
@@ -59,8 +60,6 @@ const ArenasPage = React.createClass({
 	 			
 	 		</div>
 
-
-
  		)
 
  	}
@@ -100,13 +99,18 @@ const UserArenasComponent = React.createClass({
 			return(<div></div>)
 
 		}
-
-		
-
 	}
 })
 
 const SingleArenaComponent = React.createClass({
+
+	enter_arena: function(evtObj){
+		evtObj.preventDefault()
+		console.log(this.props.arena.attributes._id)
+		console.log(ACTIONS.getUserId())
+		ACTIONS.update_current_arena_for_player(this.props.arena.attributes._id, ACTIONS.getUserId())
+
+	},
 
 	render: function(){
 
@@ -114,6 +118,7 @@ const SingleArenaComponent = React.createClass({
 
 			<div className = 'arena-wrapper'>
 				<h1>{this.props.arena.attributes.players}</h1>
+				<button onClick={this.enter_arena}>update</button>
 			</div>
 
 		)
