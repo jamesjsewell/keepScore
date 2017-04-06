@@ -6,9 +6,6 @@ const HomePage = React.createClass({
 
 	componentWillMount: function(){
 
-		var userId = ACTIONS.getUserId()
-		ACTIONS.fetch_arenas()
-		ACTIONS.get_arenas_for_user(userId)
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
 		})

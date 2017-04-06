@@ -1,6 +1,7 @@
 import STORE from './store.js'
 import {GameModel} from './models/gameModel.js'
 import User from './models/userModel.js'
+import $ from 'jquery'
 
 const ACTIONS = {
 
@@ -66,20 +67,19 @@ const ACTIONS = {
 
 	},
 
-	//user can only belong to this match
+	
 	update_current_arena_for_player: function(newArenaId, playerId){
 
 		//var thePlayer = playerId
 		var thePlayer = User.getCurrentUser()
 
-		var existingArena = thePlayer.attributes
+		var existingArena = thePlayer.attributes.current_arena_id
 
-		console.log('the current arena for the user is', existingArena.current_arena_id, 'the new arena id is', newArenaId)
+		console.log('the current arena for the user is', existingArena, 'the new arena id is', newArenaId)
 
-		if(existingArena.current_arena_id === newArenaId){
+		if(existingArena === newArenaId){
 
 			console.log('this is already the current arena for the user')
-			return null
 
 		}
 
@@ -91,7 +91,7 @@ const ACTIONS = {
 
 			thePlayer.save().then(function() {
 				// do whatever, set something on store, whatever's next
-				console.log('user is now currently in a different arena')
+				console.log('user is now currently in a different arena', newArenaId)
 			},
 				function(err) {
 					console.log('could not assign user to this arena')
@@ -99,6 +99,25 @@ const ACTIONS = {
 				}
 			)
 		}
+
+		ACTIONS.get_players_of_arena(existingArena)
+
+	},
+
+	get_players_of_arena: function(arenaId){
+
+		console.log('getting the players from an arena')
+		console.log(arenaId)
+		$.ajax({
+			method: 'GET',
+			type: 'json',
+			url: `api/arenas/${arenaId}`
+		})
+		.done((res)=>{
+			console.log(res)
+			STORE._set({players_in_current_arena: res.players})
+			console.log(STORE.data.players_in_current_arena)
+		})	
 
 	},
 
@@ -201,7 +220,7 @@ const ACTIONS = {
 	},
 
 	getUserId: function(){
-		console.log(User.getCurrentUser().attributes._id)
+		//console.log(User.getCurrentUser().attributes._id)
 		return User.getCurrentUser().attributes._id
 
 	}
