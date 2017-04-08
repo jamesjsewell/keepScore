@@ -68,8 +68,6 @@ const HomePage = React.createClass({
 	 			
 	 		</div>
 
-
-
  		)
 
  	}

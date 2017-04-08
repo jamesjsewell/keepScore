@@ -2,10 +2,9 @@ let Router = require('express').Router;
 const apiRouter = Router()
 let helpers = require('../config/helpers.js')
 
-const Game = require('../db/schema.js').Game
-const Arena = require('../db/schema.js').Arena
 let User = require('../db/schema.js').User
-
+const Match = require('../db/schema.js').Match
+const Arena = require('../db/schema.js').Arena
   
   apiRouter
     .get('/users', function(req, res){
@@ -44,37 +43,33 @@ let User = require('../db/schema.js').User
       })
     })
 
-    //GAME ROUTES
+    //Match ROUTES
     apiRouter
-    .get('/games', function(req, res){
-      Game.find(req.query, function(err, results){
+    .get('/matches', function(req, res){
+      Match.find(req.query, function(err, results){
         if(err) return res.json(err) 
         res.json(results)
       })
     })
-    .get('/games/:_id', function(req, res){
-      Game.findById(req.params._id, function(err, results){
+    .get('/matches/:_id', function(req, res){
+      Match.findById(req.params._id, function(err, results){
         if(err) return res.json(err) 
         res.json(results)
       })
     })
-    .post('/games', function(request, response) {
-      // a post request will include in the request body
-        // the data that the client wants me to save under this 
-        // collection.
-        // i will make a new instance from the issue constructor, 
-        // passing in the data from the request body.
-      var newGame = new Game(request.body)
-      newGame.save(function(error, record) {
+    .post('/matches', function(request, response) {
+ 
+      var newMatch = new Match(request.body)
+      newMatch.save(function(error, record) {
         if (error) {
           return response.status(400).json(error)
         }
         response.json(record)
       })
     })
-    .put('/games/:_id', function(req, res){
+    .put('/matches/:_id', function(req, res){
 
-      Game.findByIdAndUpdate(req.params._id, req.body, function(err, record){
+      Match.findByIdAndUpdate(req.params._id, req.body, function(err, record){
           if (err) {
             res.status(500).send(err)
           }
@@ -87,14 +82,14 @@ let User = require('../db/schema.js').User
       })
 
     })
-    .delete('/games/:gameId', function(request,response){
-      Game.remove({_id: request.params.gameId}, function(error) {
+    .delete('/matches/:matchId', function(request,response){
+      Match.remove({_id: request.params.matchId}, function(error) {
         if (error) {
           return response.status(400).json(error)
         }
         response.json({
-          msg: `target with id ${request.params.gameId} has been eliminated.`,
-          id: request.params.gameId
+          msg: `target with id ${request.params.matchId} has been eliminated.`,
+          id: request.params.matchId
         })
       })
     })
@@ -105,20 +100,16 @@ let User = require('../db/schema.js').User
       Arena.find(req.query, function(err, results){
         if(err) return res.json(err) 
         res.json(results)
-      })
+      }).populate('players')
     })
     .get('/arenas/:_id', function(req, res){
       Arena.findById(req.params._id, function(err, results){
         if(err) return res.json(err) 
         res.json(results)
-      })
+      }).populate('players')
     })
     .post('/arenas', function(request, response) {
-      // a post request will include in the request body
-        // the data that the client wants me to save under this 
-        // collection.
-        // i will make a new instance from the issue constructor, 
-        // passing in the data from the request body.
+
       var newArena = new Arena(request.body)
       newArena.save(function(error, record) {
         if (error) {
@@ -127,9 +118,11 @@ let User = require('../db/schema.js').User
         response.json(record)
       })
     })
+
     .put('/arenas/:_id', function(req, res){
 
       Arena.findByIdAndUpdate(req.params._id, req.body, function(err, record){
+
           if (err) {
             res.status(500).send(err)
           }
@@ -143,7 +136,9 @@ let User = require('../db/schema.js').User
 
     })
     .delete('/arenas/:arenaId', function(request,response){
+
       Arena.remove({_id: request.params.arenaId}, function(error) {
+
         if (error) {
           return response.status(400).json(error)
         }
@@ -153,7 +148,6 @@ let User = require('../db/schema.js').User
         })
       })
     })
-
 
     // Routes for a Model(resource) should have this structure
 
