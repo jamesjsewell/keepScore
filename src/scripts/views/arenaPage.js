@@ -15,7 +15,8 @@ const ArenaPage = React.createClass({
 
 		ACTIONS.fetch_arenas()
 		ACTIONS.fetch_matches()
-		ACTIONS.set_store_user_arenas('58e93f3186602d7bc21bc881')
+		ACTIONS.set_store_arenas_of_selected_user('58e93f3186602d7bc21bc881')
+		ACTIONS.set_store_current_arena_of_selected_user('58e93f3186602d7bc21bc881')
 		ACTIONS.set_store_matches_for_arena('58e8d8b4e8865e7a8b19c6c4')
 		
 		STORE.on('dataUpdated', () => {

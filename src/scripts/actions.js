@@ -74,8 +74,13 @@ const ACTIONS = {
 			})	
 	},
 
-	//query by user id
-	set_store_user_arenas: function(userId){
+	set_store_current_arena_of_selected_user: function(userId){
+
+		ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user_current_arena','current_arena')
+
+	},
+
+	set_store_arenas_of_selected_user: function(userId){
 
   		ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user_arenas','arenas')
   		
