@@ -1,14 +1,15 @@
 import React from 'react'
 import STORE from '../store.js'
 import ACTIONS from '../actions.js'
+import User from '../models/userModel.js'
 
 const ArenasPage = React.createClass({
 
 	componentWillMount: function(){
-
-		var userId = ACTIONS.getUserId()
+		console.log(User.getCurrentUser())
+		//var userId = ACTIONS.getUserId()
 		ACTIONS.fetch_arenas()
-		ACTIONS.get_arenas_for_user(userId)
+		//ACTIONS.get_arenas_for_user(userId)
 		
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
@@ -51,12 +52,11 @@ const ArenasPage = React.createClass({
  	},
 
  	render: function(){
-
+ 		console.log(this.state.arenaCollection)
  		return (
 
 	 		<div className='arenas-page-wrapper'>
 
-	 			<UserArenasComponent arenas={this.state.userArenas} />
 	 			
 	 		</div>
 

@@ -6,20 +6,22 @@ let User = require('../db/schema.js').User
 const Match = require('../db/schema.js').Match
 const Arena = require('../db/schema.js').Arena
   
+  
   apiRouter
     .get('/users', function(req, res){
       User.find(req.query , "-password", function(err, results){
         if(err) return res.json(err) 
         res.json(results)
-      })
+      }).populate('current_arena').populate('current_match').populate('current_team').populate('arenas').populate('matches')
     })
 
+ 
   apiRouter
     .get('/users/:_id', function(req, res){
       User.findById(req.params._id, "-password", function(err, record){
         if(err || !record ) return res.json(err) 
         res.json(record)
-      })
+      }).populate('current_arena').populate('current_match').populate('current_team').populate('arenas').populate('matches')
     })
     .put('/users/:_id', function(req, res){
 
@@ -49,13 +51,13 @@ const Arena = require('../db/schema.js').Arena
       Match.find(req.query, function(err, results){
         if(err) return res.json(err) 
         res.json(results)
-      })
+      }).populate('players').populate('winningPlayer')
     })
     .get('/matches/:_id', function(req, res){
       Match.findById(req.params._id, function(err, results){
         if(err) return res.json(err) 
         res.json(results)
-      })
+      }).populate('players').populate('winningPlayer')
     })
     .post('/matches', function(request, response) {
  
