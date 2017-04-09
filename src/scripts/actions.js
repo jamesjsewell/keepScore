@@ -1,5 +1,5 @@
 import STORE from './store.js'
-import {GameModel} from './models/gameModel.js'
+import {MatchModel} from './models/matchModel.js'
 import User from './models/userModel.js'
 import $ from 'jquery'
 
@@ -28,35 +28,20 @@ const ACTIONS = {
 
 	get_arenas_for_user: function(id){
 
-		var arenaModels = STORE.get('arenaCollection')
+        $.ajax({
+	        method: 'GET',
+	        type: 'json',
+	        url: `api/users/${id}`
+        })
+        .done((response)=>{
 
-		arenaModels.fetch()
+        	STORE._set({selected_user_arenas: response.arenas})
+            console.log(STORE.data.selected_user_arenas)
 
-			.then(function() {
-
-				var arenasArray = []
-				console.log(arenaModels.models[0].attributes.players)
-				for(var i = 0; i < arenaModels.models.length; i++){
-
-					var players = arenaModels.models[i].attributes.players
-					console.log(players,id)
-
-					for(var j = 0; j < players.length; j++){
-
-						if(players[j] === id){
-							console.log('found the id')
-							arenasArray.push(arenaModels.models[i])
-
-						}
-
-					}
-
-				}
-
-				STORE._set({userArenas: arenasArray})
-				return(arenasArray)
-				
-			})	
+        })
+        .fail((err)=>{
+            console.log('could not access user', err)
+        })
 
 	},
 	//----------------------------------------------------//
@@ -102,6 +87,20 @@ const ACTIONS = {
 
 		ACTIONS.get_players_of_arena(existingArena)
 
+	},
+
+	fetch_matches: function(){
+
+		var matchColl = STORE.get('matchCollection')
+		// backbone && jquery, on our behalf, will add a "GET" 
+		// verb to the header of our request when we use 
+		// .fetch()
+		matchColl.fetch()
+			.then(function() {
+				STORE._set({
+					matchCollection: matchColl
+				})
+			})	
 	},
 
 	set_status_of_player_in_arena: function(arenaId, playerId){
@@ -224,7 +223,7 @@ const ACTIONS = {
 				function(resp) {
 					alert('logged in!')
 					console.log(resp)
-					location.hash = 'arenas'
+					location.hash = 'arena'
 				}
 			)
 			.fail(

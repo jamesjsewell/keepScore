@@ -5,9 +5,9 @@ import {ArenaCollection} from './models/arenaModel.js'
 const STORE = Object.assign({}, Backbone.Events, {
 
 	data: {
-		
+
 		arenaCollection: new ArenaCollection(),
-		matchCollection: new MatchCollection(),
+		matchCollection: new MatchCollection() 
 		
 	},
 

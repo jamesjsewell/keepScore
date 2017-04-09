@@ -4,20 +4,25 @@ import Backbone from 'backbone'
 import init from './init'
 import HomePage from './views/homePage.js'
 import ArenasPage from './views/arenasPage.js'
+import ArenaPage from './views/arenaPage.js'
 
 const app = function() {
 
 	const ScoreRouter = Backbone.Router.extend({
 		routes: {
-
 			'home': 'renderHomePage',
-			'arenas': 'renderArenasPage'
+			'arena': 'renderArenaPage',
+			'arenas': 'renderArenasPage',
+			'*default': 'redirect'
 		},
 		redirect: function() {
-			this.renderHomePage()
+			this.renderArenaPage()
 		},
 		renderHomePage: function() {
 			ReactDOM.render(<HomePage />, document.querySelector('.container'))
+		},
+		renderArenaPage: function() {
+			ReactDOM.render(<ArenaPage />, document.querySelector('.container'))
 		},
 		renderArenasPage: function() {
 			console.log('rendering arenas page')

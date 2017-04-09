@@ -3,13 +3,14 @@ import STORE from '../store.js'
 import ACTIONS from '../actions.js'
 import User from '../models/userModel.js'
 
-const ArenasPage = React.createClass({
+const ArenaPage = React.createClass({
 
 	componentWillMount: function(){
 		console.log(User.getCurrentUser())
 		//var userId = ACTIONS.getUserId()
 		ACTIONS.fetch_arenas()
 		ACTIONS.fetch_matches()
+		ACTIONS.get_arenas_for_user('58e93f3186602d7bc21bc881')
 		//ACTIONS.get_arenas_for_user(userId)
 		
 		STORE.on('dataUpdated', () => {
@@ -30,40 +31,39 @@ const ArenasPage = React.createClass({
 
 	},
 
- 	_handleLogin: function(evtObj){
-
- 		evtObj.preventDefault()
-		ACTIONS.logUserIn(evtObj.target.email.value, evtObj.target.password.value)
-
- 	},
-
- 	_handleRegister: function(evtObj){
-
- 		evtObj.preventDefault()
-		var formElement = evtObj.target
-		console.log(formElement)
-		var userData = {
-			name: formElement.userName.value,
-			email: formElement.email.value,
-			password: formElement.password.value
-		}
-
-		ACTIONS.registerUser(userData)
-
- 	},
-
  	render: function(){
- 		console.log(this.state.arenaCollection)
- 		console.log(this.state.matchCollection)
- 		return (
 
-	 		<div className='arenas-page-wrapper'>
+ 		if(User.getCurrentUser() != null){
 
-	 			
-	 		</div>
+ 			console.log(this.state.arenaCollection)
+ 			console.log(this.state.matchCollection)
+ 			console.log(this.state.selected_user_arenas)
+ 			
+ 			return (
 
- 		)
+		 		<div className='arenas-page-wrapper'>
 
+		 		
+
+		 			
+		 		</div>
+
+ 			)
+
+ 		}
+
+ 		else{
+
+ 			return (
+
+		 		<div className='arenas-page-wrapper'>
+		 			<h2>you are not logged in</h2>
+		 		</div>
+
+ 			)
+ 		}
+ 		
+ 		
  	}
 
 })
@@ -128,4 +128,4 @@ const SingleArenaComponent = React.createClass({
 })
 
 
-export default ArenasPage
+export default ArenaPage
