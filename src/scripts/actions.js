@@ -6,53 +6,91 @@ import $ from 'jquery'
 const ACTIONS = {
 
 	//UPDATE STORE WITH DATA
+	ajax_to_store: function(theUrl, storeKey, extension){
+
+        $.ajax({
+
+	        method: 'GET',
+	        type: 'json',
+	        url: theUrl
+
+        })
+
+        .done((response)=>{
+
+        	var setObj = {}
+        	setObj[storeKey] = response[extension]
+ 			STORE._set(setObj)
+ 			console.log(STORE.data)
+
+        })
+
+        .fail((err)=>{
+
+            console.log('could not access user', err)
+
+        })
+
+	},
+
+	set_me_on_store: function(){
+
+		if(User.getCurrentUser() != null){
+
+			STORE._set( { logged_in_user: User.getCurrentUser().attributes } )
+			console.log(STORE.data.logged_in_user)
+
+		}
+
+	},
+
 	fetch_arenas: function(){
 
-		// 	// we allow this function to be used with or without 
-		// 		// a query object that will filter our fetch. 
-		// 		// if no queryObject is passed in, it will be undefined,
-		// 		// and we'll set it to be empty object.
-
 		var arenaColl = STORE.get('arenaCollection')
-		// backbone && jquery, on our behalf, will add a "GET" 
-		// verb to the header of our request when we use 
-		// .fetch()
+
 		arenaColl.fetch()
+
 			.then(function() {
+
 				STORE._set({
 					arenaCollection: arenaColl
 				})
+
 			})	
 
 	},
 
-	get_arenas_for_user: function(id){
+	fetch_matches: function(){
 
-        $.ajax({
-	        method: 'GET',
-	        type: 'json',
-	        url: `api/users/${id}`
-        })
-        .done((response)=>{
+		var matchColl = STORE.get('matchCollection')
+		// backbone && jquery, on our behalf, will add a "GET" 
+		// verb to the header of our request when we use 
+		// .fetch()
+		matchColl.fetch()
+			.then(function() {
+				STORE._set({
+					matchCollection: matchColl
+				})
+			})	
+	},
 
-        	STORE._set({selected_user_arenas: response.arenas})
-            console.log(STORE.data.selected_user_arenas)
+	//query by user id
+	set_store_user_arenas: function(userId){
 
-        })
-        .fail((err)=>{
-            console.log('could not access user', err)
-        })
+  		ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user_arenas','arenas')
+  		
+        
+	},
+
+	set_store_matches_for_arena: function(arenaId){
+		console.log('fetching matches for the arena')
+		ACTIONS.ajax_to_store(`api/arenas/${arenaId}`,'selected_arena_matches','matches')
 
 	},
 	//----------------------------------------------------//
 
 	//ACTIONS FOR THE ARENA
-	fetch_matches_for_arena: function(arenaId){
 
-
-	},
-
-	
 	update_current_arena_for_player: function(newArenaId, playerId){
 
 		//var thePlayer = playerId
@@ -89,19 +127,6 @@ const ACTIONS = {
 
 	},
 
-	fetch_matches: function(){
-
-		var matchColl = STORE.get('matchCollection')
-		// backbone && jquery, on our behalf, will add a "GET" 
-		// verb to the header of our request when we use 
-		// .fetch()
-		matchColl.fetch()
-			.then(function() {
-				STORE._set({
-					matchCollection: matchColl
-				})
-			})	
-	},
 
 	set_status_of_player_in_arena: function(arenaId, playerId){
 

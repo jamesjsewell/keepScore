@@ -102,13 +102,13 @@ const Arena = require('../db/schema.js').Arena
       Arena.find(req.query, function(err, results){
         if(err) return res.json(err) 
         res.json(results)
-      }).populate('players')
+      }).populate('players').populate('matches')
     })
     .get('/arenas/:_id', function(req, res){
       Arena.findById(req.params._id, function(err, results){
         if(err) return res.json(err) 
         res.json(results)
-      }).populate('players')
+      }).populate('players').populate('matches')
     })
     .post('/arenas', function(request, response) {
 

@@ -9,6 +9,7 @@ import ArenaPage from './views/arenaPage.js'
 const app = function() {
 
 	const ScoreRouter = Backbone.Router.extend({
+
 		routes: {
 			'home': 'renderHomePage',
 			'arena': 'renderArenaPage',
@@ -16,7 +17,7 @@ const app = function() {
 			'*default': 'redirect'
 		},
 		redirect: function() {
-			this.renderArenaPage()
+			this.renderHomePage()
 		},
 		renderHomePage: function() {
 			ReactDOM.render(<HomePage />, document.querySelector('.container'))
@@ -28,10 +29,12 @@ const app = function() {
 			console.log('rendering arenas page')
 			ReactDOM.render(<ArenasPage />, document.querySelector('.container'))
 		}
+
 	})
 
 	new ScoreRouter
 	Backbone.history.start()
+
 }
 
 // x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..

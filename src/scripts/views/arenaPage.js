@@ -6,12 +6,17 @@ import User from '../models/userModel.js'
 const ArenaPage = React.createClass({
 
 	componentWillMount: function(){
-		console.log(User.getCurrentUser())
-		//var userId = ACTIONS.getUserId()
+
+		if(User.getCurrentUser() != null){
+
+			ACTIONS.set_me_on_store()
+
+		}
+
 		ACTIONS.fetch_arenas()
 		ACTIONS.fetch_matches()
-		ACTIONS.get_arenas_for_user('58e93f3186602d7bc21bc881')
-		//ACTIONS.get_arenas_for_user(userId)
+		ACTIONS.set_store_user_arenas('58e93f3186602d7bc21bc881')
+		ACTIONS.set_store_matches_for_arena('58e8d8b4e8865e7a8b19c6c4')
 		
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
@@ -35,10 +40,6 @@ const ArenaPage = React.createClass({
 
  		if(User.getCurrentUser() != null){
 
- 			console.log(this.state.arenaCollection)
- 			console.log(this.state.matchCollection)
- 			console.log(this.state.selected_user_arenas)
- 			
  			return (
 
 		 		<div className='arenas-page-wrapper'>
