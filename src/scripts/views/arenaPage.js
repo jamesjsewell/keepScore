@@ -15,8 +15,7 @@ const ArenaPage = React.createClass({
 
 		ACTIONS.fetch_arenas()
 		ACTIONS.fetch_matches()
-		ACTIONS.set_store_arenas_of_selected_user('58e93f3186602d7bc21bc881')
-		ACTIONS.set_store_current_arena_of_selected_user('58e93f3186602d7bc21bc881')
+		ACTIONS.set_store_selected_user('58e93f3186602d7bc21bc881')
 		ACTIONS.set_store_matches_for_arena('58e8d8b4e8865e7a8b19c6c4')
 		
 		STORE.on('dataUpdated', () => {
@@ -45,7 +44,7 @@ const ArenaPage = React.createClass({
 
 		 		<div className='arenas-page-wrapper'>
 
-		 		
+		 			<QueueComponent queueMatches={this.state.selected_arena_matches} />
 
 		 			
 		 		</div>
@@ -63,35 +62,36 @@ const ArenaPage = React.createClass({
 		 		</div>
 
  			)
- 		}
- 		
+ 		}	
  		
  	}
 
 })
 
-const UserArenasComponent = React.createClass({
+const QueueComponent = React.createClass({
 
-	_makeArenas: function(arenas){
-		console.log(arenas[0].attributes)
-		var arenaArray = []
+	_makeMatches: function(matches){
+	
+		var matchArray = []
 
-		for(var i = 0; i < arenas.length; i++){
-			arenaArray.push(<SingleArenaComponent arena={arenas[i]} />)
+		for(var i = 0; i < matches.length; i++){
+
+			matchArray.push(<MatchComponent match={matches[i]} />)
+
 		}
 
-		return(arenaArray)
+		return(matchArray)
 
 	},
 
 	render: function(){
 
-		if(this.props.arenas != undefined){
+		if(this.props.queueMatches){
 
 			return(
-				<div className='arenas-wrapper'>
+				<div className='queue-wrapper'>
 
-					{this._makeArenas(this.props.arenas)}
+					{this._makeMatches(this.props.queueMatches)}
 
 				</div>
 			)
@@ -100,19 +100,17 @@ const UserArenasComponent = React.createClass({
 
 		else{
 
-			return(<div></div>)
+			return(<div><h3>retrieving matches</h3></div>)
 
 		}
 	}
 })
 
-const SingleArenaComponent = React.createClass({
+const MatchComponent = React.createClass({
 
-	enter_arena: function(evtObj){
+	delete_match: function(evtObj){
 		evtObj.preventDefault()
-		console.log(this.props.arena.attributes._id)
-		console.log(ACTIONS.getUserId())
-		ACTIONS.update_current_arena_for_player(this.props.arena.attributes._id, ACTIONS.getUserId())
+		//ACTIONS.update_current_arena_for_player(this.props.arena.attributes._id, ACTIONS.getUserId())
 
 	},
 
@@ -120,9 +118,10 @@ const SingleArenaComponent = React.createClass({
 
 		return(
 
-			<div className = 'arena-wrapper'>
-				<h1>{this.props.arena.attributes.players}</h1>
-				<button onClick={this.enter_arena}>update</button>
+			<div className = 'match-wrapper'>
+				<h2>{this.props.match.name}</h2>
+				<h3>{this.props.match.players}</h3>
+				<button onClick={this.delete_match}>remove</button>
 			</div>
 
 		)

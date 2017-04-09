@@ -19,9 +19,20 @@ const ACTIONS = {
         .done((response)=>{
 
         	var setObj = {}
-        	setObj[storeKey] = response[extension]
+        	if(extension){
+        		setObj[storeKey] = response[extension]	
+        	}
+        	else{
+        		setObj[storeKey] = response
+        	}
+        	
  			STORE._set(setObj)
+
  			console.log(STORE.data)
+
+ 			if(extension === 'matches'){
+ 				ACTIONS.order_queue()
+ 			}
 
         })
 
@@ -74,6 +85,14 @@ const ACTIONS = {
 			})	
 	},
 
+	set_store_selected_user: function(userId){
+
+		ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user')
+		ACTIONS.set_store_arenas_of_selected_user(userId)
+		ACTIONS.set_store_current_arena_of_selected_user(userId)
+
+	},
+
 	set_store_current_arena_of_selected_user: function(userId){
 
 		ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user_current_arena','current_arena')
@@ -88,8 +107,26 @@ const ACTIONS = {
 	},
 
 	set_store_matches_for_arena: function(arenaId){
+
 		console.log('fetching matches for the arena')
 		ACTIONS.ajax_to_store(`api/arenas/${arenaId}`,'selected_arena_matches','matches')
+
+	},
+
+	order_queue: function(){
+
+		var matches = STORE.data.selected_arena_matches
+		var ordered = []
+
+		for(var i = 0; i < matches.length; i++){
+			ordered.push(0)
+		}
+
+		for(var i = 0; i < ordered.length; i++){
+			ordered[matches[i].queue_position] = matches[i]
+		}
+
+		STORE._set({'selected_arena_matches': ordered})
 
 	},
 	//----------------------------------------------------//
