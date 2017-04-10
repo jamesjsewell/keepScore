@@ -74,8 +74,15 @@ const QueueComponent = React.createClass({
 		var matchArray = []
 
 		for(var i = 0; i < matches.length; i++){
-
-			matchArray.push(<MatchComponent match={matches[i]} />)
+			var match = matches[i].attributes
+			if(match.players.length > 0){
+				console.log(match.matchPlayers)
+				var players = match.players[0].email
+			}
+			else{
+				var players = 'no players'
+			}
+			matchArray.push(<MatchComponent matchName={matches[i].attributes.name} matchPlayers={players} />)
 
 		}
 
@@ -118,8 +125,8 @@ const MatchComponent = React.createClass({
 		return(
 
 			<div className = 'match-wrapper'>
-				<h2>{this.props.match.name}</h2>
-				<h3>{this.props.match.players}</h3>
+				<h2>{this.props.matchName}</h2>
+				<h3>{this.props.matchPlayers}</h3>
 				<button onClick={this.delete_match}>remove</button>
 			</div>
 
