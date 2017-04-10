@@ -38,6 +38,11 @@ const ACTIONS = {
 
  			}
 
+ 			if(storeKey === 'selected_user_arenas'){
+
+ 				ACTIONS.store_populate_arenas_current_user()
+ 			}
+
 
         })
 
@@ -105,9 +110,29 @@ const ACTIONS = {
 	},
 
 	set_store_arenas_of_selected_user: function(userId){
-
+	
   		ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user_arenas','arenas')
   	   
+	},
+
+	store_populate_arenas_current_user: function(){
+
+		var userArenas = STORE.data.selected_user_arenas
+		var arenaIds = []
+		for(var i = 0; i < userArenas.length; i++){
+			arenaIds.push(userArenas[i]._id)
+		}
+
+		
+		var filteredArenas = _.filter(Array.prototype.slice.call( STORE.data.arenaCollection.models, 0 ), function(model){ 
+
+			if(arenaIds.includes(model.attributes._id)){
+				return model
+			}
+		})
+
+		STORE._set({populated_user_arenas: filteredArenas})
+
 	},
 
 	set_store_matches_for_arena: function(arenaId){
