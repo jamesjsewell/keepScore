@@ -36,13 +36,17 @@ const ArenaPage = React.createClass({
 	},
 
 	goToArenasPage: function(evt){
+
 		evt.preventDefault()
 		location.hash = 'arenas'
+
 	},
 
 	goToArenaBuilderPage: function(evt){
+
 		evt.preventDefault()
 		location.hash = 'arena_builder'
+
 	},
 
  	render: function(){
@@ -122,7 +126,61 @@ const CreateMatchComponent = React.createClass({
 	_handleSubmit: function(evt){
 
 		evt.preventDefault()
-		console.log(evt.target.jake)
+
+		if(STORE.data.match_create_type === 'ffa'){
+
+			var playerInputsArray = []
+
+			var ffaPlayers = evt.target.freeForAll
+
+			for(var i = 0; i < ffaPlayers.length; i++){
+
+				if(ffaPlayers[i].checked === true){
+
+					playerInputsArray.push(ffaPlayers[i].value)
+
+				}
+
+			}
+
+			console.log(playerInputsArray)
+
+		}
+
+		if(STORE.data.match_create_type === 'team'){
+
+			var playerInputsArray = []
+
+			var players = evt.target.teamPlayer
+			var team = evt.target.teamSelect
+
+			for(var i = 0; i < players.length; i++){
+
+				var playerEntry = {}
+				playerEntry['player'+i] = {name: players[i].value, team: team[i].value}
+				playerInputsArray.push(playerEntry)
+			}
+
+			console.log(playerInputsArray)
+
+		}
+
+		if(STORE.data.match_create_type === 'dual'){
+
+		
+
+			var player1 = evt.target.player1
+			var player2 = evt.target.player2
+
+			var playerInputsArray = [player1.value, player2.value]
+
+			console.log(playerInputsArray)
+		}
+
+
+		// for(var i = 0; i < evt.target.teamPlayer.length; i++){
+		// 	console.log(evt.target.teamPlayer[i].checked)
+		// }
 
 	},
 
@@ -177,7 +235,6 @@ const PlayerChoiceComponent = React.createClass({
 
 		)
 
-
 	},
 
 	_teamPlayers: function(players){
@@ -195,7 +252,6 @@ const PlayerChoiceComponent = React.createClass({
 			playersArray
 
 		)
-
 
 	},
 
@@ -215,7 +271,6 @@ const PlayerChoiceComponent = React.createClass({
 
 		)
 
-
 	},
 
 	render: function(){
@@ -228,14 +283,14 @@ const PlayerChoiceComponent = React.createClass({
 
 					<div>
 					<h4>player 1</h4>
-						<select>
+						<select name='player1'>
 							{this._dualPlayers(this.props.players)}
 						</select>
 					</div>
 
 					<div>
 					<h4>player 2</h4>
-						<select>
+						<select name='player2'>
 							{this._dualPlayers(this.props.players)}
 						</select>
 					</div>
@@ -274,7 +329,6 @@ const PlayerChoiceComponent = React.createClass({
 
 		}
 		
-
 	}
 
 })
@@ -284,7 +338,7 @@ const Player1Component = React.createClass({
 	render: function(){
 		//<option value={this.props.player.email}>{this.props.player.name}</option>
 		return(
-			<option value={this.props.player.email}>{this.props.player.name}</option>
+			<option name="dual" value={this.props.player._id}>{this.props.player.name}</option>
 			//<label><input type="checkbox" name=	{this.props.player.email} value={this.props.player.email} />{this.props.player.name}</label>	
 
 		)
@@ -299,9 +353,9 @@ const TeamPlayersComponent = React.createClass({
 		//<option value={this.props.player.email}>{this.props.player.name}</option>
 		return(
 			
-			<label>
-				<input type="checkbox" name={this.props.player.email} value={this.props.player.email} />{this.props.player.name}
-				<select>	
+			<label name='teams'>
+				<input type="checkbox" name='teamPlayer' value={this.props.player._id} />{this.props.player.name}
+				<select name="teamSelect">	
 					<option value="team1">team1</option>
 					<option value="team2">team2</option>
 				</select>
@@ -319,7 +373,7 @@ const FfaPlayersComponent = React.createClass({
 		//<option value={this.props.player.email}>{this.props.player.name}</option>
 		return(
 			
-			<label><input type="checkbox" name=	{this.props.player.email} value={this.props.player.email} />{this.props.player.name}</label>	
+			<label><input type="checkbox" name="freeForAll" value={this.props.player._id} />{this.props.player.name}</label>	
 
 		)
 
