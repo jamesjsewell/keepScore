@@ -35,20 +35,55 @@ const ArenaPage = React.createClass({
 
 	},
 
+	goToArenasPage: function(evt){
+		evt.preventDefault()
+		location.hash = 'arenas'
+	},
+
+	goToArenaBuilderPage: function(evt){
+		evt.preventDefault()
+		location.hash = 'arena_builder'
+	},
+
  	render: function(){
 
  		if(User.getCurrentUser() != null){
 
- 			return (
+ 			if(STORE.data.selected_user != undefined){
 
-		 		<div className='arenas-page-wrapper'>
+ 				console.log(this.state.populated_user_current_arena)
 
-		 			<QueueComponent queueMatches={this.state.selected_arena_matches} />
+ 				if(STORE.data.selected_user.current_arena && this.state.populated_user_current_arena != undefined){
 
-		 			
-		 		</div>
+ 					return (
 
- 			)
+				 		<div className='arenas-page-wrapper'>
+
+				 			<CreateMatchComponent arena={this.state.populated_user_current_arena} />
+				 			<QueueComponent arena={this.state.populated_user_current_arena} queueMatches={this.state.selected_arena_matches} />
+
+				 		</div>
+
+ 					)
+
+ 				}
+
+ 				else{
+
+ 					return (
+
+	 					<div className='arenas-page-wrapper'>
+
+	 						<button onClick={this.goToArenasPage}>join an arena</button>
+	 						<button onClick={this.goToArenaBuilderPage}>create an arena</button>
+
+	 					</div>
+
+ 					)
+
+ 				}
+
+ 			}
 
  		}
 
@@ -57,13 +92,120 @@ const ArenaPage = React.createClass({
  			return (
 
 		 		<div className='arenas-page-wrapper'>
+
 		 			<h2>you are not logged in</h2>
+
 		 		</div>
 
  			)
- 		}	
+ 		}
+
+ 		return(
+
+ 			<div></div>
+
+ 		)	
  		
  	}
+
+})
+
+const CreateMatchComponent = React.createClass({
+	_setGameType: function(evt){
+
+		evt.preventDefault()
+		console.log(evt.target.value)
+
+	},
+
+	_handleSubmit: function(evt){
+
+		evt.preventDefault()
+		console.log(evt.target.gameType.value)
+
+	},
+
+	render: function(){
+		//<PlayerChoiceComponent players={this.props.arena.players}/>
+		console.log(this.props.arena)
+		return(
+
+			<div className = 'create-match-wrapper'>
+				
+				<form className = 'create-match-form' onSubmit={this._handleSubmit}>
+
+					<input type='text' name='matchName' placeholder='define match name'/>
+
+					<select name="gameType" onChange={this._setGameType} >
+
+					    <option value="dual">dual</option>
+					    <option value="ffa">free for all</option>
+					    <option value="team">team</option>
+			
+  					</select>
+
+					<PlayerChoiceComponent players={this.props.arena.attributes.players}/>
+
+  					<button type='submit'>add players</button>
+
+				</form>
+
+			</div>
+
+		)
+
+	}
+
+})
+
+const PlayerChoiceComponent = React.createClass({
+
+	_processPlayers: function(players){
+
+		var playersArray = []
+
+		for(var i = 0; i < players.length; i++){
+
+			playersArray.push(<ProcessPlayerComponent player={players[i]} />)
+
+		}
+
+		return(
+
+			playersArray
+
+		)
+
+
+	},
+
+	render: function(){
+
+		return(
+
+			<div name='playerSelect'>
+
+				{this._processPlayers(this.props.players)}
+
+			</div>
+
+		)
+
+	}
+
+})
+
+const ProcessPlayerComponent = React.createClass({
+
+	render: function(){
+		//<option value={this.props.player.email}>{this.props.player.name}</option>
+		return(
+			
+			<label><input type="checkbox" name=	{this.props.player.email} value={this.props.player.email} />{this.props.player.name}</label>	
+
+		)
+
+	}
 
 })
 
@@ -74,14 +216,21 @@ const QueueComponent = React.createClass({
 		var matchArray = []
 
 		for(var i = 0; i < matches.length; i++){
+
 			var match = matches[i].attributes
+
 			if(match.players.length > 0){
-				console.log(match.matchPlayers)
+
 				var players = match.players[0].email
+
 			}
+
 			else{
+
 				var players = 'no players'
+
 			}
+
 			matchArray.push(<MatchComponent matchName={matches[i].attributes.name} matchPlayers={players} />)
 
 		}
@@ -95,11 +244,13 @@ const QueueComponent = React.createClass({
 		if(this.props.queueMatches){
 
 			return(
+
 				<div className='queue-wrapper'>
 
 					{this._makeMatches(this.props.queueMatches)}
 
 				</div>
+
 			)
 
 		}
@@ -115,8 +266,8 @@ const QueueComponent = React.createClass({
 const MatchComponent = React.createClass({
 
 	delete_match: function(evtObj){
+
 		evtObj.preventDefault()
-		//ACTIONS.update_current_arena_for_player(this.props.arena.attributes._id, ACTIONS.getUserId())
 
 	},
 
@@ -125,9 +276,11 @@ const MatchComponent = React.createClass({
 		return(
 
 			<div className = 'match-wrapper'>
+
 				<h2>{this.props.matchName}</h2>
 				<h3>{this.props.matchPlayers}</h3>
 				<button onClick={this.delete_match}>remove</button>
+
 			</div>
 
 		)

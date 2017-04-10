@@ -13,14 +13,13 @@ const errorHandler = function(err, req, res, next) {
 
 const cookifyUser = function(req,res,next) {
   if (req.user) {
-    res.cookie(global.PROJECT_NAME + '_user',JSON.stringify(req.user))
-    res.cookie('tiy_full_stack_app_name', global.PROJECT_NAME)
+    res.cookie('keepScore_user',JSON.stringify(req.user))
+    // res.cookie('keepScore', global.PROJECT_NAME)
     next()
   }
   else {
-    console.log('no user')
-    res.cookie(global.PROJECT_NAME + '_user','null')
-    res.cookie('tiy_full_stack_app_name', global.PROJECT_NAME)
+    res.cookie('keepScore_user','null')
+    // res.cookie('keepScore', global.PROJECT_NAME)
     next()
   }
 }

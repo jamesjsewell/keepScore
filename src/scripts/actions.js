@@ -20,11 +20,17 @@ const ACTIONS = {
         .done((response)=>{
 
         	var setObj = {}
+
         	if(extension){
-        		setObj[storeKey] = response[extension]	
+
+        		setObj[storeKey] = response[extension]
+
         	}
+
         	else{
+
         		setObj[storeKey] = response
+        		
         	}
         	
  			STORE._set(setObj)
@@ -133,7 +139,27 @@ const ACTIONS = {
 
 		STORE._set({populated_user_arenas: filteredArenas})
 
+		ACTIONS.store_populate_current_arena_of_selected_user()
+
 	},
+
+	store_populate_current_arena_of_selected_user: function(){
+
+		console.log('populating the current arena')
+
+		var currentArena = _.find(Array.prototype.slice.call( STORE.data.arenaCollection.models, 0 ), function(model){ 
+
+			if(STORE.data.selected_user.current_arena._id === model.attributes._id){
+				return model
+			}
+		})
+
+		console.log(currentArena)
+
+		STORE._set({populated_user_current_arena: currentArena})
+
+	},
+
 
 	set_store_matches_for_arena: function(arenaId){
 
