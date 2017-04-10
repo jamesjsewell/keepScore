@@ -30,7 +30,7 @@ const ACTIONS = {
         	else{
 
         		setObj[storeKey] = response
-        		
+
         	}
         	
  			STORE._set(setObj)
@@ -90,14 +90,15 @@ const ACTIONS = {
 	fetch_matches: function(){
 
 		var matchColl = STORE.get('matchCollection')
-		// backbone && jquery, on our behalf, will add a "GET" 
-		// verb to the header of our request when we use 
-		// .fetch()
+		
 		matchColl.fetch()
+
 			.then(function() {
+
 				STORE._set({
 					matchCollection: matchColl
 				})
+
 			})	
 	},
 
@@ -125,8 +126,11 @@ const ACTIONS = {
 
 		var userArenas = STORE.data.selected_user_arenas
 		var arenaIds = []
+
 		for(var i = 0; i < userArenas.length; i++){
+
 			arenaIds.push(userArenas[i]._id)
+
 		}
 
 		
@@ -135,6 +139,7 @@ const ACTIONS = {
 			if(arenaIds.includes(model.attributes._id)){
 				return model
 			}
+
 		})
 
 		STORE._set({populated_user_arenas: filteredArenas})
@@ -243,8 +248,54 @@ const ACTIONS = {
 	//USER INPUT ACTIONS
 
 	//Arena Logic
-	create_match: function(arenaId, matchData){
-		//will send a post or put request to update an inactive match possibly
+	create_match: function(gameType, matchData, name){
+
+		var arenaId = STORE.data.selected_user_current_arena._id
+		console.log(arenaId)
+
+		if(gameType === 'ffa'){
+			
+			console.log('about to post a new match')
+			var position = STORE.data.populated_user_current_arena.attributes.queue_order.length
+			var players = matchData
+			var name = name
+			var type = gameType
+			var postData = {
+
+				arena: arenaId,
+				name: name,
+				queue_position: position,
+				game_type: type,
+				players: players
+
+			}
+
+			$.ajax({
+
+	            method: 'POST',
+	            type: 'json',
+	            url: 'api/matches',
+	            data: {
+
+				arena: arenaId,
+				name: name,
+				queue_position: position,
+				game_type: type,
+				players: players
+
+				}
+	        
+	        })
+	        .done((res)=>{
+
+	        	console.log('posted a new match', res)
+
+	        })
+	        .fail((err)=>{
+	            console.log('could not post match', err)
+	        })
+
+		}
 
 	},
 

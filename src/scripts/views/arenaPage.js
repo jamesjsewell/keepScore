@@ -15,7 +15,7 @@ const ArenaPage = React.createClass({
 
 		ACTIONS.fetch_arenas()
 		ACTIONS.fetch_matches()
-		ACTIONS.set_store_selected_user('58e93f3186602d7bc21bc881')
+		ACTIONS.set_store_selected_user(STORE.data.logged_in_user._id)
 		
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
@@ -143,6 +143,8 @@ const CreateMatchComponent = React.createClass({
 
 			}
 
+			ACTIONS.create_match('ffa', playerInputsArray, 'testing')
+			
 			console.log(playerInputsArray)
 
 		}
@@ -175,6 +177,7 @@ const CreateMatchComponent = React.createClass({
 			var playerInputsArray = [player1.value, player2.value]
 
 			console.log(playerInputsArray)
+
 		}
 
 

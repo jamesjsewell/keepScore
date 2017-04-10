@@ -31,6 +31,7 @@ const UsersSchema = new mongoose.Schema({
 const MatchSchema = new mongoose.Schema({
 
     name: { type: String },
+    game_type: { type: String },
     queue_position: { type: Number },
   	arena: { type: String },
   	scores: [ Number ],
