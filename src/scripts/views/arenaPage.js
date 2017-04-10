@@ -111,22 +111,23 @@ const ArenaPage = React.createClass({
 })
 
 const CreateMatchComponent = React.createClass({
+
 	_setGameType: function(evt){
 
 		evt.preventDefault()
-		console.log(evt.target.value)
+		STORE._set({match_create_type: evt.target.value})
 
 	},
 
 	_handleSubmit: function(evt){
 
 		evt.preventDefault()
-		console.log(evt.target.gameType.value)
+		console.log(evt.target.jake)
 
 	},
 
 	render: function(){
-		//<PlayerChoiceComponent players={this.props.arena.players}/>
+	
 		console.log(this.props.arena)
 		return(
 
@@ -144,9 +145,9 @@ const CreateMatchComponent = React.createClass({
 			
   					</select>
 
-					<PlayerChoiceComponent players={this.props.arena.attributes.players}/>
+					<PlayerChoiceComponent gameType={STORE.data.match_create_type} players={this.props.arena.attributes.players}/>
 
-  					<button type='submit'>add players</button>
+  					<button type='submit'>create match</button>
 
 				</form>
 
@@ -160,13 +161,51 @@ const CreateMatchComponent = React.createClass({
 
 const PlayerChoiceComponent = React.createClass({
 
-	_processPlayers: function(players){
+	_ffaPlayers: function(players){
 
 		var playersArray = []
 
 		for(var i = 0; i < players.length; i++){
 
-			playersArray.push(<ProcessPlayerComponent player={players[i]} />)
+			playersArray.push(<FfaPlayersComponent player={players[i]} />)
+
+		}
+
+		return(
+
+			playersArray
+
+		)
+
+
+	},
+
+	_teamPlayers: function(players){
+
+		var playersArray = []
+
+		for(var i = 0; i < players.length; i++){
+
+			playersArray.push(<TeamPlayersComponent player={players[i]} />)
+
+		}
+
+		return(
+
+			playersArray
+
+		)
+
+
+	},
+
+	_dualPlayers: function(players){
+
+		var playersArray = []
+
+		for(var i = 0; i < players.length; i++){
+
+			playersArray.push(<Player1Component player={players[i]} />)
 
 		}
 
@@ -181,13 +220,72 @@ const PlayerChoiceComponent = React.createClass({
 
 	render: function(){
 
+		if(this.props.gameType === 'dual'){
+
+			return(
+
+				<div name='player-select-wrapper'>
+
+					<div>
+					<h4>player 1</h4>
+						<select>
+							{this._dualPlayers(this.props.players)}
+						</select>
+					</div>
+
+					<div>
+					<h4>player 2</h4>
+						<select>
+							{this._dualPlayers(this.props.players)}
+						</select>
+					</div>
+
+				</div>
+
+			)
+
+		}
+
+		if(this.props.gameType === 'team'){
+
+			return(
+
+				<div name='player-select-wrapper'>
+
+					{this._teamPlayers(this.props.players)}
+
+				</div>
+
+			)
+
+		}
+
+		if(this.props.gameType === 'ffa'){
+
+			return(
+
+				<div name='player-select-wrapper'>
+
+					{this._ffaPlayers(this.props.players)}
+
+				</div>
+
+			)
+
+		}
+		
+
+	}
+
+})
+
+const Player1Component = React.createClass({
+
+	render: function(){
+		//<option value={this.props.player.email}>{this.props.player.name}</option>
 		return(
-
-			<div name='playerSelect'>
-
-				{this._processPlayers(this.props.players)}
-
-			</div>
+			<option value={this.props.player.email}>{this.props.player.name}</option>
+			//<label><input type="checkbox" name=	{this.props.player.email} value={this.props.player.email} />{this.props.player.name}</label>	
 
 		)
 
@@ -195,7 +293,27 @@ const PlayerChoiceComponent = React.createClass({
 
 })
 
-const ProcessPlayerComponent = React.createClass({
+const TeamPlayersComponent = React.createClass({
+
+	render: function(){
+		//<option value={this.props.player.email}>{this.props.player.name}</option>
+		return(
+			
+			<label>
+				<input type="checkbox" name={this.props.player.email} value={this.props.player.email} />{this.props.player.name}
+				<select>	
+					<option value="team1">team1</option>
+					<option value="team2">team2</option>
+				</select>
+			</label>
+
+		)
+
+	}
+
+})
+
+const FfaPlayersComponent = React.createClass({
 
 	render: function(){
 		//<option value={this.props.player.email}>{this.props.player.name}</option>
