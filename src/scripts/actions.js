@@ -2,6 +2,7 @@ import STORE from './store.js'
 import {MatchModel} from './models/matchModel.js'
 import User from './models/userModel.js'
 import $ from 'jquery'
+import _ from 'underscore'
 
 const ACTIONS = {
 
@@ -30,9 +31,13 @@ const ACTIONS = {
 
  			console.log(STORE.data)
 
- 			if(extension === 'matches'){
- 				ACTIONS.order_queue()
+ 			if(storeKey === 'selected_user_current_arena'){
+
+ 				console.log(STORE.data.selected_user_current_arena._id)
+ 				ACTIONS.set_store_matches_for_arena(STORE.data.selected_user_current_arena._id)
+
  			}
+
 
         })
 
@@ -66,7 +71,7 @@ const ACTIONS = {
 				STORE._set({
 					arenaCollection: arenaColl
 				})
-
+ 		
 			})	
 
 	},
@@ -102,14 +107,13 @@ const ACTIONS = {
 	set_store_arenas_of_selected_user: function(userId){
 
   		ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user_arenas','arenas')
-  		
-        
+  	   
 	},
 
 	set_store_matches_for_arena: function(arenaId){
 
-		console.log('fetching matches for the arena')
-		ACTIONS.ajax_to_store(`api/arenas/${arenaId}`,'selected_arena_matches','matches')
+		var filteredMatches = _.filter(Array.prototype.slice.call( STORE.data.matchCollection.models, 0 ), function(model){ return model.attributes.arena == arenaId })
+		STORE._set({selected_arena_matches: filteredMatches})
 
 	},
 
@@ -171,52 +175,6 @@ const ACTIONS = {
 
 
 	set_status_of_player_in_arena: function(arenaId, playerId){
-
-		// $.ajax({
-  //           method: 'GET',
-  //           type: 'json',
-  //           url: `api/arenas/${arenaId}`,
-  //       })
-  //       .done((res)=>{
-
-
-  //       	var playersArray = res.players
-
-  //       	for(var i = 0; i < playersArray.length; i++){
-
-  //       		var player = playersArray[i]
-        		
-  //       		if(player._id === playerId){
-
-  //       			$.ajax({
-		//             method: 'PUT',
-		//             type: 'json',
-		//             url: `api/arenas/${arenaId}`,
-		//             data: newData
-		//             })
-		//             .done((res)=>{
-		//                 console.log('got data')
-		//                 console.log(res)
-		//                 console.log('changed user data')
-		//             })	
-  //       		}
-  //       	}
-
-  //           var newData = {}
-  //           $.ajax({
-  //           method: 'PUT',
-  //           type: 'json',
-  //           url: `api/arenas/${arenaId}`,
-  //           data: newData
-  //           })
-  //           .done((res)=>{
-  //               console.log('got data')
-  //               console.log(res)
-  //               console.log('changed user data')
-  //           })
-  //           .fail((err)=>{
-  //               console.log('bad ajax request', err)
-  //           })
 
 	},
 
