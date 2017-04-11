@@ -248,15 +248,15 @@ const ACTIONS = {
 	//USER INPUT ACTIONS
 
 	//Arena Logic
-	create_match: function(gameType, matchData, name){
+	create_match: function(gameType, matchData, name, team1, team2){
 
 		var arenaId = STORE.data.selected_user_current_arena._id
 		console.log(arenaId)
 
 		if(gameType === 'ffa'){
-			
+
 			console.log('about to post a new match')
-			var position = STORE.data.populated_user_current_arena.attributes.queue_order.length
+			var position = STORE.data.populated_user_current_arena.attributes.queue_order.length+1
 			var players = matchData
 			var name = name
 			var type = gameType
@@ -289,6 +289,45 @@ const ACTIONS = {
 	        .done((res)=>{
 
 	        	console.log('posted a new match', res)
+
+	        })
+	        .fail((err)=>{
+	            console.log('could not post match', err)
+	        })
+
+		}
+
+		if(gameType === 'team'){
+			
+			console.log('about to post a new match, game type team')
+			var position = STORE.data.populated_user_current_arena.attributes.queue_order.length+1
+			var players = matchData
+			var name = name
+			var type = gameType
+
+			$.ajax({
+
+	            method: 'POST',
+	            type: 'json',
+	            url: 'api/matches',
+	            data: {
+
+				arena: arenaId,
+				name: name,
+				queue_position: position,
+				game_type: type,
+				players: players,
+				team1: team1,
+				team2: team2,
+				team1_name: 'team1',
+				team2_name: 'team2'
+
+				}
+	        
+	        })
+	        .done((res)=>{
+
+	        	console.log('posted a new team match', res)
 
 	        })
 	        .fail((err)=>{

@@ -57,7 +57,7 @@ const Arena = require('../db/schema.js').Arena
       Match.findById(req.params._id, function(err, results){
         if(err) return res.json(err) 
         res.json(results)
-      }).populate('players').populate('winningPlayer')
+      }).populate('players').populate('winningPlayer').populate('team1').populate('team2')
     })
     .post('/matches', function(request, response) {
  

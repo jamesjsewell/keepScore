@@ -143,27 +143,42 @@ const CreateMatchComponent = React.createClass({
 
 			}
 
-			ACTIONS.create_match('ffa', playerInputsArray, 'testing')
-			
+			ACTIONS.create_match('ffa', playerInputsArray, evt.target.matchName.value)
+
 			console.log(playerInputsArray)
 
 		}
 
 		if(STORE.data.match_create_type === 'team'){
 
-			var playerInputsArray = []
+			var selectedPlayers = []
+			var teamPlayers = evt.target.teamPlayer
+			var assignedTeams = evt.target.teamSelect
+			var team1Players = []
+			var team2Players = []
 
-			var players = evt.target.teamPlayer
-			var team = evt.target.teamSelect
+			for(var i = 0; i < teamPlayers.length; i++){
 
-			for(var i = 0; i < players.length; i++){
-
-				var playerEntry = {}
-				playerEntry['player'+i] = {name: players[i].value, team: team[i].value}
-				playerInputsArray.push(playerEntry)
+				//var playerEntry = {}
+				//playerEntry['player'+i] = {name: players[i].value, team: team[i].value}
+				//playerInputsArray.push({name: players[i].value, team: team[i].value})
+				if(teamPlayers[i].checked === true){
+					console.log(teamPlayers[i])
+					selectedPlayers.push(teamPlayers[i].value)
+					if(assignedTeams[i].value === 'team1'){
+						team1Players.push(teamPlayers[i].value)
+					}
+					if(assignedTeams[i].value === 'team2'){
+						team2Players.push(teamPlayers[i].value)
+					}
+				}
 			}
 
-			console.log(playerInputsArray)
+			console.log(team1Players)
+
+			ACTIONS.create_match('team', selectedPlayers, evt.target.matchName.value, team1Players, team2Players)
+
+			
 
 		}
 

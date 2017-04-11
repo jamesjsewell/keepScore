@@ -39,7 +39,11 @@ const MatchSchema = new mongoose.Schema({
   	winningScore: { type: Number },
   	winningPlayer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   	players: [ {type: mongoose.Schema.Types.ObjectId, ref: 'User'} ],
-  	createdAt: { type: Date, default: Date.now }
+  	createdAt: { type: Date, default: Date.now },
+    team1: [ {type: mongoose.Schema.Types.ObjectId, ref: 'User'} ],
+    team2: [ {type: mongoose.Schema.Types.ObjectId, ref: 'User'} ],
+    team1_name: { type: String },
+    team2_name: { type: String }
 
 })
 
