@@ -8,3 +8,10 @@ label{
 }
 
 .hidden { display:none; }
+
+div{
+	background: grey !important;
+}
+.container div{
+	background: white;
+}

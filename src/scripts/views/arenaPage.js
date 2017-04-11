@@ -426,7 +426,9 @@ const QueueComponent = React.createClass({
 
 			}
 
-			matchArray.push(<MatchComponent match={matches[i].attributes} matchName={matches[i].attributes.name} matchPlayers={players} />)
+			if(match.arena === STORE.data.selected_user.current_arena._id){
+				matchArray.push(<MatchComponent match={matches[i].attributes} matchName={matches[i].attributes.name} matchPlayers={players} />)
+			}
 
 		}
 
@@ -523,14 +525,8 @@ const PlayersOfMatchComponent = React.createClass({
 			var nonTeamDisplay = true
 		}
 
-		// if(this.props.team1.includes(this.props.player._id)){
-		// 	var team = 'team 1'
-		// }
-
-		// if(this.props.team2.includes(this.props.player._id)){
-		// 	var team = 'team 2'
-		// }
 		console.log(this.props.match.players)
+
 		return(
 
 			<div className = 'players-of-match-wrapper'>

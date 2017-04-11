@@ -43,7 +43,8 @@ const MatchSchema = new mongoose.Schema({
     team1: [ {type: mongoose.Schema.Types.ObjectId, ref: 'User'} ],
     team2: [ {type: mongoose.Schema.Types.ObjectId, ref: 'User'} ],
     team1_name: { type: String },
-    team2_name: { type: String }
+    team2_name: { type: String },
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 
 })
 

@@ -94,6 +94,7 @@ const ACTIONS = {
 	        .done((res)=>{
 
 	        	console.log('posted a new team match', res)
+	        	ACTIONS.order_queue()
 
 	        })
 	        .fail((err)=>{
@@ -139,6 +140,8 @@ const ACTIONS = {
 				STORE._set({
 					matchCollection: matchColl
 				})
+
+				ACTIONS.order_queue()
 
 			})	
 	},
@@ -291,21 +294,6 @@ const ACTIONS = {
 	//Arena Logic
 	create_match: function(gameType, matchData, name, team1, team2){
 
-		// if(gameType === 'ffa'){
-
-
-		// 	console.log('about to post a new match, game type free for all')
-		// 	var body = {}
-		// 	body['position'] = STORE.data.populated_user_current_arena.attributes.queue_order.length+1
-		// 	body['players'] = matchData
-		// 	body['name'] = name
-		// 	body['type'] = gameType
-		// 	body['arena'] = STORE.data.selected_user.current_arena._id
-
-	 //        ACTIONS.ajax_post_match(body)
-
-		// }
-
 		if(gameType){
 			
 			console.log('about to post a new match, game type team')
@@ -321,20 +309,6 @@ const ACTIONS = {
 			ACTIONS.ajax_post_match(body)
 
 		}
-
-		// if(gameType === 'dual'){
-			
-		// 	console.log('about to post a new match, game type dual')
-		// 	var body = {}
-		// 	body['position'] = STORE.data.populated_user_current_arena.attributes.queue_order.length+1
-		// 	body['players'] = matchData
-		// 	body['name'] = name
-		// 	body['type'] = gameType
-		// 	body['arena'] = STORE.data.selected_user.current_arena._id
-
-		// 	ACTIONS.ajax_post_match(body)
-
-		// }
 
 	},
 
@@ -421,9 +395,11 @@ const ACTIONS = {
 		//console.log(User.getCurrentUser().attributes._id)
 		return User.getCurrentUser().attributes._id
 
-	},
+	}
 
 
 }
+
+
 
 export default ACTIONS
