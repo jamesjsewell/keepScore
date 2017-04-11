@@ -5,6 +5,12 @@ import User from '../models/userModel.js'
 
 const ArenaPage = React.createClass({
 
+	_handleLogout: function(){
+
+		ACTIONS.logout()
+
+	},
+
 	componentWillMount: function(){
 
 		if(User.getCurrentUser() != null){
@@ -63,6 +69,7 @@ const ArenaPage = React.createClass({
 
 				 		<div className='arenas-page-wrapper'>
 
+				 			<button onClick = {this._handleLogout}>logout</button>
 				 			<CreateMatchComponent arena={this.state.populated_user_current_arena} />
 				 			<QueueComponent arena={this.state.populated_user_current_arena} queueMatches={this.state.selected_arena_matches} />
 
@@ -77,7 +84,7 @@ const ArenaPage = React.createClass({
  					return (
 
 	 					<div className='arenas-page-wrapper'>
-
+	 						<button onClick = {this._handleLogout}>logout</button>
 	 						<button onClick={this.goToArenasPage}>join an arena</button>
 	 						<button onClick={this.goToArenaBuilderPage}>create an arena</button>
 
@@ -174,8 +181,6 @@ const CreateMatchComponent = React.createClass({
 				}
 			}
 
-			console.log(team1Players)
-
 			ACTIONS.create_match('team', selectedPlayers, evt.target.matchName.value, team1Players, team2Players)
 
 			
@@ -184,27 +189,27 @@ const CreateMatchComponent = React.createClass({
 
 		if(STORE.data.match_create_type === 'dual'){
 
-		
+			var playerInputsArray = []
+			var dualPlayer1 = evt.target.player1
+			var dualPlayer2 = evt.target.player2
+			var dualPlayers = [dualPlayer1,dualPlayer2]
 
-			var player1 = evt.target.player1
-			var player2 = evt.target.player2
+			playerInputsArray[0] = dualPlayer1.value
+			playerInputsArray[1] = dualPlayer2.value
+			console.log(playerInputsArray)
 
-			var playerInputsArray = [player1.value, player2.value]
+			ACTIONS.create_match('dual', playerInputsArray, evt.target.matchName.value)
 
 			console.log(playerInputsArray)
 
 		}
-
-
-		// for(var i = 0; i < evt.target.teamPlayer.length; i++){
-		// 	console.log(evt.target.teamPlayer[i].checked)
-		// }
 
 	},
 
 	render: function(){
 	
 		console.log(this.props.arena)
+
 		return(
 
 			<div className = 'create-match-wrapper'>
@@ -421,7 +426,7 @@ const QueueComponent = React.createClass({
 
 			}
 
-			matchArray.push(<MatchComponent matchName={matches[i].attributes.name} matchPlayers={players} />)
+			matchArray.push(<MatchComponent match={matches[i].attributes} matchName={matches[i].attributes.name} matchPlayers={players} />)
 
 		}
 
@@ -463,18 +468,112 @@ const MatchComponent = React.createClass({
 
 	render: function(){
 
+		if(this.props.match.game_type === 'ffa'){
+			var gameType = 'free-for-all'
+		}
+
+		if(this.props.match.game_type === 'team'){
+			var gameType = 'team deathmatch'
+		}
+
+		if(this.props.match.game_type === 'dual'){
+			var gameType = 'one vs one'
+		}
+
 		return(
 
 			<div className = 'match-wrapper'>
 
 				<h2>{this.props.matchName}</h2>
-				<h3>{this.props.matchPlayers}</h3>
+				<h3>{gameType}</h3>
+				<PlayersOfMatchComponent match={this.props.match} players={this.props.match.players} />
 				<button onClick={this.delete_match}>remove</button>
 
 			</div>
 
 		)
 	}
+})
+
+const PlayersOfMatchComponent = React.createClass({
+	
+	_makePlayers: function(players){
+
+		var playersArray = []
+
+		for(var i = 0; i < players.length; i++){
+
+			playersArray.push(<PlayerComponent gameType={this.props.match.game_type} team1={this.props.match.team1} team2={this.props.match.team2} player={players[i]} />)
+		}
+
+		return playersArray
+
+	},
+
+	render: function(){
+
+		var team = ''
+
+		if(this.props.match.game_type === 'team'){
+			var teamDisplay = true
+			var nonTeamDisplay = false
+		}
+		else{
+			var teamDisplay = false
+			var nonTeamDisplay = true
+		}
+
+		// if(this.props.team1.includes(this.props.player._id)){
+		// 	var team = 'team 1'
+		// }
+
+		// if(this.props.team2.includes(this.props.player._id)){
+		// 	var team = 'team 2'
+		// }
+		console.log(this.props.match.players)
+		return(
+
+			<div className = 'players-of-match-wrapper'>
+
+				<div className={teamDisplay ? 'hidden' : ''}>
+
+					{this._makePlayers(this.props.players)}
+
+				</div>
+
+				<div className={teamDisplay ? '' : 'hidden'}>
+
+					<h3>team 1</h3>
+					<div>{this._makePlayers(this.props.match.team1)}</div>
+
+					<h3>team 2</h3>
+					<div>{this._makePlayers(this.props.match.team2)}</div>
+
+				</div>
+
+			</div>
+
+		)
+	}
+
+})
+
+const PlayerComponent = React.createClass({
+
+	render: function(){
+
+
+		return(
+
+			<div className = 'players-of-match-wrapper'>
+
+				<p>{this.props.player.name}</p>
+
+			</div>
+
+		)
+	}
+
 })
 
 

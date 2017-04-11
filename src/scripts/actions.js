@@ -60,6 +60,47 @@ const ACTIONS = {
 
 	},
 
+	ajax_post_match: function(data){
+
+	
+		var name = data.name,
+		position = data.position,
+		type = data.type,
+		players = data.players,
+		team1 = data.team1, 
+		team2 = data.team2,
+		arena = data.arena
+
+		$.ajax({
+
+	            method: 'POST',
+	            type: 'json',
+	            url: 'api/matches',
+	            data: {
+
+				arena: arena,
+				name: name,
+				queue_position: position,
+				game_type: type,
+				players: players,
+				team1: team1,
+				team2: team2,
+				team1_name: 'team1',
+				team2_name: 'team2'
+
+				}
+	        
+	        })
+	        .done((res)=>{
+
+	        	console.log('posted a new team match', res)
+
+	        })
+	        .fail((err)=>{
+	            console.log('could not post match', err)
+	        })
+	},
+
 	set_me_on_store: function(){
 
 		if(User.getCurrentUser() != null){
@@ -250,91 +291,50 @@ const ACTIONS = {
 	//Arena Logic
 	create_match: function(gameType, matchData, name, team1, team2){
 
-		var arenaId = STORE.data.selected_user_current_arena._id
-		console.log(arenaId)
+		// if(gameType === 'ffa'){
 
-		if(gameType === 'ffa'){
 
-			console.log('about to post a new match')
-			var position = STORE.data.populated_user_current_arena.attributes.queue_order.length+1
-			var players = matchData
-			var name = name
-			var type = gameType
-			var postData = {
+		// 	console.log('about to post a new match, game type free for all')
+		// 	var body = {}
+		// 	body['position'] = STORE.data.populated_user_current_arena.attributes.queue_order.length+1
+		// 	body['players'] = matchData
+		// 	body['name'] = name
+		// 	body['type'] = gameType
+		// 	body['arena'] = STORE.data.selected_user.current_arena._id
 
-				arena: arenaId,
-				name: name,
-				queue_position: position,
-				game_type: type,
-				players: players
+	 //        ACTIONS.ajax_post_match(body)
 
-			}
+		// }
 
-			$.ajax({
-
-	            method: 'POST',
-	            type: 'json',
-	            url: 'api/matches',
-	            data: {
-
-				arena: arenaId,
-				name: name,
-				queue_position: position,
-				game_type: type,
-				players: players
-
-				}
-	        
-	        })
-	        .done((res)=>{
-
-	        	console.log('posted a new match', res)
-
-	        })
-	        .fail((err)=>{
-	            console.log('could not post match', err)
-	        })
-
-		}
-
-		if(gameType === 'team'){
+		if(gameType){
 			
 			console.log('about to post a new match, game type team')
-			var position = STORE.data.populated_user_current_arena.attributes.queue_order.length+1
-			var players = matchData
-			var name = name
-			var type = gameType
+			var body = {}
+			body['position'] = STORE.data.populated_user_current_arena.attributes.queue_order.length+1
+			body['players'] = matchData
+			body['name'] = name
+			body['type'] = gameType
+			body['team1'] = team1
+			body['team2'] = team2
+			body['arena'] = STORE.data.selected_user.current_arena._id
 
-			$.ajax({
-
-	            method: 'POST',
-	            type: 'json',
-	            url: 'api/matches',
-	            data: {
-
-				arena: arenaId,
-				name: name,
-				queue_position: position,
-				game_type: type,
-				players: players,
-				team1: team1,
-				team2: team2,
-				team1_name: 'team1',
-				team2_name: 'team2'
-
-				}
-	        
-	        })
-	        .done((res)=>{
-
-	        	console.log('posted a new team match', res)
-
-	        })
-	        .fail((err)=>{
-	            console.log('could not post match', err)
-	        })
+			ACTIONS.ajax_post_match(body)
 
 		}
+
+		// if(gameType === 'dual'){
+			
+		// 	console.log('about to post a new match, game type dual')
+		// 	var body = {}
+		// 	body['position'] = STORE.data.populated_user_current_arena.attributes.queue_order.length+1
+		// 	body['players'] = matchData
+		// 	body['name'] = name
+		// 	body['type'] = gameType
+		// 	body['arena'] = STORE.data.selected_user.current_arena._id
+
+		// 	ACTIONS.ajax_post_match(body)
+
+		// }
 
 	},
 
@@ -374,7 +374,7 @@ const ACTIONS = {
 			.done(
 				function(resp) {
 					alert('you logged out!')
-					location.hash = 'login'
+					location.hash = 'home'
 				})
 			.fail(
 				function(err) {
