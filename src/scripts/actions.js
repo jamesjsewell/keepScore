@@ -6,6 +6,19 @@ import _ from 'underscore'
 
 const ACTIONS = {
 
+	perform_reset: function(){
+
+		if(User.getCurrentUser() != null){
+
+			ACTIONS.set_me_on_store()
+
+		}
+
+		ACTIONS.fetch_arenas()
+		ACTIONS.fetch_matches()
+		ACTIONS.set_store_selected_user(STORE.data.logged_in_user._id)
+	},
+
 	//UPDATE STORE WITH DATA
 	ajax_to_store: function(theUrl, storeKey, extension){
 
@@ -60,6 +73,26 @@ const ACTIONS = {
 
 	},
 
+	delete_match: function(matchId){
+		console.log(matchId)
+		$.ajax({
+
+	            method: 'delete',
+	            type: 'json',
+	            url: `api/matches/${matchId}`
+	        
+	        })
+	        .done((res)=>{
+	        	console.log('deleted a match', res)
+	       		ACTIONS.perform_reset()
+
+	        })
+	        .fail((err)=>{
+	            console.log('could not post match', err)
+	        })
+
+	},
+
 	ajax_post_match: function(data){
 
 	
@@ -94,7 +127,7 @@ const ACTIONS = {
 	        .done((res)=>{
 
 	        	console.log('posted a new team match', res)
-	        	ACTIONS.order_queue()
+	       		ACTIONS.perform_reset()
 
 	        })
 	        .fail((err)=>{
@@ -140,8 +173,6 @@ const ACTIONS = {
 				STORE._set({
 					matchCollection: matchColl
 				})
-
-				ACTIONS.order_queue()
 
 			})	
 	},

@@ -49,10 +49,13 @@ const app = function() {
 		initialize: function() {
 		
 			var checkUserAuth = function() {
+				
+				console.log(User.getCurrentUser().attributes.hasOwnProperty('_id'))
 
 				if(User.getCurrentUser() === null){
 
 					location.hash = 'home'
+
 
 				}
 

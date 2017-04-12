@@ -9,9 +9,44 @@ label{
 
 .hidden { display:none; }
 
-div{
-	background: grey !important;
+.queue-wrapper{
+	padding: .5rem;
+	background: grey;
+	width: 30%;
+	
 }
-.container div{
+
+.match-wrapper{
+	padding: .25rem;
+	margin: .5rem;
+	display: block;
 	background: white;
 }
+
+a{
+	margin: auto;
+	padding: .5rem;
+}
+
+
+.create-match-wrapper{
+	width: 30%;
+	margin-bottom: 1rem;
+	background: grey;
+	padding: .5rem;
+}
+
+label{
+
+	text-align: right;
+}
+
+#dual-player-title{
+
+	padding: .2rem;
+	margin: 0;
+}
+
+
+
+	
