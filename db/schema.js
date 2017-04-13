@@ -34,7 +34,7 @@ const MatchSchema = new mongoose.Schema({
     game_type: { type: String },
     queue_position: { type: Number },
   	arena: { type: String },
-  	scores: [ Number ],
+  	scores: { type: Array },
     winningTeam: { type: String },
   	winningScore: { type: Number },
   	winningPlayer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },

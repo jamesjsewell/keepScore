@@ -91,8 +91,6 @@ const MatchComponent = React.createClass({
 			var showCompleteButton = true
 		}
 
-		console.log(showCompleteButton, this.props.match._id, this.props.matches[0].attributes._id)
-
 		return(
 
 			<div className = 'match-wrapper'>
@@ -113,6 +111,22 @@ const PlayersOfMatchComponent = React.createClass({
 	_handleSubmit: function(evt){
 
 		evt.preventDefault()
+		var scoreInputs = evt.target.score
+		var scoresArray = []
+
+		for(var i = 0; i < scoreInputs.length; i++){
+
+			var playerId = scoreInputs[i].id
+			var playerScore = scoreInputs[i].value
+			var scoreObj = {}
+			scoreObj[playerId] = playerScore
+			scoresArray.push(scoreObj)
+
+		}
+		console.log(scoresArray, this.props.match._id)
+		ACTIONS.update_match_scores(scoresArray, this.props.match._id)
+		//collect data, update the matches scores array. the array of scores will be objects for each player.
+		//the object name will be the id of the player. the value will be the player's score.
 
 	},
 	
@@ -133,7 +147,6 @@ const PlayersOfMatchComponent = React.createClass({
 
 		var team = ''
 
-		if(this.props.match._id)
 
 		if(this.props.match.game_type === 'team'){
 			var teamDisplay = true
@@ -148,7 +161,7 @@ const PlayersOfMatchComponent = React.createClass({
 
 			<div className = 'players-of-match-wrapper'>
 
-				<form name={this.props.match._id} className={teamDisplay ? 'hidden' : ''}>
+				<form onSubmit={this._handleSubmit} name={this.props.match._id} className={teamDisplay ? 'hidden' : ''}>
 
 					{this._makePlayers(this.props.players)}
 					<button className={this.props.showCompleteBtn ? '' : 'hidden'} type='submit'>match complete</button>
@@ -183,7 +196,7 @@ const PlayerComponent = React.createClass({
 			<div className = 'player-of-match-wrapper'>
 
 				<p>{this.props.player.name}</p>
-				<input name={this.props.player._id} placeholder='enter score' />
+				<input name='score' id={this.props.player._id} placeholder='enter score' />
 
 			</div>
 

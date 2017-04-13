@@ -73,26 +73,6 @@ const ACTIONS = {
 
 	},
 
-	delete_match: function(matchId){
-		console.log(matchId)
-		$.ajax({
-
-	            method: 'delete',
-	            type: 'json',
-	            url: `api/matches/${matchId}`
-	        
-	        })
-	        .done((res)=>{
-	        	console.log('deleted a match', res)
-	       		ACTIONS.perform_reset()
-
-	        })
-	        .fail((err)=>{
-	            console.log('could not post match', err)
-	        })
-
-	},
-
 	ajax_post_match: function(data){
 
 	
@@ -133,6 +113,47 @@ const ACTIONS = {
 	        .fail((err)=>{
 	            console.log('could not post match', err)
 	        })
+	},
+
+	delete_match: function(matchId){
+		console.log(matchId)
+		$.ajax({
+
+	            method: 'delete',
+	            type: 'json',
+	            url: `api/matches/${matchId}`
+	        
+	        })
+	        .done((res)=>{
+	        	console.log('deleted a match', res)
+	       		ACTIONS.perform_reset()
+
+	        })
+	        .fail((err)=>{
+	            console.log('could not post match', err)
+	        })
+
+	},
+
+	update_match_scores: function(inputScores, matchId){
+
+		$.ajax({
+
+	            method: 'put',
+	            type: 'json',
+	            url: `api/matches/${matchId}`,
+	            data: {scores: inputScores}
+	        
+	        })
+	        .done((res)=>{
+	        	console.log('updated the match scores', res)
+	       		ACTIONS.perform_reset()
+
+	        })
+	        .fail((err)=>{
+	            console.log('could not post match', err)
+	        })
+
 	},
 
 	set_me_on_store: function(){
