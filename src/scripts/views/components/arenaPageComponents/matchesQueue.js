@@ -27,7 +27,7 @@ const QueueComponent = React.createClass({
 
 			if(match.arena === STORE.data.selected_user.current_arena._id){
 
-				matchArray.push(<MatchComponent match={matches[i].attributes} matchName={matches[i].attributes.name} matchPlayers={players} />)
+				matchArray.push(<MatchComponent matches={this.props.queueMatches} match={matches[i].attributes} matchName={matches[i].attributes.name} matchPlayers={players} />)
 				
 			}
 
@@ -73,6 +73,8 @@ const MatchComponent = React.createClass({
 
 	render: function(){
 
+		var showCompleteButton = false
+
 		if(this.props.match.game_type === 'ffa'){
 			var gameType = 'free-for-all'
 		}
@@ -85,13 +87,19 @@ const MatchComponent = React.createClass({
 			var gameType = 'one vs one'
 		}
 
+		if(this.props.matches[0].attributes._id === this.props.match._id){
+			var showCompleteButton = true
+		}
+
+		console.log(showCompleteButton, this.props.match._id, this.props.matches[0].attributes._id)
+
 		return(
 
 			<div className = 'match-wrapper'>
 
 				<h2>{this.props.matchName}</h2>
 				<h3>{gameType}</h3>
-				<PlayersOfMatchComponent match={this.props.match} players={this.props.match.players} />
+				<PlayersOfMatchComponent showCompleteBtn = {showCompleteButton} match={this.props.match} players={this.props.match.players} />
 				<button onClick={this.delete_match}>remove</button>
 
 			</div>
@@ -101,6 +109,12 @@ const MatchComponent = React.createClass({
 })
 
 const PlayersOfMatchComponent = React.createClass({
+
+	_handleSubmit: function(evt){
+
+		evt.preventDefault()
+
+	},
 	
 	_makePlayers: function(players){
 
@@ -119,6 +133,8 @@ const PlayersOfMatchComponent = React.createClass({
 
 		var team = ''
 
+		if(this.props.match._id)
+
 		if(this.props.match.game_type === 'team'){
 			var teamDisplay = true
 			var nonTeamDisplay = false
@@ -128,17 +144,16 @@ const PlayersOfMatchComponent = React.createClass({
 			var nonTeamDisplay = true
 		}
 
-		console.log(this.props.match.players)
-
 		return(
 
 			<div className = 'players-of-match-wrapper'>
 
-				<div className={teamDisplay ? 'hidden' : ''}>
+				<form name={this.props.match._id} className={teamDisplay ? 'hidden' : ''}>
 
 					{this._makePlayers(this.props.players)}
+					<button className={this.props.showCompleteBtn ? '' : 'hidden'} type='submit'>match complete</button>
 
-				</div>
+				</form>
 
 				<div className={teamDisplay ? '' : 'hidden'}>
 
@@ -149,6 +164,7 @@ const PlayersOfMatchComponent = React.createClass({
 					<div>{this._makePlayers(this.props.match.team2)}</div>
 
 				</div>
+
 
 			</div>
 
@@ -164,9 +180,10 @@ const PlayerComponent = React.createClass({
 
 		return(
 
-			<div className = 'players-of-match-wrapper'>
+			<div className = 'player-of-match-wrapper'>
 
 				<p>{this.props.player.name}</p>
+				<input name={this.props.player._id} placeholder='enter score' />
 
 			</div>
 
