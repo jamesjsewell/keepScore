@@ -3,7 +3,7 @@ import STORE from '../../../store.js'
 import ACTIONS from '../../../actions.js'
 import User from '../../../models/userModel.js'
 
-const QueueComponent = React.createClass({
+const RecentMatchesComponent = React.createClass({
 
 	_makeMatches: function(matches){
 	
@@ -12,7 +12,7 @@ const QueueComponent = React.createClass({
 		for(var i = 0; i < matches.length; i++){
 
 			var match = matches[i].attributes
-
+			console.log(match.status)
 			if(match.players.length > 0){
 
 				var players = match.players[0].email
@@ -25,7 +25,7 @@ const QueueComponent = React.createClass({
 
 			}
 
-			if(match.arena === STORE.data.selected_user.current_arena._id && match.status != 'complete'){
+			if(match.arena === STORE.data.selected_user.current_arena._id && match.status === 'complete'){
 
 				matchArray.push(<MatchComponent matches={this.props.queueMatches} match={matches[i].attributes} matchName={matches[i].attributes.name} matchPlayers={players} />)
 				
@@ -43,7 +43,7 @@ const QueueComponent = React.createClass({
 
 			return(
 
-				<div className='queue-wrapper'>
+				<div className='recent-matches-wrapper'>
 
 					{this._makeMatches(this.props.queueMatches)}
 
@@ -87,10 +87,6 @@ const MatchComponent = React.createClass({
 			var gameType = 'one vs one'
 		}
 
-		if(this.props.matches[0].attributes._id === this.props.match._id){
-			var showCompleteButton = true
-		}
-
 		return(
 
 			<div className = 'match-wrapper'>
@@ -99,6 +95,7 @@ const MatchComponent = React.createClass({
 				<h3>{gameType}</h3>
 				<PlayersOfMatchComponent showCompleteBtn = {showCompleteButton} match={this.props.match} players={this.props.match.players} />
 				<button onClick={this.delete_match}>remove</button>
+				<p>{this.props.match.createdAt}</p>
 
 			</div>
 
@@ -107,26 +104,6 @@ const MatchComponent = React.createClass({
 })
 
 const PlayersOfMatchComponent = React.createClass({
-
-	_handleSubmit: function(evt){
-
-		evt.preventDefault()
-		var scoreInputs = evt.target.score
-		var scoresObj = {}
-
-		for(var i = 0; i < scoreInputs.length; i++){
-
-			var playerId = scoreInputs[i].id
-			var playerScore = scoreInputs[i].value
-			scoresObj[playerId] = playerScore
-
-		}
-	
-		ACTIONS.update_match_scores(scoresObj, this.props.match._id)
-		//collect data, update the matches scores array. the array of scores will be objects for each player.
-		//the object name will be the id of the player. the value will be the player's score.
-
-	},
 	
 	_makePlayers: function(players){
 
@@ -134,7 +111,13 @@ const PlayersOfMatchComponent = React.createClass({
 
 		for(var i = 0; i < players.length; i++){
 
-			playersArray.push(<PlayerComponent gameType={this.props.match.game_type} team1={this.props.match.team1} team2={this.props.match.team2} player={players[i]} />)
+			var scores = this.props.match.scores
+
+			console.log(scores)
+
+			var score = scores[players[i]._id]
+
+			playersArray.push(<PlayerComponent score={score} gameType={this.props.match.game_type} team1={this.props.match.team1} team2={this.props.match.team2} player={players[i]} />)
 		}
 
 		return playersArray
@@ -162,7 +145,6 @@ const PlayersOfMatchComponent = React.createClass({
 				<form onSubmit={this._handleSubmit} name={this.props.match._id} className={teamDisplay ? 'hidden' : ''}>
 
 					{this._makePlayers(this.props.players)}
-					<button className={this.props.showCompleteBtn ? '' : 'hidden'} type='submit'>complete</button>
 
 				</form>
 
@@ -176,7 +158,6 @@ const PlayersOfMatchComponent = React.createClass({
 
 				</div>
 
-
 			</div>
 
 		)
@@ -188,13 +169,11 @@ const PlayerComponent = React.createClass({
 
 	render: function(){
 
-
 		return(
 
 			<div className = 'player-of-match-wrapper'>
 
-				<p>{this.props.player.name}</p>
-				<input name='score' id={this.props.player._id} placeholder='enter score' />
+				<p>{this.props.player.name}: &nbsp;{this.props.score}</p>
 
 			</div>
 
@@ -203,4 +182,4 @@ const PlayerComponent = React.createClass({
 
 })
 
-export default QueueComponent
+export default RecentMatchesComponent
