@@ -26,11 +26,11 @@ const QueueComponent = React.createClass({
 
 			}
 
-			if(match.arena === STORE.data.selected_user.current_arena._id && match.status != 'complete'){
+			//if(match.arena === STORE.data.current_arena[0].attributes._id && match.status != 'complete'){
 
-				matchArray.push(<MatchComponent matches={this.props.queueMatches} match={matches[i].attributes} matchName={matches[i].attributes.name} matchPlayers={players} />)
+			matchArray.push(<MatchComponent matches={this.props.queueMatches} match={matches[i].attributes} matchName={matches[i].attributes.name} matchPlayers={players} />)
 				
-			}
+			
 
 		}
 
@@ -88,9 +88,21 @@ const MatchComponent = React.createClass({
 			var gameType = 'one vs one'
 		}
 
-		if(this.props.matches[0].attributes._id === this.props.match._id){
-			var showCompleteButton = true
-		}
+		// var activeMatch = _.find(this.props.matches, function(match){
+		// 	console.log(match.attributes_id)
+		// 	if(match.attributes.status != 'complete'){
+		// 		return match.attributes._id
+		// 	}
+
+		// })
+
+		// console.log(activeMatch.attributes._id)
+		
+		// if(this.props.match._id === activeMatch.attributes._id){
+		//  	var showCompleteButton = true
+		// }
+
+		var showCompleteButton = false
 
 		return(
 

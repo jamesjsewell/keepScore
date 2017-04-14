@@ -27,7 +27,7 @@ const RecentMatchesComponent = React.createClass({
 
 			}
 
-			if(match.arena === STORE.data.selected_user.current_arena._id && match.status === 'complete'){
+			if(match.arena === STORE.data.current_arena[0].attributes._id && match.status === 'complete'){
 
 				matchArray.push(<MatchComponent matches={this.props.queueMatches} match={matches[i].attributes} matchName={matches[i].attributes.name} matchPlayers={players} />)
 				
@@ -176,7 +176,7 @@ const PlayerComponent = React.createClass({
 
 			<div className = 'player-of-match-wrapper'>
 
-				<p>{this.props.player.name}: &nbsp;{this.props.score}</p>
+				<p>{this.props.player.name}: {this.props.score}</p>
 
 			</div>
 

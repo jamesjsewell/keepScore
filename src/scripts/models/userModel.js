@@ -52,7 +52,7 @@ UserAuthModel.logout = function() {
 }
 
 UserAuthModel.getCurrentUser = function() {
-	return localStorage[app_name + '_user'] ? new User(JSON.parse(localStorage[app_name + '_user'])) : null
+	return JSON.parse(localStorage.getItem(app_name + '_user')) ? new User(JSON.parse(localStorage.getItem(app_name + '_user'))) : null
 }
 
 // ..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x
@@ -65,7 +65,7 @@ const User = UserAuthModel.extend({
     },
 
     updateCurrentUser: function() {
-        localStorage.setItem('hashiru_user', JSON.stringify(this.attributes))
+        localStorage.setItem('keepScore_user', JSON.stringify(this.attributes))
     }
 })
 

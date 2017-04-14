@@ -1,6 +1,8 @@
 import Backbone from 'backbone'
 import {MatchCollection} from './models/matchModel.js'
 import {ArenaCollection} from './models/arenaModel.js'
+import {ArenaModel} from './models/arenaModel.js'
+import User from './models/userModel.js'
 
 const STORE = Object.assign({}, Backbone.Events, {
 
@@ -8,8 +10,8 @@ const STORE = Object.assign({}, Backbone.Events, {
 
 		arenaCollection: new ArenaCollection(),
 		matchCollection: new MatchCollection(),
+		userCollection: new User(),
 		match_create_type: 'dual'
-		
 	},
 
 	get: function(prop) {

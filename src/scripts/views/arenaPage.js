@@ -21,16 +21,17 @@ const ArenaPage = React.createClass({
 
 	componentWillMount: function(){
 
-		if(User.getCurrentUser() != null){
+		// if(User.getCurrentUser() != null){
 
-			ACTIONS.set_me_on_store()
+		// 	ACTIONS.set_me_on_store()
 
-		}
+		// }
 
-		ACTIONS.fetch_arenas()
-		ACTIONS.fetch_matches()
-		ACTIONS.set_store_selected_user(STORE.data.logged_in_user._id)
-		
+		ACTIONS.get_queued_matches()
+		ACTIONS.set_store_current_arena_of_selected_user()
+		ACTIONS.get_completed_matches()
+		ACTIONS.get_user()
+		ACTIONS.set_store_selected_user(STORE.data.user.attributes._id)
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
 		})
@@ -67,29 +68,19 @@ const ArenaPage = React.createClass({
 
  		if(User.getCurrentUser() != null){
 
- 			if(User.getCurrentUser().attributes.hasOwnProperty('_id') === false){
-
-				location.hash = "home"
-
-			}
-			else{
-
-				
-
-			}
 
  		}
 
- 		if(this.state.populated_user_current_arena != undefined){
-
+ 		if(this.state.current_arena != undefined && this.state.queued_match_collection != undefined && this.state.completed_match_collection != undefined){
+ 			console.log(this.state.currentArena)
 			return (
 
 	 		<div className='arenas-page-wrapper'>
 	 			
 	 			<Navbar />
-	 			<CreateMatchComponent arena={this.state.populated_user_current_arena} />
-	 			<QueueComponent arena={this.state.populated_user_current_arena} queueMatches={this.state.selected_arena_matches} />
-	 			<RecentMatchesComponent arena={this.state.populated_user_current_arena} queueMatches={this.state.selected_arena_matches} />
+	 			<CreateMatchComponent arena={this.state.current_arena[0]} />
+	 			<QueueComponent arena={this.state.current_arena[0]} queueMatches={this.state.queued_match_collection.models} />
+	 			<RecentMatchesComponent arena={this.state.current_arena[0]} queueMatches={this.state.completed_match_collection.models} />
 
 	 		</div>
 
