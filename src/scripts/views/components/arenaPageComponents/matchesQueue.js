@@ -2,6 +2,7 @@ import React from 'react'
 import STORE from '../../../store.js'
 import ACTIONS from '../../../actions.js'
 import User from '../../../models/userModel.js'
+import _ from 'underscore'
 
 const QueueComponent = React.createClass({
 
@@ -113,16 +114,21 @@ const PlayersOfMatchComponent = React.createClass({
 		evt.preventDefault()
 		var scoreInputs = evt.target.score
 		var scoresObj = {}
+		var playerAndScore = []
 
 		for(var i = 0; i < scoreInputs.length; i++){
 
 			var playerId = scoreInputs[i].id
 			var playerScore = scoreInputs[i].value
 			scoresObj[playerId] = playerScore
+			playerAndScore.push({'player': playerId, 'score': Number(playerScore)})
 
 		}
-	
-		ACTIONS.update_match_scores(scoresObj, this.props.match._id)
+
+		var winningPlayer = _.max(playerAndScore, function(aPlayerScore){ 
+			return aPlayerScore.score })
+		
+		ACTIONS.update_match_scores(scoresObj, this.props.match._id, winningPlayer.score, winningPlayer.player)
 		//collect data, update the matches scores array. the array of scores will be objects for each player.
 		//the object name will be the id of the player. the value will be the player's score.
 

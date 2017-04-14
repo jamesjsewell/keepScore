@@ -99,7 +99,8 @@ const ACTIONS = {
 				team1: team1,
 				team2: team2,
 				team1_name: 'team1',
-				team2_name: 'team2'
+				team2_name: 'team2',
+				status: 'inactive'
 
 				}
 	        
@@ -135,24 +136,31 @@ const ACTIONS = {
 
 	},
 
-	update_match_scores: function(inputScores, matchId){
+	update_match_scores: function(inputScores, matchId, winningScore, winningPlayer){
 
 		$.ajax({
 
 	            method: 'put',
 	            type: 'json',
 	            url: `api/matches/${matchId}`,
-	            data: {scores: inputScores}
-	        
+	            data: {scores: inputScores, status: 'complete', winning_score: winningScore, winning_player: winningPlayer}
+	            
 	        })
 	        .done((res)=>{
 	        	console.log('updated the match scores', res)
 	       		ACTIONS.perform_reset()
+	       		//should update the status of the match to complete
 
 	        })
 	        .fail((err)=>{
 	            console.log('could not post match', err)
 	        })
+
+	},
+
+	set_match_to_active: function(match,arenaId){
+
+	
 
 	},
 

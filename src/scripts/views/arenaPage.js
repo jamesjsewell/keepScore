@@ -6,6 +6,7 @@ import User from '../models/userModel.js'
 import Navbar from './components/navbar.js'
 import PlayerChoiceComponent from './components/arenaPageComponents/playerSelect.js'
 import QueueComponent from './components/arenaPageComponents/matchesQueue.js'
+import RecentMatchesComponent from './components/arenaPageComponents/recentMatches.js'
 
 
 STORE._set({match_create_type: 'dual'})
@@ -88,6 +89,7 @@ const ArenaPage = React.createClass({
 	 			<Navbar />
 	 			<CreateMatchComponent arena={this.state.populated_user_current_arena} />
 	 			<QueueComponent arena={this.state.populated_user_current_arena} queueMatches={this.state.selected_arena_matches} />
+	 			<RecentMatchesComponent arena={this.state.populated_user_current_arena} queueMatches={this.state.selected_arena_matches} />
 
 	 		</div>
 

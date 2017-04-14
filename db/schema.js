@@ -34,17 +34,18 @@ const MatchSchema = new mongoose.Schema({
     game_type: { type: String },
     queue_position: { type: Number },
   	arena: { type: String },
-  	scores: { type: Array },
-    winningTeam: { type: String },
-  	winningScore: { type: Number },
-  	winningPlayer: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  	scores: { type: Object },
+    winning_team: { type: String },
+  	winning_score: { type: Number },
+  	winning_player: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
   	players: [ {type: mongoose.Schema.Types.ObjectId, ref: 'User'} ],
   	createdAt: { type: Date, default: Date.now },
     team1: [ {type: mongoose.Schema.Types.ObjectId, ref: 'User'} ],
     team2: [ {type: mongoose.Schema.Types.ObjectId, ref: 'User'} ],
     team1_name: { type: String },
     team2_name: { type: String },
-    creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    status: { type: String }
 
 })
 

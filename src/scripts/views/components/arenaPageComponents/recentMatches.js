@@ -2,6 +2,8 @@ import React from 'react'
 import STORE from '../../../store.js'
 import ACTIONS from '../../../actions.js'
 import User from '../../../models/userModel.js'
+import moment from 'moment'
+moment().format();
 
 const RecentMatchesComponent = React.createClass({
 
@@ -93,9 +95,10 @@ const MatchComponent = React.createClass({
 
 				<h2>{this.props.matchName}</h2>
 				<h3>{gameType}</h3>
+				<p>{this.props.match.winning_player.name} won with a score of &nbsp; {this.props.match.winning_score}</p>
 				<PlayersOfMatchComponent showCompleteBtn = {showCompleteButton} match={this.props.match} players={this.props.match.players} />
 				<button onClick={this.delete_match}>remove</button>
-				<p>{this.props.match.createdAt}</p>
+				<p>{moment(this.props.match.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
 
 			</div>
 
