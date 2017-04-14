@@ -26,11 +26,11 @@ const QueueComponent = React.createClass({
 
 			}
 
-			//if(match.arena === STORE.data.current_arena[0].attributes._id && match.status != 'complete'){
+			if(match.status != 'complete'){
 
-			matchArray.push(<MatchComponent matches={this.props.queueMatches} match={matches[i].attributes} matchName={matches[i].attributes.name} matchPlayers={players} />)
+				matchArray.push(<MatchComponent matches={this.props.queueMatches} match={matches[i].attributes} matchName={matches[i].attributes.name} matchPlayers={players} />)
 				
-			
+			}
 
 		}
 
@@ -88,21 +88,23 @@ const MatchComponent = React.createClass({
 			var gameType = 'one vs one'
 		}
 
-		// var activeMatch = _.find(this.props.matches, function(match){
-		// 	console.log(match.attributes_id)
-		// 	if(match.attributes.status != 'complete'){
-		// 		return match.attributes._id
-		// 	}
+		var activeMatch = _.find(this.props.matches, function(match){
+			console.log(match.attributes._id)
+			if(match.status != 'complete'){
+				return match
+			}
 
-		// })
+		})
 
-		// console.log(activeMatch.attributes._id)
+		if(activeMatch != undefined){
+			console.log(this.props.match, activeMatch)
+		if(this.props.match._id === activeMatch.attributes._id){
+		 	var showCompleteButton = true
+		}
+		console.log(this.props.match._id, activeMatch.attributes._id)
+		}
 		
-		// if(this.props.match._id === activeMatch.attributes._id){
-		//  	var showCompleteButton = true
-		// }
-
-		var showCompleteButton = false
+		
 
 		return(
 
@@ -129,7 +131,7 @@ const PlayersOfMatchComponent = React.createClass({
 		var playerAndScore = []
 
 		for(var i = 0; i < scoreInputs.length; i++){
-
+			console.log(scoreInputs[i])
 			var playerId = scoreInputs[i].id
 			var playerScore = scoreInputs[i].value
 			scoresObj[playerId] = playerScore
@@ -139,7 +141,7 @@ const PlayersOfMatchComponent = React.createClass({
 
 		var winningPlayer = _.max(playerAndScore, function(aPlayerScore){ 
 			return aPlayerScore.score })
-		
+		console.log('completing the match')
 		ACTIONS.update_match_scores(scoresObj, this.props.match._id, winningPlayer.score, winningPlayer.player)
 		//collect data, update the matches scores array. the array of scores will be objects for each player.
 		//the object name will be the id of the player. the value will be the player's score.

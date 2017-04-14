@@ -27,7 +27,7 @@ const RecentMatchesComponent = React.createClass({
 
 			}
 
-			if(match.arena === STORE.data.current_arena[0].attributes._id && match.status === 'complete'){
+			if(match.status === 'complete'){
 
 				matchArray.push(<MatchComponent matches={this.props.queueMatches} match={matches[i].attributes} matchName={matches[i].attributes.name} matchPlayers={players} />)
 				
@@ -75,8 +75,7 @@ const MatchComponent = React.createClass({
 
 	render: function(){
 
-		var showCompleteButton = false
-
+		
 		if(this.props.match.game_type === 'ffa'){
 			var gameType = 'free-for-all'
 		}
@@ -96,7 +95,7 @@ const MatchComponent = React.createClass({
 				<h2>{this.props.matchName}</h2>
 				<h3>{gameType}</h3>
 				<p>{this.props.match.winning_player.name} won with a score of &nbsp; {this.props.match.winning_score}</p>
-				<PlayersOfMatchComponent showCompleteBtn = {showCompleteButton} match={this.props.match} players={this.props.match.players} />
+				<PlayersOfMatchComponent  match={this.props.match} players={this.props.match.players} />
 				<button onClick={this.delete_match}>remove</button>
 				<p>{moment(this.props.match.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
 

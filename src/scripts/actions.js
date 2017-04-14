@@ -14,6 +14,8 @@ const ACTIONS = {
 		ACTIONS.get_completed_matches()
 		ACTIONS.get_user()
 		ACTIONS.set_store_selected_user(STORE.data.user.attributes._id)
+
+		console.log(STORE.data)
 	},
 
 	//UPDATE STORE WITH DATA
