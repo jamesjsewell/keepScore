@@ -9,9 +9,6 @@ const ACTIONS = {
 
 	perform_reset: function(){
 
-		ACTIONS.get_queued_matches()
-		ACTIONS.get_current_arena()
-		ACTIONS.get_completed_matches()
 		ACTIONS.get_user()
 
 	},
@@ -26,7 +23,7 @@ const ACTIONS = {
 		team1 = data.team1, 
 		team2 = data.team2,
 		arena = data.arena
-
+		console.log(arena)
 		$.ajax({
 
 	            method: 'POST',
@@ -51,7 +48,6 @@ const ACTIONS = {
 	        .done((res)=>{
 
 	        	console.log('posted a new team match', res)
-	       		ACTIONS.perform_reset()
 
 	        })
 	        .fail((err)=>{
@@ -102,28 +98,37 @@ const ACTIONS = {
 	},
 
 	get_queued_matches: function(arenaId){
-
+		console.log(STORE.data)
 		var matchColl = STORE.get('matchCollection')
 		
-		matchColl.fetch({arena: arenaId, status: 'inactive', status: 'active'})
+		matchColl.fetch({
 
-			.then(function() {
+				data: {arena: arenaId, status: 'inactive'}
 
+			})
+
+			.then(function(resp) {
+				console.log(resp)
 				STORE._set({
 					queued_match_collection: matchColl
 				})
+				ACTIONS.get_completed_matches(arenaId)
 
 			})	
 	},
 
 	get_completed_matches: function(arenaId){
 
-		var matchColl = STORE.get('matchCollection')
+		var matchColl = STORE.get('completedMatchCollection')
 		
-		matchColl.fetch({arena: arenaId, status: 'complete'})
+		matchColl.fetch({
+
+				data: {arena: arenaId, status: 'complete'}
+
+			})
 
 			.then(function() {
-
+				console.log(matchColl)
 				STORE._set({
 					completed_match_collection: matchColl
 				})
@@ -165,6 +170,7 @@ const ACTIONS = {
 	get_user: function(userId){
 		
 		STORE._set({'user': User.getCurrentUser()})
+		ACTIONS.get_current_arena()
 
 	},
 
@@ -180,17 +186,18 @@ const ACTIONS = {
 
 				let currentArena = arenaColl.where({'_id': arenaId})
 				STORE._set({
-					current_arena: currentArena
+					current_arena: currentArena,
+					current_arena_id: currentArena[0].attributes._id
 				})
+				ACTIONS.get_queued_matches(STORE.data.current_arena_id)
 
 			})	
 
 	},
 
-	set_store_arenas_of_selected_user: function(userId){
-	
-  		ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user_arenas','arenas')
-  	   
+	update_current_arena: function(){
+
+
 	},
 
 	order_queue: function(){
@@ -238,7 +245,7 @@ const ACTIONS = {
 			body['type'] = gameType
 			body['team1'] = team1
 			body['team2'] = team2
-			body['arena'] = STORE.data.current_arena[0]._id
+			body['arena'] = STORE.data.current_arena_id
 
 			ACTIONS.ajax_post_match(body)
 
@@ -324,12 +331,6 @@ const ACTIONS = {
 					console.log(err)
 				}
 				)
-	},
-
-	getUserId: function(){
-		//console.log(User.getCurrentUser().attributes._id)
-		return User.getCurrentUser().attributes._id
-
 	}
 
 

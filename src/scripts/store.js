@@ -10,6 +10,7 @@ const STORE = Object.assign({}, Backbone.Events, {
 
 		arenaCollection: new ArenaCollection(),
 		matchCollection: new MatchCollection(),
+		completedMatchCollection: new MatchCollection(),
 		userCollection: new User(),
 		match_create_type: 'dual'
 	},

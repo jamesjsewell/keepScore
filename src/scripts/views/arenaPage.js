@@ -22,11 +22,7 @@ const ArenaPage = React.createClass({
 	componentWillMount: function(){
 
 		ACTIONS.get_user()
-		ACTIONS.get_queued_matches()
-		ACTIONS.get_current_arena()
-		ACTIONS.get_completed_matches()
-		
-		
+			
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
 		})
