@@ -93,7 +93,9 @@ const PlayerChoiceComponent = React.createClass({
 			return(
 
 				<div name='player-select-wrapper'>
+					<input type='text' name='team1Name' placeholder='team1 name'/>
 
+					<input type='text' name='team2Name' placeholder='team2 name'/>
 					{this._teamPlayers(this.props.players)}
 
 				</div>

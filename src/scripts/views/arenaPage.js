@@ -143,6 +143,9 @@ const CreateMatchComponent = React.createClass({
 			var selectedPlayers = []
 			var teamPlayers = evt.target.teamPlayer
 			var assignedTeams = evt.target.teamSelect
+			var team1Name = evt.target.team1Name.value
+			var team2Name = evt.target.team2Name.value
+			console.log(team1Name, team2Name)
 			var team1Players = []
 			var team2Players = []
 

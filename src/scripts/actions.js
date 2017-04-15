@@ -13,8 +13,28 @@ const ACTIONS = {
 
 	},
 
-	ajax_post_match: function(data){
+	//       MATCH ACTIONS        //
 
+	create_match: function(gameType, matchData, name, team1, team2){
+
+		if(gameType){
+			
+			var body = {}
+			body['position'] = STORE.data.current_arena[0].attributes.queue_order.length+1
+			body['players'] = matchData
+			body['name'] = name
+			body['type'] = gameType
+			body['team1'] = team1
+			body['team2'] = team2
+			body['arena'] = STORE.data.current_arena_id
+
+			ACTIONS.ajax_post_match(body)
+
+		}
+
+	},
+
+	ajax_post_match: function(data){
 	
 		var name = data.name,
 		position = data.position,
@@ -98,7 +118,7 @@ const ACTIONS = {
 	},
 
 	get_queued_matches: function(arenaId){
-		console.log(STORE.data)
+
 		var matchColl = STORE.get('matchCollection')
 		
 		matchColl.fetch({
@@ -136,6 +156,42 @@ const ACTIONS = {
 			})	
 	},
 
+	fetch_matches: function(){
+
+		var matchColl = STORE.get('matchCollection')
+		
+		matchColl.fetch()
+
+			.then(function() {
+
+				STORE._set({
+					matchCollection: matchColl
+				})
+
+			})	
+	},
+
+	order_queue: function(){
+
+		var matches = STORE.data.selected_arena_matches
+		var ordered = []
+
+		for(var i = 0; i < matches.length; i++){
+			ordered.push(0)
+		}
+
+		for(var i = 0; i < ordered.length; i++){
+			ordered[matches[i].queue_position] = matches[i]
+		}
+
+		STORE._set({'selected_arena_matches': ordered})
+
+	},
+
+	//------------------------------------------------//
+
+	//   COLLECT HIGH LEVEL DATA    //
+	
 	fetch_arenas: function(){
 
 		var arenaColl = STORE.get('arenaCollection')
@@ -150,21 +206,6 @@ const ACTIONS = {
  		
 			})	
 
-	},
-
-	fetch_matches: function(){
-
-		var matchColl = STORE.get('matchCollection')
-		
-		matchColl.fetch()
-
-			.then(function() {
-
-				STORE._set({
-					matchCollection: matchColl
-				})
-
-			})	
 	},
 
 	get_user: function(userId){
@@ -194,28 +235,7 @@ const ACTIONS = {
 			})	
 
 	},
-
-	update_current_arena: function(){
-
-
-	},
-
-	order_queue: function(){
-
-		var matches = STORE.data.selected_arena_matches
-		var ordered = []
-
-		for(var i = 0; i < matches.length; i++){
-			ordered.push(0)
-		}
-
-		for(var i = 0; i < ordered.length; i++){
-			ordered[matches[i].queue_position] = matches[i]
-		}
-
-		STORE._set({'selected_arena_matches': ordered})
-
-	},
+	
 	//----------------------------------------------------//
 
 	set_status_of_player_in_arena: function(arenaId, playerId){
@@ -227,31 +247,8 @@ const ACTIONS = {
 
 	},
 
-	//sets completed matches for the arena
-	return_completed_matches_for_arena: function(arenaId){
-
-	},
 	//----------------------------------------------------//
 	
-	//Arena Logic
-	create_match: function(gameType, matchData, name, team1, team2){
-
-		if(gameType){
-			
-			var body = {}
-			body['position'] = STORE.data.current_arena[0].attributes.queue_order.length+1
-			body['players'] = matchData
-			body['name'] = name
-			body['type'] = gameType
-			body['team1'] = team1
-			body['team2'] = team2
-			body['arena'] = STORE.data.current_arena_id
-
-			ACTIONS.ajax_post_match(body)
-
-		}
-
-	},
 
 	add_match_to_queue: function(matchId, arenaId){
 		//will get the queue array
