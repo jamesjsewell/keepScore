@@ -48,7 +48,7 @@ const ACTIONS = {
 	        .done((res)=>{
 
 	        	console.log('posted a new team match', res)
-
+	        	ACTIONS.perform_reset()
 	        })
 	        .fail((err)=>{
 	            console.log('could not post match', err)
@@ -75,14 +75,14 @@ const ACTIONS = {
 
 	},
 
-	update_match_scores: function(inputScores, matchId, winningScore, winningPlayer){
+	update_match_scores: function(inputScores, matchId, winningScore, winningPlayer, winningTeam, winningTeamScore, losingTeam, losingTeamScore){
 
 		$.ajax({
 
 	            method: 'put',
 	            type: 'json',
 	            url: `api/matches/${matchId}`,
-	            data: {scores: inputScores, status: 'complete', winning_score: winningScore, winning_player: winningPlayer}
+	            data: {scores: inputScores, status: 'complete', winning_score: winningScore, winning_player: winningPlayer, winning_team: winningTeam, winning_team_score: winningTeamScore, losing_team: losingTeam, losing_team_score: losingTeamScore }
 	            
 	        })
 	        .done((res)=>{

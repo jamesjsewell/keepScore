@@ -124,10 +124,16 @@ const PlayersOfMatchComponent = React.createClass({
 
 	_handleSubmit: function(evt){
 
+
+
 		evt.preventDefault()
-		var scoreInputs = evt.target.score
-		var scoresObj = {}
-		var playerAndScore = []
+		var scoreInputs = evt.target.score,
+		scoresObj = {},
+		playerAndScore = [],
+		winningTeam = "",
+		winningTeamScore = 0,
+		losingTeam = "",
+		losingTeamScore = 0
 
 		for(var i = 0; i < scoreInputs.length; i++){
 			console.log(scoreInputs[i])
@@ -138,12 +144,52 @@ const PlayersOfMatchComponent = React.createClass({
 
 		}
 
+		if(this.props.match.game_type === 'team'){
+
+			var team1 = this.props.match.team1
+			var team1Score = 0
+
+			for(var i = 0; i < team1.length; i++){
+
+				var player = team1[i]._id
+				var theirScore = Number(scoresObj[player])
+				var team1Score = Number(team1Score + theirScore)
+
+			}
+
+			var team2 = this.props.match.team2
+
+			var team2Score = 0
+
+			for(var i = 0; i < team2.length; i++){
+
+				var player = team2[i]._id
+				var theirScore = Number(scoresObj[player])
+				var team2Score = Number(team2Score) + theirScore
+
+			}
+
+			var winningTeamScore = _.max([team1Score,team2Score], function(teamScore){ 
+			return teamScore })
+
+			if(winningTeamScore === team2Score){
+				winningTeam = 'team2'
+				losingTeamScore = team1Score
+				losingTeam = 'team1'
+			}
+			else{
+				winningTeam = 'team1'
+				losingTeam = 'team2'
+				losingTeamScore = team2Score
+			}
+			
+		}
+
 		var winningPlayer = _.max(playerAndScore, function(aPlayerScore){ 
 			return aPlayerScore.score })
+
 		console.log('completing the match')
-		ACTIONS.update_match_scores(scoresObj, this.props.match._id, winningPlayer.score, winningPlayer.player)
-		//collect data, update the matches scores array. the array of scores will be objects for each player.
-		//the object name will be the id of the player. the value will be the player's score.
+		ACTIONS.update_match_scores(scoresObj, this.props.match._id, winningPlayer.score, winningPlayer.player, winningTeam, winningTeamScore, losingTeam, losingTeamScore)
 
 	},
 	
@@ -187,11 +233,17 @@ const PlayersOfMatchComponent = React.createClass({
 
 				<div className={teamDisplay ? '' : 'hidden'}>
 
-					<h3>team 1</h3>
-					<div>{this._makePlayers(this.props.match.team1)}</div>
+					<form onSubmit={this._handleSubmit} name={this.props.match._id}>
 
-					<h3>team 2</h3>
-					<div>{this._makePlayers(this.props.match.team2)}</div>
+						<h3>team 1</h3>
+						<div>{this._makePlayers(this.props.match.team1)}</div>
+
+						<h3>team 2</h3>
+						<div>{this._makePlayers(this.props.match.team2)}</div>
+
+						<button className={this.props.showCompleteBtn ? '' : 'hidden'} type='submit'>complete</button>
+
+					</form>
 
 				</div>
 

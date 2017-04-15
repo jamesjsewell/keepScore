@@ -14,7 +14,7 @@ const RecentMatchesComponent = React.createClass({
 		for(var i = 0; i < matches.length; i++){
 
 			var match = matches[i].attributes
-			
+
 			if(match.players.length > 0){
 
 				var players = match.players[0].email
@@ -74,12 +74,22 @@ const MatchComponent = React.createClass({
 
 	render: function(){
 
-		
+		var winner = this.props.match.winning_player.name
+		var winningScore = this.props.match.winning_score
+		var loser = this.props.match.losing_team
+		var losingScore = this.props.match.losing_team_score
+		var showTeamDetails = false
+
 		if(this.props.match.game_type === 'ffa'){
 			var gameType = 'free-for-all'
 		}
 
 		if(this.props.match.game_type === 'team'){
+			winner = this.props.match.winning_team
+			winningScore = this.props.match.winning_team_score
+			var loser = this.props.match.losing_team
+			var losingScore = this.props.match.losing_team_score
+			showTeamDetails = true
 			var gameType = 'team deathmatch'
 		}
 
@@ -93,7 +103,9 @@ const MatchComponent = React.createClass({
 
 				<h2>{this.props.matchName}</h2>
 				<h3>{gameType}</h3>
-				<p>{this.props.match.winning_player.name} won with a score of &nbsp; {this.props.match.winning_score}</p>
+				<p>{winner} won with a score of {winningScore}</p>
+				<p className={showTeamDetails ? '' : 'hidden'} >{loser} lost with a score of {losingScore}</p>
+				<p>{this.props.match.winning_player.name} was the top player and scored {this.props.match.winning_score}</p>
 				<PlayersOfMatchComponent  match={this.props.match} players={this.props.match.players} />
 				<button onClick={this.delete_match}>remove</button>
 				<p>{moment(this.props.match.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
@@ -148,7 +160,7 @@ const PlayersOfMatchComponent = React.createClass({
 				</form>
 
 				<div className={teamDisplay ? '' : 'hidden'}>
-
+		
 					<h3>team 1</h3>
 					<div>{this._makePlayers(this.props.match.team1)}</div>
 
