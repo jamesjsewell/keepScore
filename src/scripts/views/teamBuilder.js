@@ -33,13 +33,16 @@ const TeamBuilderPage = React.createClass({
  	render: function(){
 
  		if(this.state.current_arena != undefined){
- 			
+ 			console.log(this.state.current_arena[0])
 			return (
 
 		 		<div className='arenas-page-wrapper'>
 		 			
 		 			<Navbar />
-		 			<PlayersOfTeamComponent arena={this.state.current_arena[0]} />
+		 			<div className='match-create-wrapper'>
+		 				<CreateTeamComponent arena={this.state.current_arena[0]} />
+
+		 			</div>
 
 		 		</div>
 

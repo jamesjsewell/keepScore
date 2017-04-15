@@ -191,13 +191,11 @@ const ACTIONS = {
 	//   TEAM ACTIONS				//
 
 	create_team: function(players, teamName){
-
-		if(gameType){
 			
 			var body = {}
 			body['players'] = players
 			body['name'] = teamName
-			body['type'] = gameType
+			body['createor'] = STORE.data.user._id
 			body['arena'] = STORE.data.current_arena_id
 
 			$.ajax({
@@ -206,8 +204,6 @@ const ACTIONS = {
 	            type: 'json',
 	            url: 'api/teams',
 	            data: body
-
-				}
 	        
 	        })
 	        .done((res)=>{
@@ -218,8 +214,6 @@ const ACTIONS = {
 	        .fail((err)=>{
 	            console.log('could not create team', err)
 	        })
-
-		}
 
 	},
 

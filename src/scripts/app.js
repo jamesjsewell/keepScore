@@ -5,6 +5,7 @@ import init from './init'
 import HomePage from './views/homePage.js'
 import ArenasPage from './views/arenasPage.js'
 import ArenaPage from './views/arenaPage.js'
+import TeamBuilderPage from './views/teamBuilder.js'
 import User from './models/userModel.js'
 import STORE from './store.js'
 
@@ -17,6 +18,7 @@ const app = function() {
 			'home': 'renderLoginPage',
 			'arena': 'renderArenaPage',
 			'arenas': 'renderArenasPage',
+			'teams': 'renderTeamPage',
 			'*default': 'redirect'
 
 		},
@@ -24,6 +26,12 @@ const app = function() {
 		redirect: function() {
 
 			this.renderLoginPage()
+
+		},
+
+		renderTeamPage: function(){
+
+			ReactDOM.render(<TeamBuilderPage />, document.querySelector('.container'))
 
 		},
 

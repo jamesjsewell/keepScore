@@ -24,7 +24,7 @@ const PlayersOfTeamComponent = React.createClass({
 	},
 
 	render: function(){
-
+		console.log(this.props.players)
 		return(
 
 			<div name='player-select-wrapper'>
@@ -48,7 +48,7 @@ const PlayersComponent = React.createClass({
 	
 		return(
 			
-			<label><input type="checkbox" name="player" value={this.props.player._id} />{this.props.player.name}</label>	
+			<label><input type="checkbox" name="players" value={this.props.player._id} />{this.props.player.name}</label>	
 
 		)
 
