@@ -188,10 +188,64 @@ const ACTIONS = {
 
 	},
 
+	//   TEAM ACTIONS				//
+
+	create_team: function(players, teamName){
+
+		if(gameType){
+			
+			var body = {}
+			body['players'] = players
+			body['name'] = teamName
+			body['type'] = gameType
+			body['arena'] = STORE.data.current_arena_id
+
+			$.ajax({
+
+	            method: 'POST',
+	            type: 'json',
+	            url: 'api/teams',
+	            data: body
+
+				}
+	        
+	        })
+	        .done((res)=>{
+
+	        	console.log('created a new team', res)
+	        	ACTIONS.perform_reset()
+	        })
+	        .fail((err)=>{
+	            console.log('could not create team', err)
+	        })
+
+		}
+
+	},
+
+	get_teams_by_arena: function(arenaId){
+
+		var teamColl = STORE.get('teamCollection')
+		
+		teamColl.fetch({
+
+				data: {arena: arenaId}
+
+			})
+
+			.then(function() {
+				
+				STORE._set({
+					team_collection: teamColl
+				})
+
+			})	
+	},
+
 	//------------------------------------------------//
 
 	//   COLLECT HIGH LEVEL DATA    //
-	
+
 	fetch_arenas: function(){
 
 		var arenaColl = STORE.get('arenaCollection')

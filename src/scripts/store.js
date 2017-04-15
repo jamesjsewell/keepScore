@@ -1,7 +1,7 @@
 import Backbone from 'backbone'
 import {MatchCollection} from './models/matchModel.js'
 import {ArenaCollection} from './models/arenaModel.js'
-import {ArenaModel} from './models/arenaModel.js'
+import {TeamCollection} from './models/teamModel.js'
 import User from './models/userModel.js'
 
 const STORE = Object.assign({}, Backbone.Events, {
@@ -11,6 +11,7 @@ const STORE = Object.assign({}, Backbone.Events, {
 		arenaCollection: new ArenaCollection(),
 		matchCollection: new MatchCollection(),
 		completedMatchCollection: new MatchCollection(),
+		teamCollection: new TeamCollection(),
 		userCollection: new User(),
 		match_create_type: 'dual'
 	},

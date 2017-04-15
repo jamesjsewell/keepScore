@@ -28,6 +28,16 @@ const UsersSchema = new mongoose.Schema({
 
 })
 
+const TeamSchema = new mongoose.Schema({
+
+    arena: { type: String },
+    name: { type: String }, 
+    players: [ {type: mongoose.Schema.Types.ObjectId, ref: 'User'} ],
+    creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    createdAt: { type: Date, default: Date.now }
+
+})
+
 const MatchSchema = new mongoose.Schema({
 
     name: { type: String },
@@ -67,6 +77,7 @@ module.exports = {
 
     User: mongoose.model('User', UsersSchema),
     Match: mongoose.model('Match', MatchSchema),
+    Team: mongoose.model('Team', TeamSchema),
     Arena: mongoose.model('Arena', ArenaSchema)
 
 }

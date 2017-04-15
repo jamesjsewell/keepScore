@@ -4,6 +4,7 @@ let helpers = require('../config/helpers.js')
 
 let User = require('../db/schema.js').User
 const Match = require('../db/schema.js').Match
+const Team = require('../db/schema.js').Team
 const Arena = require('../db/schema.js').Arena
   
   
@@ -92,6 +93,57 @@ const Arena = require('../db/schema.js').Arena
         response.json({
           msg: `target with id ${request.params.matchId} has been eliminated.`,
           id: request.params.matchId
+        })
+      })
+    })
+
+    //Team ROUTES
+    apiRouter
+    .get('/teams', function(req, res){
+      Team.find(req.query, function(err, results){
+        if(err) return res.json(err) 
+        res.json(results)
+      }).populate('players').populate('creator')
+    })
+    .get('/teams/:_id', function(req, res){
+      Team.findById(req.params._id, function(err, results){
+        if(err) return res.json(err) 
+        res.json(results)
+      }).populate('players').populate('creator')
+    })
+    .post('/teams', function(request, response) {
+ 
+      var newTeam = new Team(request.body)
+      newTeam.save(function(error, record) {
+        if (error) {
+          return response.status(400).json(error)
+        }
+        response.json(record)
+      })
+    })
+    .put('/teams/:_id', function(req, res){
+
+      Team.findByIdAndUpdate(req.params._id, req.body, function(err, record){
+          if (err) {
+            res.status(500).send(err)
+          }
+          else if (!record) {
+            res.status(400).send('no record found with that id')
+          }
+          else {
+            res.json(Object.assign({},req.body,record))
+          }
+      })
+
+    })
+    .delete('/teams/:teamId', function(request,response){
+      Team.remove({_id: request.params.teamId}, function(error) {
+        if (error) {
+          return response.status(400).json(error)
+        }
+        response.json({
+          msg: `target with id ${request.params.teamId} has been eliminated.`,
+          id: request.params.teamId
         })
       })
     })
