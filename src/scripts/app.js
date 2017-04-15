@@ -41,7 +41,6 @@ const app = function() {
 		
 		renderArenasPage: function() {
 
-			console.log('rendering arenas page')
 			ReactDOM.render(<ArenasPage />, document.querySelector('.container'))
 
 		},

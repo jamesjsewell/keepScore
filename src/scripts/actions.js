@@ -10,65 +10,9 @@ const ACTIONS = {
 	perform_reset: function(){
 
 		ACTIONS.get_queued_matches()
-		ACTIONS.set_store_current_arena_of_selected_user()
+		ACTIONS.get_current_arena()
 		ACTIONS.get_completed_matches()
 		ACTIONS.get_user()
-		ACTIONS.set_store_selected_user(STORE.data.user.attributes._id)
-
-		console.log(STORE.data)
-	},
-
-	//UPDATE STORE WITH DATA
-	ajax_to_store: function(theUrl, storeKey, extension){
-
-        $.ajax({
-
-	        method: 'GET',
-	        type: 'json',
-	        url: theUrl
-
-        })
-
-        .done((response)=>{
-
-        	var setObj = {}
-
-        	if(extension){
-
-        		setObj[storeKey] = response[extension]
-
-        	}
-
-        	else{
-
-        		setObj[storeKey] = response
-
-        	}
-        	
- 			STORE._set(setObj)
-
- 			console.log(STORE.data)
-
- 			if(storeKey === 'selected_user_current_arena'){
-
- 				console.log(STORE.data.selected_user_current_arena._id)
- 				ACTIONS.set_store_matches_for_arena(STORE.data.selected_user_current_arena._id)
-
- 			}
-
- 			if(storeKey === 'selected_user_arenas'){
-
- 				ACTIONS.store_populate_arenas_current_user()
- 			}
-
-
-        })
-
-        .fail((err)=>{
-
-            console.log('could not access user', err)
-
-        })
 
 	},
 
@@ -116,7 +60,7 @@ const ACTIONS = {
 	},
 
 	delete_match: function(matchId){
-		console.log(matchId)
+
 		$.ajax({
 
 	            method: 'delete',
@@ -157,21 +101,34 @@ const ACTIONS = {
 
 	},
 
-	set_match_to_active: function(match,arenaId){
+	get_queued_matches: function(arenaId){
 
-	
+		var matchColl = STORE.get('matchCollection')
+		
+		matchColl.fetch({arena: arenaId, status: 'inactive', status: 'active'})
 
+			.then(function() {
+
+				STORE._set({
+					queued_match_collection: matchColl
+				})
+
+			})	
 	},
 
-	set_me_on_store: function(){
+	get_completed_matches: function(arenaId){
 
-		if(User.getCurrentUser() != null){
+		var matchColl = STORE.get('matchCollection')
+		
+		matchColl.fetch({arena: arenaId, status: 'complete'})
 
-			STORE._set( { logged_in_user: User.getCurrentUser().attributes } )
-			console.log(STORE.data.logged_in_user)
+			.then(function() {
 
-		}
+				STORE._set({
+					completed_match_collection: matchColl
+				})
 
+			})	
 	},
 
 	fetch_arenas: function(){
@@ -205,72 +162,27 @@ const ACTIONS = {
 			})	
 	},
 
-	get_queued_matches: function(arenaId){
-
-		var matchColl = STORE.get('matchCollection')
-		
-		matchColl.fetch({arena: arenaId, status: 'inactive', status: 'active'})
-
-			.then(function() {
-
-				STORE._set({
-					queued_match_collection: matchColl
-				})
-				console.log(STORE.data.queued_match_collection)
-
-			})	
-	},
-
-	get_completed_matches: function(arenaId){
-
-		var matchColl = STORE.get('matchCollection')
-		
-		matchColl.fetch({arena: arenaId, status: 'complete'})
-
-			.then(function() {
-
-				STORE._set({
-					completed_match_collection: matchColl
-				})
-				console.log(STORE.data.completed_match_collection)
-
-			})	
-	},
-
 	get_user: function(userId){
 		
 		STORE._set({'user': User.getCurrentUser()})
-		console.log(STORE.data.user)
 
 	},
 
-	set_store_selected_user: function(userId){
-
-		//ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user')
-		STORE._set({selected_user: User.getCurrentUser()})
-		//ACTIONS.set_store_arenas_of_selected_user(userId)
-		//ACTIONS.set_store_current_arena_of_selected_user(userId)
-
-	},
-	//.set_store_current_arena_of_selected_user()
-	set_store_current_arena_of_selected_user: function(userId){
+	get_current_arena: function(userId){
 
 		//ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user_current_arena','current_arena', {'players'})
 		var arenaId = User.getCurrentUser().attributes.current_arena
-		console.log(arenaId)
 		var arenaColl = STORE.get('arenaCollection')
 		
 		arenaColl.fetch()
+
 			.then(function(arena) {
-				console.log(arenaColl)
+
 				let currentArena = arenaColl.where({'_id': arenaId})
-				console.log(currentArena)
 				STORE._set({
 					current_arena: currentArena
 				})
-			
-				
-				console.log(STORE.data)
+
 			})	
 
 	},
@@ -279,57 +191,6 @@ const ACTIONS = {
 	
   		ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user_arenas','arenas')
   	   
-	},
-
-	store_populate_arenas_current_user: function(){
-
-		// var userArenas = STORE.data.selected_user_arenas
-		// var arenaIds = []
-
-		// for(var i = 0; i < userArenas.length; i++){
-
-		// 	arenaIds.push(userArenas[i]._id)
-
-		// }
-
-		
-		// var filteredArenas = _.filter(Array.prototype.slice.call( STORE.data.arenaCollection.models, 0 ), function(model){ 
-
-		// 	if(arenaIds.includes(model.attributes._id)){
-		// 		return model
-		// 	}
-
-		// })
-
-		// STORE._set({populated_user_arenas: filteredArenas})
-
-		// ACTIONS.store_populate_current_arena_of_selected_user()
-
-	},
-
-	store_populate_current_arena_of_selected_user: function(){
-
-		// console.log('populating the current arena')
-
-		// var currentArena = _.find(Array.prototype.slice.call( STORE.data.arenaCollection.models, 0 ), function(model){ 
-
-		// 	if(STORE.data.selected_user.current_arena._id === model.attributes._id){
-		// 		return model
-		// 	}
-		// })
-
-		// console.log(currentArena)
-
-		// STORE._set({populated_user_current_arena: currentArena})
-
-	},
-
-
-	set_store_matches_for_arena: function(arenaId){
-
-		var filteredMatches = _.filter(Array.prototype.slice.call( STORE.data.matchCollection.models, 0 ), function(model){ return model.attributes.arena == arenaId })
-		STORE._set({selected_arena_matches: filteredMatches})
-
 	},
 
 	order_queue: function(){
@@ -350,45 +211,6 @@ const ACTIONS = {
 	},
 	//----------------------------------------------------//
 
-	//ACTIONS FOR THE ARENA
-
-	update_current_arena_for_player: function(newArenaId, playerId){
-
-		//var thePlayer = playerId
-		var thePlayer = User.getCurrentUser()
-
-		var existingArena = thePlayer.attributes.current_arena_id
-
-		console.log('the current arena for the user is', existingArena, 'the new arena id is', newArenaId)
-
-		if(existingArena === newArenaId){
-
-			console.log('this is already the current arena for the user')
-
-		}
-
-		else{
-
-			thePlayer.set({
-				current_arena_id: newArenaId
-			})
-
-			thePlayer.save().then(function() {
-				// do whatever, set something on store, whatever's next
-				console.log('user is now currently in a different arena', newArenaId)
-			},
-				function(err) {
-					console.log('could not assign user to this arena')
-					console.log(err)
-				}
-			)
-		}
-
-		ACTIONS.get_players_of_arena(existingArena)
-
-	},
-
-
 	set_status_of_player_in_arena: function(arenaId, playerId){
 
 	},
@@ -404,8 +226,6 @@ const ACTIONS = {
 	},
 	//----------------------------------------------------//
 	
-	//USER INPUT ACTIONS
-
 	//Arena Logic
 	create_match: function(gameType, matchData, name, team1, team2){
 
@@ -476,7 +296,6 @@ const ACTIONS = {
 			.done(
 				function(resp) {
 					alert('logged in!')
-					console.log(resp)
 					location.hash = 'arena'
 					STORE._set({userId: resp._id})
 					

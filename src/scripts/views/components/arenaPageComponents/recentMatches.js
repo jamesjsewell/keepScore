@@ -14,7 +14,7 @@ const RecentMatchesComponent = React.createClass({
 		for(var i = 0; i < matches.length; i++){
 
 			var match = matches[i].attributes
-			console.log(match.status)
+			
 			if(match.players.length > 0){
 
 				var players = match.players[0].email
@@ -68,7 +68,6 @@ const MatchComponent = React.createClass({
 	delete_match: function(evtObj){
 
 		evtObj.preventDefault()
-		console.log(this.props.match._id)
 		ACTIONS.delete_match(this.props.match._id)
 
 	},
@@ -114,8 +113,6 @@ const PlayersOfMatchComponent = React.createClass({
 		for(var i = 0; i < players.length; i++){
 
 			var scores = this.props.match.scores
-
-			console.log(scores)
 
 			var score = scores[players[i]._id]
 

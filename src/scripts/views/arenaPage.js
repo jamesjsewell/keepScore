@@ -21,17 +21,12 @@ const ArenaPage = React.createClass({
 
 	componentWillMount: function(){
 
-		// if(User.getCurrentUser() != null){
-
-		// 	ACTIONS.set_me_on_store()
-
-		// }
-
-		ACTIONS.get_queued_matches()
-		ACTIONS.set_store_current_arena_of_selected_user()
-		ACTIONS.get_completed_matches()
 		ACTIONS.get_user()
-		ACTIONS.set_store_selected_user(STORE.data.user.attributes._id)
+		ACTIONS.get_queued_matches()
+		ACTIONS.get_current_arena()
+		ACTIONS.get_completed_matches()
+		
+		
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
 		})
@@ -72,7 +67,7 @@ const ArenaPage = React.createClass({
  		}
 
  		if(this.state.current_arena != undefined && this.state.queued_match_collection != undefined && this.state.completed_match_collection != undefined){
- 			console.log(this.state.currentArena)
+ 			
 			return (
 
 	 		<div className='arenas-page-wrapper'>
@@ -144,7 +139,6 @@ const CreateMatchComponent = React.createClass({
 			}
 
 			ACTIONS.create_match('ffa', playerInputsArray, evt.target.matchName.value)
-			console.log(playerInputsArray)
 
 		}
 
@@ -193,8 +187,6 @@ const CreateMatchComponent = React.createClass({
 	},
 
 	render: function(){
-	
-		console.log(this.props.arena)
 
 		return(
 

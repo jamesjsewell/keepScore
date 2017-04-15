@@ -67,7 +67,6 @@ const MatchComponent = React.createClass({
 	delete_match: function(evtObj){
 
 		evtObj.preventDefault()
-		console.log(this.props.match._id)
 		ACTIONS.delete_match(this.props.match._id)
 
 	},
@@ -89,7 +88,7 @@ const MatchComponent = React.createClass({
 		}
 
 		var activeMatch = _.find(this.props.matches, function(match){
-			console.log(match.attributes._id)
+		
 			if(match.status != 'complete'){
 				return match
 			}
@@ -97,11 +96,11 @@ const MatchComponent = React.createClass({
 		})
 
 		if(activeMatch != undefined){
-			console.log(this.props.match, activeMatch)
-		if(this.props.match._id === activeMatch.attributes._id){
-		 	var showCompleteButton = true
-		}
-		console.log(this.props.match._id, activeMatch.attributes._id)
+		
+			if(this.props.match._id === activeMatch.attributes._id){
+			 	var showCompleteButton = true
+			}
+		
 		}
 		
 		

@@ -36,7 +36,7 @@ const HomePage = React.createClass({
 
  		evtObj.preventDefault()
 		var formElement = evtObj.target
-		console.log(formElement)
+		
 		var userData = {
 			name: formElement.userName.value,
 			email: formElement.email.value,
