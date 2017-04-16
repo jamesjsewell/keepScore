@@ -102,8 +102,7 @@ const CreateMatchComponent = React.createClass({
 
 				</form>
 
-				
-
+			
 			</div>
 
 		)
