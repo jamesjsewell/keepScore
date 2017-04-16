@@ -5,6 +5,7 @@ import User from '../models/userModel.js'
 //imported components
 import Navbar from './components/navbar.js'
 import PlayersOfTeamComponent from './components/teamPageComponents/playersOfTeamSelect.js'
+import CreateTeamComponent from './components/teamPageComponents/teamCreateComponent.js'
 
 const TeamBuilderPage = React.createClass({
 
@@ -39,7 +40,9 @@ const TeamBuilderPage = React.createClass({
 		 		<div className='arenas-page-wrapper'>
 		 			
 		 			<Navbar />
-		 			<div className='match-create-wrapper'>
+
+		 			<div className='team-create-wrapper'>
+		 				
 		 				<CreateTeamComponent arena={this.state.current_arena[0]} />
 
 		 			</div>
@@ -69,55 +72,6 @@ const TeamBuilderPage = React.createClass({
  		)	
  		
  	}
-
-})
-
-const CreateTeamComponent = React.createClass({
-
-
-	_handleSubmit: function(evt){
-
-		evt.preventDefault()
-
-		var playerInputsArray = []
-
-		var players = evt.target.players
-
-		for(var i = 0; i < players.length; i++){
-
-			if(players[i].checked === true){
-
-				playerInputsArray.push(players[i].value)
-
-			}
-
-		}
-
-		ACTIONS.create_team(playerInputsArray, evt.target.teamName.value)		
-
-	},
-
-	render: function(){
-
-		return(
-
-			<div className = 'create-team-wrapper'>
-				
-				<form className = 'create-team-form' onSubmit={this._handleSubmit}>
-
-					<input type='text' name='teamName' placeholder='define team name'/>
-
-  					<PlayersOfTeamComponent players={this.props.arena.attributes.players} />
-
-  					<button type='submit'>create team</button>
-
-				</form>
-
-			</div>
-
-		)
-
-	}
 
 })
 

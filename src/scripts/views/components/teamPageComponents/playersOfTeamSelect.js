@@ -24,16 +24,21 @@ const PlayersOfTeamComponent = React.createClass({
 	},
 
 	render: function(){
-		console.log(this.props.players)
+		
 		return(
 
-			<div name='player-select-wrapper'>
+				<div name='player-select-wrapper'>
 
-				{this._addPlayers(this.props.players)}
+					<div>{suggestions}</div>
+					
+					<input onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
 
-			</div>
+					<div>{this._renderSelectedPlayers(STORE.data.selected_players_team)}</div>
+					
+				</div>
 
-		)
+			)
+
 	
 	}
 

@@ -95,7 +95,7 @@ const PlayerChoiceComponent = React.createClass({
 					
 					<input onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
 
-					<div multiple size="2" >{this._renderSelectedPlayers(STORE.data.selected_players_team)}</div>
+					<div multiple size="2" >{this._renderSelectedPlayers(STORE.data.selected_players_match)}</div>
 
 				</div>
 
@@ -129,7 +129,7 @@ const PlayerChoiceComponent = React.createClass({
 					
 					<input onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
 
-					<div multiple size={STORE.data.selected_players_team != undefined ? STORE.data.selected_players_team.length : 3} name="freeForAll">{this._renderSelectedPlayers(STORE.data.selected_players_team)}</div>
+					<div multiple size={STORE.data.selected_players_match != undefined ? STORE.data.selected_players_match.length : 3} name="freeForAll">{this._renderSelectedPlayers(STORE.data.selected_players_match)}</div>
 					
 
 					
@@ -173,18 +173,18 @@ const PlayerSuggestionsComponent = React.createClass({
 
 		console.log(this.props.player.name)
 		var id = this.props.player._id
-		if(STORE.data.selected_players_team){
+		if(STORE.data.selected_players_match){
 
-			if(STORE.data.selected_players_team.includes(this.props.player)){
+			if(STORE.data.selected_players_match.includes(this.props.player)){
 
 			}
 
 			else{
 
-				var arrayOfPlayers = STORE.data.selected_players_team
+				var arrayOfPlayers = STORE.data.selected_players_match
 				arrayOfPlayers.push(this.props.player)
-				STORE._set({selected_players_team: arrayOfPlayers})
-				console.log(STORE.data.selected_players_team)
+				STORE._set({selected_players_match: arrayOfPlayers})
+				console.log(STORE.data.selected_players_match)
 
 			}
 
@@ -192,7 +192,7 @@ const PlayerSuggestionsComponent = React.createClass({
 
 		else{
 
-			STORE._set({selected_players_team: [this.props.player]})
+			STORE._set({selected_players_match: [this.props.player]})
 
 		}
 

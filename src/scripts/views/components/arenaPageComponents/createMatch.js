@@ -1,17 +1,20 @@
 import React from 'react'
-import STORE from '../store.js'
-import ACTIONS from '../actions.js'
-import User from '../models/userModel.js'
+import STORE from '../../../store.js'
+import ACTIONS from '../../../actions.js'
+import User from '../../../models/userModel.js'
+import _ from 'underscore'
+import PlayerChoiceComponent from './playerSelect.js'
 
 
 const CreateMatchComponent = React.createClass({
 
 	_setGameType: function(evt){
-
+		console.log('changed game type')
 		evt.preventDefault()
 		STORE._set({match_create_type: evt.target.value})
 		STORE._set({suggested_players: [] })
-		STORE._set({selected_players_team: []})
+		STORE._set({selected_players_match: []})
+		console.log(STORE.data)
 
 	},
 
