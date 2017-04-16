@@ -6,6 +6,7 @@ import User from '../models/userModel.js'
 import Navbar from './components/navbar.js'
 import PlayersOfTeamComponent from './components/teamPageComponents/playersOfTeamSelect.js'
 import CreateTeamComponent from './components/teamPageComponents/teamCreateComponent.js'
+import TeamsComponent from './components/teamPageComponents/teamsComponent.js'
 
 const TeamBuilderPage = React.createClass({
 
@@ -44,6 +45,7 @@ const TeamBuilderPage = React.createClass({
 		 			<div className='team-create-wrapper'>
 		 				
 		 				<CreateTeamComponent arena={this.state.current_arena[0]} />
+		 				<TeamsComponent arenaTeams={this.state.team_collection.models} arena={this.state.current_arena[0]} />
 
 		 			</div>
 

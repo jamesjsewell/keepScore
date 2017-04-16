@@ -217,6 +217,26 @@ const ACTIONS = {
 
 	},
 
+	delete_team: function(teamId){
+
+		$.ajax({
+
+	            method: 'delete',
+	            type: 'json',
+	            url: `api/teams/${teamId}`
+	        
+	        })
+	        .done((res)=>{
+	        	console.log('deleted a team', res)
+	       		ACTIONS.refresh_needed_data()
+
+	        })
+	        .fail((err)=>{
+	            console.log('could not delete team', err)
+	        })
+
+	},
+
 	get_teams_by_arena: function(arenaId){
 
 		var teamColl = STORE.get('teamCollection')
