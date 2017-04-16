@@ -21,7 +21,7 @@ const ArenaPage = React.createClass({
 
 	componentWillMount: function(){
 
-		ACTIONS.get_user()
+		ACTIONS.refresh_needed_data()
 			
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
@@ -124,17 +124,22 @@ const CreateMatchComponent = React.createClass({
 
 			var ffaPlayers = evt.target.freeForAll
 
-			for(var i = 0; i < ffaPlayers.length; i++){
+			if(ffaPlayers != undefined){
 
-				if(ffaPlayers[i].checked === true){
+				for(var i = 0; i < ffaPlayers.length; i++){
 
-					playerInputsArray.push(ffaPlayers[i].value)
+					if(ffaPlayers[i].checked === true){
+
+						playerInputsArray.push(ffaPlayers[i].value)
+
+					}
 
 				}
 
-			}
+				ACTIONS.create_match('ffa', playerInputsArray, evt.target.matchName.value)
 
-			ACTIONS.create_match('ffa', playerInputsArray, evt.target.matchName.value)
+			}
+			
 
 		}
 
@@ -177,9 +182,7 @@ const CreateMatchComponent = React.createClass({
 			playerInputsArray[0] = dualPlayer1.value
 			playerInputsArray[1] = dualPlayer2.value
 			
-
 			ACTIONS.create_match('dual', playerInputsArray, evt.target.matchName.value)
-
 
 		}
 
@@ -203,11 +206,13 @@ const CreateMatchComponent = React.createClass({
 			
   					</select>
 
-					<PlayerChoiceComponent gameType={STORE.data.match_create_type} players={this.props.arena.attributes.players}/>
+  					<PlayerChoiceComponent gameType={STORE.data.match_create_type} players={this.props.arena.attributes.players}/>
 
   					<button type='submit'>create match</button>
 
 				</form>
+
+				
 
 			</div>
 

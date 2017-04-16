@@ -40,8 +40,6 @@ const PlayersOfTeamComponent = React.createClass({
 })
 
 
-
-
 const PlayersComponent = React.createClass({
 
 	render: function(){

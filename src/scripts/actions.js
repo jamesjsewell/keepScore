@@ -7,7 +7,7 @@ import _ from 'underscore'
 
 const ACTIONS = {
 
-	perform_reset: function(){
+	refresh_needed_data: function(){
 
 		ACTIONS.get_user()
 
@@ -68,7 +68,7 @@ const ACTIONS = {
 	        .done((res)=>{
 
 	        	console.log('posted a new team match', res)
-	        	ACTIONS.perform_reset()
+	        	ACTIONS.refresh_needed_data()
 	        })
 	        .fail((err)=>{
 	            console.log('could not post match', err)
@@ -86,7 +86,7 @@ const ACTIONS = {
 	        })
 	        .done((res)=>{
 	        	console.log('deleted a match', res)
-	       		ACTIONS.perform_reset()
+	       		ACTIONS.refresh_needed_data()
 
 	        })
 	        .fail((err)=>{
@@ -107,7 +107,7 @@ const ACTIONS = {
 	        })
 	        .done((res)=>{
 	        	console.log('updated the match scores', res)
-	       		ACTIONS.perform_reset()
+	       		ACTIONS.refresh_needed_data()
 	       		//should update the status of the match to complete
 
 	        })
@@ -209,7 +209,7 @@ const ACTIONS = {
 	        .done((res)=>{
 
 	        	console.log('created a new team', res)
-	        	ACTIONS.perform_reset()
+	        	ACTIONS.refresh_needed_data()
 	        })
 	        .fail((err)=>{
 	            console.log('could not create team', err)
@@ -232,6 +232,8 @@ const ACTIONS = {
 				STORE._set({
 					team_collection: teamColl
 				})
+
+				console.log('set teams collection on store', STORE.data.team_collection)
 
 			})	
 	},
@@ -278,7 +280,9 @@ const ACTIONS = {
 					current_arena: currentArena,
 					current_arena_id: currentArena[0].attributes._id
 				})
+				
 				ACTIONS.get_queued_matches(STORE.data.current_arena_id)
+				ACTIONS.get_teams_by_arena()
 
 			})	
 

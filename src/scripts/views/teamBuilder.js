@@ -10,7 +10,7 @@ const TeamBuilderPage = React.createClass({
 
 	componentWillMount: function(){
 
-		ACTIONS.get_user()
+		ACTIONS.refresh_needed_data()
 			
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)

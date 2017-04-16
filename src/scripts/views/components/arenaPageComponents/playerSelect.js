@@ -42,6 +42,24 @@ const PlayerChoiceComponent = React.createClass({
 
 	},
 
+	_renderSelectedPlayers: function(players){
+
+		var playersArray = []
+
+		if(players != undefined){
+
+			for(var i = 0; i < players.length; i++){
+				var player = players[i]
+				playersArray.push(<SelectedPlayersComponent player={player} />)
+
+			}
+			console.log(playersArray)
+			return playersArray
+
+		}
+
+	},
+
 	_dualPlayers: function(players){
 
 		var playersArray = []
@@ -60,7 +78,38 @@ const PlayerChoiceComponent = React.createClass({
 
 	},
 
+	_handleKeyPress: function(evt){
+
+		var txt = evt.target.value
+	
+		var filteredPlayers = this.props.players.filter(function(player) {
+    		
+    		if(player != undefined && txt.length > 0){
+    			console.log(player)
+    			console.log(player.name)
+    			console.log(txt)
+    			return player.name.includes(txt)
+    		}
+  		
+  		})
+
+  		var playersElements = []
+
+  		for(var i = 0; i < filteredPlayers.length; i++){
+
+  			playersElements.push(<PlayerSuggestionsComponent player = {filteredPlayers[i]}  />)
+
+  		}
+
+  		STORE._set({suggested_players: playersElements })
+
+
+	},
+
 	render: function(){
+
+		var suggestions = STORE.data.suggested_players ? STORE.data.suggested_players : ''
+
 
 		if(this.props.gameType === 'dual'){
 
@@ -110,7 +159,14 @@ const PlayerChoiceComponent = React.createClass({
 
 				<div name='player-select-wrapper'>
 
-					{this._ffaPlayers(this.props.players)}
+					<div>{suggestions}</div>
+					
+					<input onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
+
+					<div multiple size={STORE.data.selected_players_team != undefined ? STORE.data.selected_players_team.length : 3} name="freeForAll">{this._renderSelectedPlayers(STORE.data.selected_players_team)}</div>
+					
+
+					
 
 				</div>
 
@@ -163,6 +219,77 @@ const FfaPlayersComponent = React.createClass({
 		return(
 			
 			<label><input type="checkbox" name="freeForAll" value={this.props.player._id} />{this.props.player.name}</label>	
+
+		)
+
+	}
+
+})
+
+const PlayerSuggestionsComponent = React.createClass({
+
+	_handleClick: function(evt){
+
+		evt.preventDefault()
+
+		console.log(this.props.player.name)
+		var id = this.props.player._id
+		if(STORE.data.selected_players_team){
+
+			if(STORE.data.selected_players_team.includes(this.props.player)){
+
+			}
+
+			else{
+
+				var arrayOfPlayers = STORE.data.selected_players_team
+				arrayOfPlayers.push(this.props.player)
+				STORE._set({selected_players_team: arrayOfPlayers})
+				console.log(STORE.data.selected_players_team)
+
+			}
+
+		}
+
+		else{
+
+			STORE._set({selected_players_team: [this.props.player]})
+
+		}
+
+	},
+
+	render: function(){
+		//<label><input onClick={this._handleClick} type="checkbox" name="freeForAll" value={this.props.player._id} />{this.props.player.name}</label>
+		//<button onClick={this._handleClick(this.props.player._id)}>{this.props.player.name}</button>
+		//<option value={this.props.player.email}>{this.props.player.name}</option>
+		return(
+			
+			<button type="button" onClick={this._handleClick}>{this.props.player.name}</button>
+
+		)
+
+	}
+
+})
+
+
+var SelectedPlayersComponent = React.createClass({
+
+	_handleClick: function(id){
+
+		//remove player from store array.
+
+	},
+
+	render: function(){
+		//<option value={this.props.player.email}>{this.props.player.name}</option>
+		return(
+			
+			<label name="freeForAll">
+			{this.props.player.name}
+			<input type="checkbox" name="freeForAll" value={this.props.player._id} />
+			</label>
 
 		)
 
