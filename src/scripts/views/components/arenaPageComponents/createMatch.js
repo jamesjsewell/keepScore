@@ -9,13 +9,13 @@ import PlayerChoiceComponent from './playerSelect.js'
 const CreateMatchComponent = React.createClass({
 
 	_setGameType: function(evt){
+
 		console.log('changed game type')
 		evt.preventDefault()
 		STORE._set({match_create_type: evt.target.value})
 		STORE._set({suggested_players: [] })
 		STORE._set({selected_players_match: []})
-		console.log(STORE.data)
-
+		
 	},
 
 	_handleSubmit: function(evt){
@@ -84,7 +84,7 @@ const CreateMatchComponent = React.createClass({
 
 			<div className = 'create-match-wrapper'>
 				
-				<form className = 'create-match-form' onSubmit={this._handleSubmit}>
+				<form onKeyDown={ (event)=>{if (event.keyCode == 13) { return false} }} name="createMatch" className = 'create-match-form' onSubmit={this._handleSubmit}>
 
 					<input type='text' name='matchName' placeholder='define match name'/>
 

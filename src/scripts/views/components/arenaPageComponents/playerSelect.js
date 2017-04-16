@@ -29,24 +29,43 @@ const PlayerChoiceComponent = React.createClass({
 
 		if(players != undefined){
 
-			var numberOfPlayers = 2
+			if(this.props.gameType	=== 'dual'){
+				var numberOfPlayers = 2
+
+				for(var i = 0; i < numberOfPlayers; i++){
+
+					var player = players[i]
+
+					if(player != undefined){
+
+						playersArray.push(<SelectedPlayersComponent player={player} />)
+
+					}
+					
+				}
+			
+				return playersArray
+			}
 
 			if(this.props.gameType === 'ffa'){
-				numberOfPlayers = players.length
-			}
-
-			for(var i = 0; i < numberOfPlayers; i++){
-
-				var player = players[i]
-
-				if(player != undefined){
-					playersArray.push(<SelectedPlayersComponent player={player} />)
-				}
 				
+				numberOfPlayers = players.length
+
+				for(var i = 0; i < numberOfPlayers; i++){
+
+					var player = players[i]
+
+					if(player != undefined){
+
+						playersArray.push(<SelectedPlayersComponent player={player} />)
+
+					}
+					
+				}
+			
+				return playersArray
 
 			}
-			console.log(playersArray)
-			return playersArray
 
 		}
 
@@ -55,8 +74,10 @@ const PlayerChoiceComponent = React.createClass({
 	_handleKeyPress: function(evt){
 
 		var txt = evt.target.value
-	
-		var filteredPlayers = this.props.players.filter(function(player) {
+
+		if(STORE.data.match_create_type === 'ffa'){
+
+			var filteredPlayers = this.props.players.filter(function(player) {
     		
     		if(player != undefined && txt.length > 0){
     			console.log(player)
@@ -65,25 +86,61 @@ const PlayerChoiceComponent = React.createClass({
     			return player.name.includes(txt)
     		}
   		
-  		})
+	  		})
 
-  		var playersElements = []
+	  		var playersElements = []
 
-  		for(var i = 0; i < filteredPlayers.length; i++){
+	  		for(var i = 0; i < filteredPlayers.length; i++){
 
-  			playersElements.push(<PlayerSuggestionsComponent player = {filteredPlayers[i]}  />)
+	  			playersElements.push(<PlayerSuggestionsComponent player = {filteredPlayers[i]}  />)
 
-  		}
+	  		}
 
-  		STORE._set({suggested_players: playersElements })
+	  		STORE._set({suggested_players: playersElements })
+
+		}
+
+		if(STORE.data.match_create_type === 'dual'){
+
+			var inputName = evt.target.name
+		
+			if(inputName === 'addPlayer1'){
+				var dualPlayer = 'player1'
+			}
+
+			if(inputName === 'addPlayer2'){
+				var dualPlayer = 'player2'
+			}
+
+			var filteredPlayers = this.props.players.filter(function(player) {
+    		
+    		if(player != undefined && txt.length > 0){
+    			console.log(player)
+    			console.log(player.name)
+    			console.log(txt)
+    			return player.name.includes(txt)
+    		}
+  		
+	  		})
+
+	  		var playersElements = []
+
+	  		for(var i = 0; i < filteredPlayers.length; i++){
+
+	  			playersElements.push(<PlayerSuggestionsComponent dualPlayer = {dualPlayer} player = {filteredPlayers[i]}  />)
+
+	  		}
+
+	  		STORE._set({suggested_players: playersElements })
 
 
+		}
+	
 	},
 
 	render: function(){
 
 		var suggestions = STORE.data.suggested_players ? STORE.data.suggested_players : ''
-
 
 		if(this.props.gameType === 'dual'){
 
@@ -93,7 +150,9 @@ const PlayerChoiceComponent = React.createClass({
 
 					<div>{suggestions}</div>
 					
-					<input onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
+					<input onKeyUp = {this._handleKeyPress} name = "addPlayer1" placeholder = "player1" />
+
+					<input onKeyUp = {this._handleKeyPress} name = "addPlayer2" placeholder = "player2" />
 
 					<div multiple size="2" >{this._renderSelectedPlayers(STORE.data.selected_players_match)}</div>
 
@@ -108,9 +167,11 @@ const PlayerChoiceComponent = React.createClass({
 			return(
 
 				<div name='player-select-wrapper'>
+
 					<input type='text' name='team1Name' placeholder='team1 name'/>
 
 					<input type='text' name='team2Name' placeholder='team2 name'/>
+
 					{this._teamPlayers(this.props.players)}
 
 				</div>
@@ -129,10 +190,7 @@ const PlayerChoiceComponent = React.createClass({
 					
 					<input onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
 
-					<div multiple size={STORE.data.selected_players_match != undefined ? STORE.data.selected_players_match.length : 3} name="freeForAll">{this._renderSelectedPlayers(STORE.data.selected_players_match)}</div>
-					
-
-					
+					<div multiple size={STORE.data.selected_players_match != undefined ? STORE.data.selected_players_match.length : 3} name="freeForAll">{this._renderSelectedPlayers(STORE.data.selected_players_match)}</div>	
 
 				</div>
 
@@ -147,7 +205,7 @@ const PlayerChoiceComponent = React.createClass({
 const TeamPlayersComponent = React.createClass({
 
 	render: function(){
-		//<option value={this.props.player.email}>{this.props.player.name}</option>
+		
 		return(
 			
 			<label name='teams'>
@@ -173,18 +231,46 @@ const PlayerSuggestionsComponent = React.createClass({
 
 		console.log(this.props.player.name)
 		var id = this.props.player._id
+
 		if(STORE.data.selected_players_match){
 
-			if(STORE.data.selected_players_match.includes(this.props.player)){
+			if(STORE.data.match_create_type === 'dual'){
+
+				if(this.props.dualPlayer === 'player1'){
+					
+					var arrayOfPlayers = STORE.data.selected_players_match
+					arrayOfPlayers[0] = this.props.player
+					STORE._set({selected_players_match: arrayOfPlayers})
+					console.log(STORE.data.selected_players_match)
+
+				}
+				if(this.props.dualPlayer === 'player2'){
+
+					var arrayOfPlayers = STORE.data.selected_players_match
+					arrayOfPlayers[1] = this.props.player
+					STORE._set({selected_players_match: arrayOfPlayers})
+					console.log(STORE.data.selected_players_match)
+
+				}
 
 			}
 
-			else{
+			if(STORE.data.match_create_type === 'ffa'){
 
-				var arrayOfPlayers = STORE.data.selected_players_match
-				arrayOfPlayers.push(this.props.player)
-				STORE._set({selected_players_match: arrayOfPlayers})
-				console.log(STORE.data.selected_players_match)
+
+			
+				if(STORE.data.selected_players_match.includes(this.props.player)){
+					console.log('player already in selected')
+				}
+
+				else{
+
+					var arrayOfPlayers = STORE.data.selected_players_match
+					arrayOfPlayers.push(this.props.player)
+					STORE._set({selected_players_match: arrayOfPlayers})
+					console.log(STORE.data.selected_players_match)
+
+				}
 
 			}
 
@@ -222,10 +308,15 @@ var SelectedPlayersComponent = React.createClass({
 	render: function(){
 
 		if(STORE.data.match_create_type === 'dual'){
+
 			var nameOfInput = "dual"
+
 		}
+
 		else{
+
 			var nameOfInput = "freeForAll"
+
 		}
 	
 		return(
