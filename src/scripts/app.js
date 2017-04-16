@@ -5,7 +5,7 @@ import init from './init'
 import HomePage from './views/homePage.js'
 import ArenasPage from './views/arenasPage.js'
 import ArenaPage from './views/arenaPage.js'
-import TeamBuilderPage from './views/teamBuilder.js'
+import TeamBuilderPage from './views/teamBuilderPage.js'
 import User from './models/userModel.js'
 import STORE from './store.js'
 

@@ -5,25 +5,6 @@ import User from '../../../models/userModel.js'
 
 const PlayerChoiceComponent = React.createClass({
 
-
-	_ffaPlayers: function(players){
-
-		var playersArray = []
-
-		for(var i = 0; i < players.length; i++){
-
-			playersArray.push(<FfaPlayersComponent player={players[i]} />)
-
-		}
-
-		return(
-
-			playersArray
-
-		)
-
-	},
-
 	_teamPlayers: function(players){
 
 		var playersArray = []
@@ -48,33 +29,26 @@ const PlayerChoiceComponent = React.createClass({
 
 		if(players != undefined){
 
-			for(var i = 0; i < players.length; i++){
+			var numberOfPlayers = 2
+
+			if(this.props.gameType === 'ffa'){
+				numberOfPlayers = players.length
+			}
+
+			for(var i = 0; i < numberOfPlayers; i++){
+
 				var player = players[i]
-				playersArray.push(<SelectedPlayersComponent player={player} />)
+
+				if(player != undefined){
+					playersArray.push(<SelectedPlayersComponent player={player} />)
+				}
+				
 
 			}
 			console.log(playersArray)
 			return playersArray
 
 		}
-
-	},
-
-	_dualPlayers: function(players){
-
-		var playersArray = []
-
-		for(var i = 0; i < players.length; i++){
-
-			playersArray.push(<DualPlayersComponent player={players[i]} />)
-
-		}
-
-		return(
-
-			playersArray
-
-		)
 
 	},
 
@@ -117,19 +91,11 @@ const PlayerChoiceComponent = React.createClass({
 
 				<div name='player-select-wrapper'>
 
-					<div>
-					<h4 id="dual-player-title">player 1</h4>
-						<select name='player1'>
-							{this._dualPlayers(this.props.players)}
-						</select>
-					</div>
+					<div>{suggestions}</div>
+					
+					<input onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
 
-					<div>
-					<h4 id="dual-player-title">player 2</h4>
-						<select name='player2'>
-							{this._dualPlayers(this.props.players)}
-						</select>
-					</div>
+					<div multiple size="2" >{this._renderSelectedPlayers(STORE.data.selected_players_team)}</div>
 
 				</div>
 
@@ -178,20 +144,6 @@ const PlayerChoiceComponent = React.createClass({
 
 })
 
-const DualPlayersComponent = React.createClass({
-
-	render: function(){
-		//<option value={this.props.player.email}>{this.props.player.name}</option>
-		return(
-			<option name="dual" value={this.props.player._id}>{this.props.player.name}</option>
-			//<label><input type="checkbox" name=	{this.props.player.email} value={this.props.player.email} />{this.props.player.name}</label>	
-
-		)
-
-	}
-
-})
-
 const TeamPlayersComponent = React.createClass({
 
 	render: function(){
@@ -212,19 +164,6 @@ const TeamPlayersComponent = React.createClass({
 
 })
 
-const FfaPlayersComponent = React.createClass({
-
-	render: function(){
-		//<option value={this.props.player.email}>{this.props.player.name}</option>
-		return(
-			
-			<label><input type="checkbox" name="freeForAll" value={this.props.player._id} />{this.props.player.name}</label>	
-
-		)
-
-	}
-
-})
 
 const PlayerSuggestionsComponent = React.createClass({
 
@@ -260,9 +199,7 @@ const PlayerSuggestionsComponent = React.createClass({
 	},
 
 	render: function(){
-		//<label><input onClick={this._handleClick} type="checkbox" name="freeForAll" value={this.props.player._id} />{this.props.player.name}</label>
-		//<button onClick={this._handleClick(this.props.player._id)}>{this.props.player.name}</button>
-		//<option value={this.props.player.email}>{this.props.player.name}</option>
+
 		return(
 			
 			<button type="button" onClick={this._handleClick}>{this.props.player.name}</button>
@@ -283,12 +220,19 @@ var SelectedPlayersComponent = React.createClass({
 	},
 
 	render: function(){
-		//<option value={this.props.player.email}>{this.props.player.name}</option>
+
+		if(STORE.data.match_create_type === 'dual'){
+			var nameOfInput = "dual"
+		}
+		else{
+			var nameOfInput = "freeForAll"
+		}
+	
 		return(
 			
 			<label name="freeForAll">
 			{this.props.player.name}
-			<input type="checkbox" name="freeForAll" value={this.props.player._id} />
+			<input type="checkbox" name={nameOfInput} value={this.props.player._id} />
 			</label>
 
 		)
