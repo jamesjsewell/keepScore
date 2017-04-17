@@ -16,7 +16,7 @@ const ACTIONS = {
 	//       MATCH ACTIONS        //
 
 	create_match: function(gameType, matchData, name, team1, team2, team1Name, team2Name){
-		console.log(team1Name,team2Name)
+				
 		if(gameType){
 			
 			var body = {}
@@ -133,10 +133,11 @@ const ACTIONS = {
 			})
 
 			.then(function(resp) {
-				console.log(resp)
+			
 				STORE._set({
 					queued_match_collection: matchColl
 				})
+
 				ACTIONS.get_completed_matches(arenaId)
 
 			})	
@@ -153,7 +154,7 @@ const ACTIONS = {
 			})
 
 			.then(function() {
-				console.log(matchColl)
+				
 				STORE._set({
 					completed_match_collection: matchColl
 				})
@@ -279,6 +280,34 @@ const ACTIONS = {
 					arenaCollection: arenaColl
 				})
  		
+			})	
+
+	},
+
+	query_user_by_name: function(userInput){
+		///ab+c/i
+		//"$new RegExp(/"+ userInput +"/, 'g')"
+		var userColl = STORE.get('allUsersCollection')
+		console.log(userInput, 'user input', "$new RegExp(/"+ userInput +"/, 'i')")
+		userColl.fetch({
+
+				data: {
+
+					name: "$"+userInput
+
+				}
+
+			})
+
+			.then(function() {
+				console.log(userColl)
+				STORE._set({
+					auto_complete_users: userColl
+				})
+
+				console.log('set filtered users collection on store', userColl.models)
+				console.log(STORE.data.auto_complete_users)
+
 			})	
 
 	},

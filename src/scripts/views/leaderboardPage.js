@@ -5,10 +5,10 @@ import User from '../models/userModel.js'
 //imported components
 import Navbar from './components/navbar.js'
 import PlayersOfTeamComponent from './components/teamPageComponents/playersOfTeamSelect.js'
-import CreateArenaComponent from './components/allArenasPageComponents/arenaCreateComponent.js'
+import CreateTeamComponent from './components/teamPageComponents/teamCreateComponent.js'
 import TeamsComponent from './components/teamPageComponents/teamsComponent.js'
 
-const ArenasPage = React.createClass({
+const leaderboardPage = React.createClass({
 
 	componentWillMount: function(){
 
@@ -33,19 +33,19 @@ const ArenasPage = React.createClass({
 	},
 
  	render: function(){
- 		//<ArenasComponent arenaTeams={this.state.arena_collection.models} arena={this.state.current_arena[0]} />
- 		console.log(this.state)
- 		if(true === true){
- 		
+
+ 		if(this.state.current_arena != undefined && this.state.team_collection != undefined){
+ 			console.log(this.state.current_arena[0])
 			return (
 
 		 		<div className='arenas-page-wrapper'>
 		 			
 		 			<Navbar />
 
-		 			<div className='arena-create-wrapper'>
+		 			<div className='team-create-wrapper'>
 		 				
-		 				<CreateArenaComponent />
+		 				<CreateTeamComponent arena={this.state.current_arena[0]} />
+		 				<TeamsComponent arenaTeams={this.state.team_collection.models} arena={this.state.current_arena[0]} />
 
 		 			</div>
 
@@ -77,4 +77,4 @@ const ArenasPage = React.createClass({
 
 })
 
-export default ArenasPage
+export default LeaderboardPage
