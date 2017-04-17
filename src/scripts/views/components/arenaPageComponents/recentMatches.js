@@ -161,10 +161,10 @@ const PlayersOfMatchComponent = React.createClass({
 
 				<div className={teamDisplay ? '' : 'hidden'}>
 		
-					<h3>team 1</h3>
+					<h3>{this.props.match.team1_name}</h3>
 					<div>{this._makePlayers(this.props.match.team1)}</div>
 
-					<h3>team 2</h3>
+					<h3>{this.props.match.team1_name}</h3>
 					<div>{this._makePlayers(this.props.match.team2)}</div>
 
 				</div>

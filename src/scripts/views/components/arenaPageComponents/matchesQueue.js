@@ -173,13 +173,13 @@ const PlayersOfMatchComponent = React.createClass({
 			return teamScore })
 
 			if(winningTeamScore === team2Score){
-				winningTeam = 'team2'
+				winningTeam = this.props.match.team2_name
 				losingTeamScore = team1Score
-				losingTeam = 'team1'
+				losingTeam = this.props.match.team1_name
 			}
 			else{
-				winningTeam = 'team1'
-				losingTeam = 'team2'
+				winningTeam = this.props.match.team1_name
+				losingTeam = this.props.match.team2_name
 				losingTeamScore = team2Score
 			}
 			
@@ -214,12 +214,16 @@ const PlayersOfMatchComponent = React.createClass({
 		if(this.props.match.game_type === 'team'){
 			var teamDisplay = true
 			var nonTeamDisplay = false
+			var team1Name = this.props.match.team1_name
+			var team2Name = this.props.match.team2_name
 		}
 		else{
 			var teamDisplay = false
 			var nonTeamDisplay = true
+			var team1Name = 'team 1'
+			var team2Name = 'team 2'
 		}
-
+		
 		return(
 
 			<div className = 'players-of-match-wrapper'>
@@ -235,10 +239,10 @@ const PlayersOfMatchComponent = React.createClass({
 
 					<form onSubmit={this._handleSubmit} name={this.props.match._id}>
 
-						<h3>team 1</h3>
+						<h3>{team1Name}</h3>
 						<div>{this._makePlayers(this.props.match.team1)}</div>
 
-						<h3>team 2</h3>
+						<h3>{team2Name}</h3>
 						<div>{this._makePlayers(this.props.match.team2)}</div>
 
 						<button className={this.props.showCompleteBtn ? '' : 'hidden'} type='submit'>complete</button>

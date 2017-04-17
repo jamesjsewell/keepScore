@@ -15,8 +15,8 @@ const ACTIONS = {
 
 	//       MATCH ACTIONS        //
 
-	create_match: function(gameType, matchData, name, team1, team2){
-
+	create_match: function(gameType, matchData, name, team1, team2, team1Name, team2Name){
+		console.log(team1Name,team2Name)
 		if(gameType){
 			
 			var body = {}
@@ -27,6 +27,8 @@ const ACTIONS = {
 			body['team1'] = team1
 			body['team2'] = team2
 			body['arena'] = STORE.data.current_arena_id
+			body['team1_name'] = team1Name
+			body['team2_name'] = team2Name
 
 			ACTIONS.ajax_post_match(body)
 
@@ -42,7 +44,10 @@ const ACTIONS = {
 		players = data.players,
 		team1 = data.team1, 
 		team2 = data.team2,
-		arena = data.arena
+		arena = data.arena,
+		team1Name = data.team1_name,
+		team2Name = data.team2_name
+
 		console.log(arena)
 		$.ajax({
 
@@ -58,8 +63,8 @@ const ACTIONS = {
 				players: players,
 				team1: team1,
 				team2: team2,
-				team1_name: 'team1',
-				team2_name: 'team2',
+				team1_name: team1Name,
+				team2_name: team2Name,
 				status: 'inactive'
 
 				}
