@@ -48,31 +48,75 @@ const CreateMatchComponent = React.createClass({
 		}
 
 		if(STORE.data.match_create_type === 'team'){
+			
+			var team1 = evt.target.team[0]
+			var team2 = evt.target.team[1]
+			var team1Id = team1.value
+			var team2Id = team2.value
 
-			var selectedPlayers = []
-			var teamPlayers = evt.target.teamPlayer
-			var assignedTeams = evt.target.teamSelect
-			var team1Name = evt.target.team1Name.value
-			var team2Name = evt.target.team2Name.value
-			console.log(team1Name, team2Name)
-			var team1Players = []
-			var team2Players = []
+			var team1Obj = this.props.arenaTeams.filter(function(team){
 
-			for(var i = 0; i < teamPlayers.length; i++){
-
-				if(teamPlayers[i].checked === true){
-					console.log(teamPlayers[i])
-					selectedPlayers.push(teamPlayers[i].value)
-					if(assignedTeams[i].value === 'team1'){
-						team1Players.push(teamPlayers[i].value)
-					}
-					if(assignedTeams[i].value === 'team2'){
-						team2Players.push(teamPlayers[i].value)
-					}
+				if(team.attributes._id === team1Id){
+					return team
 				}
+			})
+
+			var team2Obj = this.props.arenaTeams.filter(function(team){
+
+				if(team.attributes._id === team2Id){
+					return team
+				}
+			})
+
+			console.log(team1Obj[0].attributes.players,'team1')
+			console.log(team2Obj[0].attributes.players,'team2')
+
+			var selectedTeams = []
+			if(team1.checked === true){
+				selectedTeams.push(team1Id)
+			}
+			if(team2.checked === true){
+				selectedTeams.push(team2Id)
 			}
 
-			ACTIONS.create_match('team', selectedPlayers, evt.target.matchName.value, team1Players, team2Players)
+			var team1Players = []
+			var team2Players = []
+			var teamPlayers = []
+
+			for(var i = 0; i < team1Obj[0].attributes.players.length; i++){
+				team1Players.push(team1Obj[0].attributes.players[i]._id)
+				teamPlayers.push(team1Obj[0].attributes.players[i]._id)
+			}
+
+			for(var i = 0; i < team2Obj[0].attributes.players.length; i++){
+				team2Players.push(team2Obj[0].attributes.players[i]._id)
+				teamPlayers.push(team2Obj[0].attributes.players[i]._id)
+			}
+
+			// var selectedTeams = []
+			// var teamPlayers = evt.target.teamPlayer
+			// var assignedTeams = evt.target.team
+			// var team1Name = evt.target.team1.value
+			// var team2Name = evt.target.team2.value
+			// console.log(team1Name, team2Name)
+			// var team1Players = []
+			// var team2Players = []
+
+			// for(var i = 0; i < teamPlayers.length; i++){
+
+			// 	if(teamPlayers[i].checked === true){
+			// 		console.log(teamPlayers[i])
+			// 		selectedTeams.push(teamPlayers[i].value)
+			// 		if(assignedTeams[i].value === 'team1'){
+			// 			team1Players.push(teamPlayers[i].value)
+			// 		}
+			// 		if(assignedTeams[i].value === 'team2'){
+			// 			team2Players.push(teamPlayers[i].value)
+			// 		}
+			// 	}
+			// }
+
+			ACTIONS.create_match('team', teamPlayers, evt.target.matchName.value, team1Players, team2Players)
 
 		}
 
@@ -96,7 +140,7 @@ const CreateMatchComponent = React.createClass({
 			
   					</select>
 
-  					<PlayerChoiceComponent gameType={STORE.data.match_create_type} players={this.props.arena.attributes.players}/>
+  					<PlayerChoiceComponent arenaTeams={this.props.arenaTeams} gameType={STORE.data.match_create_type} players={this.props.arena.attributes.players}/>
 
   					<button type='submit'>create match</button>
 

@@ -57,16 +57,9 @@ const app = function() {
 		
 			var checkUserAuth = function() {
 
-
 				if(User.getCurrentUser() === null){
 
 					location.hash = 'home'
-
-				}
-
-				else{
-
-					location.hash = 'arena'
 
 				}
 

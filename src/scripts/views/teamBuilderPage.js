@@ -34,7 +34,7 @@ const TeamBuilderPage = React.createClass({
 
  	render: function(){
 
- 		if(this.state.current_arena != undefined){
+ 		if(this.state.current_arena != undefined && this.state.team_collection != undefined){
  			console.log(this.state.current_arena[0])
 			return (
 

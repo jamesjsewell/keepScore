@@ -52,6 +52,7 @@ const Navbar = React.createClass({
 	 		<ul className='navbar-wrapper'>
 
 	 			<a href="#arena">arena</a>
+	 			<a href="#teams">team builder</a>
 				<a href="#arenas">find arenas</a>
 				<a href="#profile">my profile</a>
 				<a onClick={this._handleLogout} href="#home">{User.getCurrentUser() === null || User.getCurrentUser().attributes._id === false ? 'login' : 'logout'}</a>	

@@ -23,6 +23,32 @@ const PlayerChoiceComponent = React.createClass({
 
 	},
 
+	_renderSelectedTeams: function(teams){
+
+		var teamsArray = []
+
+		if(teams != undefined){
+
+			var numberOfTeams = 2
+
+			for(var i = 0; i < numberOfTeams; i++){
+
+				var team = teams[i]
+
+				if(team != undefined){
+
+					teamsArray.push(<SelectedTeamsComponent team={team} />)
+
+				}
+				
+			}
+		
+			return teamsArray
+
+		}
+
+	},
+
 	_renderSelectedPlayers: function(players){
 
 		var playersArray = []
@@ -135,6 +161,42 @@ const PlayerChoiceComponent = React.createClass({
 
 
 		}
+
+		if(STORE.data.match_create_type === 'team'){
+
+			var inputName = evt.target.name
+		
+			if(inputName === 'team1'){
+				var whatTeam = 'team1'
+			}
+
+			if(inputName === 'team2'){
+				var whatTeam = 'team2'
+			}
+
+			var filteredTeams = this.props.arenaTeams.filter(function(team) {
+    		
+    		if(team != undefined && txt.length > 0){
+    			console.log(team)
+    			console.log(team.attributes.name)
+    			console.log(txt)
+    			return team.attributes.name.includes(txt)
+    		}
+  		
+	  		})
+
+	  		var teamsElements = []
+
+	  		for(var i = 0; i < filteredTeams.length; i++){
+
+	  			teamsElements.push(<TeamSuggestionsComponent whatTeam = {whatTeam} team = {filteredTeams[i]}  />)
+
+	  		}
+
+	  		STORE._set({match_suggested_teams: teamsElements })
+
+
+		}
 	
 	},
 
@@ -164,15 +226,19 @@ const PlayerChoiceComponent = React.createClass({
 
 		if(this.props.gameType === 'team'){
 
+			var suggestions = STORE.data.match_suggested_teams
+
 			return(
 
 				<div name='player-select-wrapper'>
 
-					<input type='text' name='team1Name' placeholder='team1 name'/>
+					<div>{suggestions}</div>
+					
+					<input onKeyUp = {this._handleKeyPress} name = "team1" placeholder = "team 1" />
 
-					<input type='text' name='team2Name' placeholder='team2 name'/>
+					<input onKeyUp = {this._handleKeyPress} name = "team2" placeholder = "team 2" />
 
-					{this._teamPlayers(this.props.players)}
+					<div>{this._renderSelectedTeams(STORE.data.match_selected_teams)}</div>
 
 				</div>
 
@@ -222,6 +288,90 @@ const TeamPlayersComponent = React.createClass({
 
 })
 
+const TeamSuggestionsComponent = React.createClass({
+
+	_handleClick: function(evt){
+
+		evt.preventDefault()
+
+		console.log(this.props.team.attributes.name)
+		var id = this.props.team.attributes._id
+
+		if(STORE.data.match_selected_teams){
+
+			if(this.props.whatTeam === 'team1'){
+				
+				var arrayOfTeams = STORE.data.match_selected_teams
+				arrayOfTeams[0] = this.props.team
+				STORE._set({match_selected_teams: arrayOfTeams})
+
+			}
+
+			if(this.props.whatTeam === 'team2'){
+
+				var arrayOfTeams = STORE.data.match_selected_teams
+				arrayOfTeams[1] = this.props.team
+				STORE._set({match_selected_teams: arrayOfTeams})
+
+			}
+			
+		}
+
+		else{
+
+			STORE._set({match_selected_teams: [this.props.team]})
+
+		}
+
+	},
+
+	render: function(){
+
+		return(
+			
+			<button type="button" onClick={this._handleClick}>{this.props.team.attributes.name}</button>
+
+		)
+
+	}
+
+})
+
+var SelectedTeamsComponent = React.createClass({
+
+	_handleClick: function(id){
+
+		//remove player from store array.
+
+	},
+
+	_makePlayers: function(player){
+
+		return(
+
+			<p>
+				{player.name}
+			</p>
+
+		)
+
+	},
+
+	render: function(){
+		
+		return(
+			
+			<label name="team">
+			{this.props.team.attributes.name}
+			<input type="checkbox" name="team" value={this.props.team.attributes._id} />
+			{this.props.team.attributes.players.map(this._makePlayers)}
+			</label>
+
+		)
+
+	}
+
+})
 
 const PlayerSuggestionsComponent = React.createClass({
 
