@@ -260,6 +260,8 @@ const ACTIONS = {
 					team_collection: teamColl
 				})
 
+				ACTIONS.get_arenas_by_creator()
+
 				console.log('set teams collection on store', STORE.data.team_collection)
 
 			})	
@@ -295,11 +297,11 @@ const ACTIONS = {
 
 	get_arenas_by_creator: function(){
 
-		var arenaColl = STORE.get('arenaCollection')
-		
+		var arenaColl = STORE.get('userCreatedArenaColl')
+		console.log(STORE.data.userId)
 		arenaColl.fetch({
 
-				data: {creator: STORE.data.userId}
+				data: {"creator": STORE.data.userId}
 
 			})
 
@@ -366,6 +368,7 @@ const ACTIONS = {
 	get_user: function(userId){
 		
 		STORE._set({'user': User.getCurrentUser()})
+		STORE._set({'userId': User.getCurrentUser().attributes._id})
 		ACTIONS.get_current_arena()
 
 	},

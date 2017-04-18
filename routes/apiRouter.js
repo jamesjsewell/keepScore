@@ -154,13 +154,13 @@ const Arena = require('../db/schema.js').Arena
       Arena.find(req.query, function(err, results){
         if(err) return res.json(err) 
         res.json(results)
-      }).populate('players').populate('matches')
+      }).populate('players').populate('matches').populate('creator')
     })
     .get('/arenas/:_id', function(req, res){
       Arena.findById(req.params._id, function(err, results){
         if(err) return res.json(err) 
         res.json(results)
-      }).populate('players').populate('matches')
+      }).populate('players').populate('matches').populate('creator')
     })
     .post('/arenas', function(request, response) {
 

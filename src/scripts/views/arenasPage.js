@@ -14,17 +14,10 @@ const ArenasPage = React.createClass({
 	componentWillMount: function(){
 
 		ACTIONS.refresh_needed_data()
-		ACTIONS.get_arenas_by_creator()
-			
+
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
 		})
-
-	},
-
-	componentWillUnmount: function() {
-
-		STORE.off('dataUpdated')
 
 	},
 
@@ -53,19 +46,11 @@ const ArenasPage = React.createClass({
 	},
 
  	render: function(){
- 		//<ArenasComponent arenaTeams={this.state.arena_collection.models} arena={this.state.current_arena[0]} />
- 		console.log(this.state)
 
- 		if(true === true){
+ 		if(STORE.data.my_created_arenas != undefined){
 
- 			var myArenas = null
-
- 			if(STORE.data.my_created_arenas){
-
- 				var myArenas = STORE.data.my_created_arenas
-
- 			}
- 			
+ 			var myArenas = STORE.data.my_created_arenas
+			
 			return (
 
 		 		<div className='arenas-page-wrapper'>
