@@ -23,6 +23,13 @@ const PlayersOfArenaSelectComponent = React.createClass({
 
 	},
 
+	_handleClick: function(evt){
+
+		evt.preventDefault()
+		STORE._set({last_selected_input: evt.target})
+
+	},
+
 	_renderSelectedPlayers: function(players){
 
 		var playersArray = []
@@ -53,16 +60,24 @@ const PlayersOfArenaSelectComponent = React.createClass({
 	
 		var playersElements = []
 
-		if(players != undefined){
-			console.log(players)
-			for(var i = 0; i < players.length; i++){
-				console.log('yes')
-				playersElements.push(<ArenaPlayerSuggestionsComponent player = {players[i].attributes}  />)
+		if(STORE.data.last_selected_input != undefined){
+
+			if(STORE.data.last_selected_input.name === 'addPlayer'){
+
+				if(players != undefined){
+					console.log(players)
+					for(var i = 0; i < players.length; i++){
+						console.log('yes')
+						playersElements.push(<ArenaPlayerSuggestionsComponent player = {players[i].attributes}  />)
+
+					}
+
+					return playersElements
+
+
+				}
 
 			}
-
-			return playersElements
-
 
 		}
 		
@@ -106,14 +121,13 @@ const PlayersOfArenaSelectComponent = React.createClass({
 
 					<div>{this._renderAutoComplete(suggestions)	}</div>
 					
-					<input onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
+					<input onClick={this._handleClick} onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
 
 					<div>{this._renderSelectedPlayers(arenaPlayers)}</div>
 					
 				</div>
 
 			)
-
 	
 	}
 
@@ -126,8 +140,6 @@ const ArenaPlayerSuggestionsComponent = React.createClass({
 		evt.preventDefault()
 
 		var id = this.props.player._id
-
-
 
 		if(STORE.data.arena_create_selected_players != undefined){
 
@@ -160,7 +172,7 @@ const ArenaPlayerSuggestionsComponent = React.createClass({
 	},
 
 	render: function(){
-		console.log(this.props.player.name)
+		
 		return(
 			
 			<button type="button" onClick={this._handleClick}>{this.props.player.name}</button>
