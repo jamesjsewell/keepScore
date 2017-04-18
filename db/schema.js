@@ -68,7 +68,8 @@ const ArenaSchema = new mongoose.Schema({
     matches: [ {type: mongoose.Schema.Types.ObjectId, ref: 'Match'} ],
   	players: [ {type: mongoose.Schema.Types.ObjectId, ref: 'User'} ],
     queue_order: [ {type: mongoose.Schema.Types.ObjectId, ref: 'Match'} ],
-    active_match: { type: mongoose.Schema.Types.ObjectId, ref: 'Match' }
+    active_match: { type: mongoose.Schema.Types.ObjectId, ref: 'Match' },
+    creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User'} 
 
 })
 

@@ -75,27 +75,6 @@ const PlayersOfArenaSelectComponent = React.createClass({
 
 		var txt = evt.target.value
 
-		// var filteredPlayers = this.props.players.filter(function(player) {
-    		
-		// 	if(player != undefined && txt.length > 0){
-		// 		console.log(player)
-		// 		console.log(player.name)
-		// 		console.log(txt)
-		// 		return player.name.includes(txt)
-		// 	}
-		
-  // 		})
-
-  // 		var playersElements = []
-
-  // 		for(var i = 0; i < filteredPlayers.length; i++){
-
-  // 			playersElements.push(<TeamPlayerSuggestionsComponent player = {filteredPlayers[i]}  />)
-
-  // 		}
-
-  // 		STORE._set({team_edit_suggested_players: playersElements })
-
   		ACTIONS.query_user_by_name(txt)
 
 	},

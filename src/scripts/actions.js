@@ -65,7 +65,8 @@ const ACTIONS = {
 				team2: team2,
 				team1_name: team1Name,
 				team2_name: team2Name,
-				status: 'inactive'
+				status: 'inactive',
+				creator: STORE.data.userId
 
 				}
 	        
@@ -201,7 +202,7 @@ const ACTIONS = {
 			var body = {}
 			body['players'] = players
 			body['name'] = teamName
-			body['createor'] = STORE.data.user._id
+			body['creator'] = STORE.data.userId
 			body['arena'] = STORE.data.current_arena_id
 
 			$.ajax({
@@ -262,6 +263,34 @@ const ACTIONS = {
 				console.log('set teams collection on store', STORE.data.team_collection)
 
 			})	
+	},
+
+	//   	ARENA LOGIC             //
+
+	create_arena: function(players, arenaName){
+			
+		var body = {}
+		body['players'] = players
+		body['name'] = arenaName
+		body['creator'] = STORE.data.userId
+
+		$.ajax({
+
+            method: 'POST',
+            type: 'json',
+            url: 'api/arenas',
+            data: body
+        
+        })
+        .done((res)=>{
+
+        	console.log('created a new arena', res)
+        	ACTIONS.refresh_needed_data()
+        })
+        .fail((err)=>{
+            console.log('could not create arena', err)
+        })
+
 	},
 
 	//------------------------------------------------//

@@ -28,7 +28,7 @@ const CreateArenaComponent = React.createClass({
 
 		}
 
-		ACTIONS.create_team(playerInputsArray, evt.target.teamName.value)		
+		ACTIONS.create_arena(playerInputsArray, evt.target.arenaName.value)		
 
 	},
 
@@ -40,7 +40,7 @@ const CreateArenaComponent = React.createClass({
 				
 				<form className = 'create-arena-form' onSubmit={this._handleSubmit}>
 
-					<input type='text' name='teamName' placeholder='define arena name'/>
+					<input type='text' name='arenaName' placeholder='define arena name'/>
 
   					<PlayersOfArenaSelectComponent />
 
