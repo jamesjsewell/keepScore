@@ -293,6 +293,28 @@ const ACTIONS = {
 
 	},
 
+	get_arenas_by_creator: function(){
+
+		var arenaColl = STORE.get('arenaCollection')
+		
+		arenaColl.fetch({
+
+				data: {creator: STORE.data.userId}
+
+			})
+
+			.then(function() {
+				
+				STORE._set({
+					my_created_arenas: arenaColl.models
+				})
+
+				console.log('set my created arenas collection on store', STORE.data.my_created_arenas)
+
+			})	
+
+	},
+
 	//------------------------------------------------//
 
 	//   COLLECT HIGH LEVEL DATA    //

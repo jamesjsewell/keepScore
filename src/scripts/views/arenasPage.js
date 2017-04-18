@@ -7,12 +7,14 @@ import Navbar from './components/navbar.js'
 import PlayersOfTeamComponent from './components/teamPageComponents/playersOfTeamSelect.js'
 import CreateArenaComponent from './components/allArenasPageComponents/arenaCreateComponent.js'
 import TeamsComponent from './components/teamPageComponents/teamsComponent.js'
+import ArenaComponent from './components/allArenasPageComponents/arenaComponent.js'
 
 const ArenasPage = React.createClass({
 
 	componentWillMount: function(){
 
 		ACTIONS.refresh_needed_data()
+		ACTIONS.get_arenas_by_creator()
 			
 		STORE.on('dataUpdated', () => {
 			this.setState(STORE.data)
@@ -32,11 +34,38 @@ const ArenasPage = React.createClass({
 
 	},
 
+	_renderArenas: function(arenas){
+
+		if(arenas != null){
+
+			var arenasArray = [] 
+
+			for(var i = 0; i < arenas.length; i++){
+
+				arenasArray.push(<ArenaComponent arena={arenas[i].attributes} />)
+
+			}
+
+			return arenasArray
+		}
+		
+
+	},
+
  	render: function(){
  		//<ArenasComponent arenaTeams={this.state.arena_collection.models} arena={this.state.current_arena[0]} />
  		console.log(this.state)
+
  		if(true === true){
- 		
+
+ 			var myArenas = null
+
+ 			if(STORE.data.my_created_arenas){
+
+ 				var myArenas = STORE.data.my_created_arenas
+
+ 			}
+ 			
 			return (
 
 		 		<div className='arenas-page-wrapper'>
@@ -48,6 +77,11 @@ const ArenasPage = React.createClass({
 		 				<CreateArenaComponent />
 
 		 			</div>
+
+		 			<div className='my-arenas-wrapper'>
+		 				{this._renderArenas(myArenas)}
+		 			</div>
+
 
 		 		</div>
 
