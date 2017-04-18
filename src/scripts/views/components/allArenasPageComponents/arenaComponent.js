@@ -60,7 +60,7 @@ const ArenaComponent = React.createClass({
 				for(var i = 0; i < players.length; i++){
 					
 					console.log('yes')
-					playersElements.push(<ArenaPlayerSuggestionsComponent player = {players[i].attributes}  />)
+					playersElements.push(<ArenaPlayerSuggestionsComponent arena = {this.props.arena} player = {players[i].attributes} arenaId = {this.props.arena._id}/>)
 
 				}
 
@@ -87,7 +87,17 @@ const ArenaComponent = React.createClass({
 	_handleClick: function(evt){
 		evt.preventDefault()
 		STORE._set({last_selected_input: evt.target})
+		
+		
 
+	},
+
+	_handleUpdateTeam: function(evt){
+
+		evt.preventDefault()
+		var inputs = evt.target.players
+		console.log(inputs)
+		//ACTIONS.update_arena(name,players)
 	},
 
 	render: function(){
@@ -102,6 +112,7 @@ const ArenaComponent = React.createClass({
 			}
 
 			var theArena = ""
+			var newSelectedPlayers = ""
 
 			if(this.props.arena){
 
@@ -110,21 +121,35 @@ const ArenaComponent = React.createClass({
 				var arenaPlayers = theArena.players
 				var arenaId = theArena._id
 
+				if(STORE.data.arena_builder_selected_players != undefined){
+					var newSelectedPlayers = STORE.data.arena_builder_selected_players[this.props.arena._id]
+				}
+
 			}
-			
-			console.log(suggestions)
 		
 			return(
 
-				<div name='player-select-wrapper'>
+				<div className='create-match-wrapper'>
 
-					<h3>{arenaName}</h3>
+					<form onSubmit={this._handleUpdateTeam}>
+						
+						<h3>{arenaName}</h3>
 
-					<div>{this._renderAutoComplete(suggestions)	}</div>
+						<h4>rename {arenaName}</h4>
+
+						<input name = "name" placeholder = "rename arena" />
+
+						<div>{this._renderAutoComplete(suggestions)	}</div>
 					
-					<input onClick = {this._handleClick} onKeyUp = {this._handleKeyPress} name = {arenaId} placeholder = "username of player" />
+						<input onClick = {this._handleClick} onKeyUp = {this._handleKeyPress} name = {arenaId} placeholder = "username of player" />
 
-					<div>{this._renderSelectedPlayers(arenaPlayers)}</div>
+						<div>{this._renderSelectedPlayers(arenaPlayers)}</div>
+
+						<div>{this._renderSelectedPlayers(newSelectedPlayers)}</div>
+
+						<button type="submit">update arena</button>
+
+					</form>
 					
 				</div>
 
@@ -148,28 +173,77 @@ const ArenaPlayerSuggestionsComponent = React.createClass({
 
 		var id = this.props.player._id
 
-		if(STORE.data.arena_builder_selected_players){
-			
-			if(STORE.data.arena_builder_selected_players.includes(this.props.player)){
+		console.log(this.props.arena.players, this.props.player)
 
-				console.log('player already in selected')
+		var allPlayers = this.props.arena.players
+		var thePlayer = this.props.player
+		var filtered = allPlayers.filter(function(player){if(player._id === thePlayer._id){return true}})
+
+		var alreadyIn = false
+
+		if(filtered.length > 0){
+
+			alreadyIn = true
+		}
+	
+		if(STORE.data.arena_builder_selected_players != undefined){
+
+			if(STORE.data.arena_builder_selected_players[this.props.arenaId] != undefined){
+				
+				if(STORE.data.arena_builder_selected_players[this.props.arenaId].includes(this.props.player) || alreadyIn === true){
+					
+					console.log('player already in selected')
+
+
+
+				}
+
+				else{
+
+					var arrayOfPlayers = STORE.data.arena_builder_selected_players[this.props.arenaId]
+					arrayOfPlayers.push(this.props.player)
+
+					arrayOfPlayersObj = {}
+					arrayOfPlayersObj[this.props.arenaId] = arrayOfPlayers
+					STORE._set({arena_builder_selected_players: arrayOfPlayersObj})
+
+				}
+
 
 			}
 
 			else{
 
-				var arrayOfPlayers = STORE.data.arena_builder_selected_players
-				arrayOfPlayers.push(this.props.player)
-				STORE._set({arena_builder_selected_players: arrayOfPlayers})
-				console.log(STORE.data.arena_builder_selected_players)
+				if(alreadyIn === false){
+
+					console.log('adding this arena to the selected players')
+					var arrayOfPlayersObj = {}
+					arrayOfPlayersObj[this.props.arenaId] = [this.props.player]
+					STORE._set({arena_builder_selected_players: arrayOfPlayersObj})
+
+				}
+				else{
+					console.log('already contains user')
+				}
 
 			}
+
 
 		}
 
 		else{
 
-			STORE._set({arena_builder_selected_players: [this.props.player]})
+			if(alreadyIn === false){
+
+				console.log('adding this arena to the selected players')
+				var arrayOfPlayersObj = {}
+				arrayOfPlayersObj[this.props.arenaId] = [this.props.player]
+				STORE._set({arena_builder_selected_players: arrayOfPlayersObj})
+
+			}
+			else{
+				console.log('already contains user')
+			}
 
 		}
 

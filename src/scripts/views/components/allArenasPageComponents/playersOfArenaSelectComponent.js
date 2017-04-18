@@ -80,13 +80,24 @@ const PlayersOfArenaSelectComponent = React.createClass({
 	},
 
 	render: function(){
+
 		var suggestions = ""
+
 		if(STORE.data.auto_complete_users){
 			var suggestions = STORE.data.auto_complete_users.models
 			console.log(suggestions)
 		}
-		
 
+		var arenaPlayers = ""
+
+		if(STORE.data.arena_create_selected_players != undefined){
+
+			if(STORE.data.arena_create_selected_players['create_arena'] != undefined){
+				arenaPlayers = STORE.data.arena_create_selected_players['create_arena']
+			}
+
+		}
+		
 		console.log(suggestions)
 		
 		return(
@@ -97,7 +108,7 @@ const PlayersOfArenaSelectComponent = React.createClass({
 					
 					<input onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
 
-					<div>{this._renderSelectedPlayers(STORE.data.arena_builder_selected_players)}</div>
+					<div>{this._renderSelectedPlayers(arenaPlayers)}</div>
 					
 				</div>
 
@@ -116,28 +127,33 @@ const ArenaPlayerSuggestionsComponent = React.createClass({
 
 		var id = this.props.player._id
 
-		if(STORE.data.arena_builder_selected_players){
+
+
+		if(STORE.data.arena_create_selected_players != undefined){
+
+			if(STORE.data.arena_create_selected_players['create_arena'] != undefined){
 			
-			if(STORE.data.arena_builder_selected_players.includes(this.props.player)){
+				if(STORE.data.arena_create_selected_players['create_arena'].includes(this.props.player)){
 
-				console.log('player already in selected')
+					console.log('player already in selected')
 
+				}
+
+				else{
+
+					var arrayOfPlayers = STORE.data.arena_create_selected_players['create_arena']
+					arrayOfPlayers.push(this.props.player)
+					var arrayOfPlayersObj = {}
+					arrayOfPlayersObj['create_arena'] = arrayOfPlayers
+					STORE._set({arena_create_selected_players: arrayOfPlayersObj})
+
+				}
 			}
-
-			else{
-
-				var arrayOfPlayers = STORE.data.arena_builder_selected_players
-				arrayOfPlayers.push(this.props.player)
-				STORE._set({arena_builder_selected_players: arrayOfPlayers})
-				console.log(STORE.data.arena_builder_selected_players)
-
-			}
-
 		}
 
 		else{
 
-			STORE._set({arena_builder_selected_players: [this.props.player]})
+			STORE._set({arena_create_selected_players: {'create_arena': [this.props.player]}})
 
 		}
 
