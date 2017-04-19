@@ -4,11 +4,10 @@ import ACTIONS from '../actions.js'
 import User from '../models/userModel.js'
 //imported components
 import Navbar from './components/navbar.js'
-import PlayersOfTeamComponent from './components/teamPageComponents/playersOfTeamSelect.js'
-import CreateTeamComponent from './components/teamPageComponents/teamCreateComponent.js'
-import TeamsComponent from './components/teamPageComponents/teamsComponent.js'
+import LeaderboardComponent from './components/leaderboardPageComponents/LeaderboardComponent.js'
 
-const leaderboardPage = React.createClass({
+
+const LeaderboardPage = React.createClass({
 
 	componentWillMount: function(){
 
@@ -34,18 +33,17 @@ const leaderboardPage = React.createClass({
 
  	render: function(){
 
- 		if(this.state.current_arena != undefined && this.state.team_collection != undefined){
- 			console.log(this.state.current_arena[0])
+ 		if(this.state.current_arena != undefined && this.state.leaderboard_stats != undefined){
+ 			
 			return (
 
-		 		<div className='arenas-page-wrapper'>
+		 		<div className='leaderboard-page-wrapper'>
 		 			
 		 			<Navbar />
 
-		 			<div className='team-create-wrapper'>
+		 			<div className='leaderboard-wrapper'>
 		 				
-		 				<CreateTeamComponent arena={this.state.current_arena[0]} />
-		 				<TeamsComponent arenaTeams={this.state.team_collection.models} arena={this.state.current_arena[0]} />
+		 				<LeaderboardComponent arena={this.state.current_arena[0]} players={this.state.current_arena[0].attributes.players}/>
 
 		 			</div>
 

@@ -6,8 +6,10 @@ import HomePage from './views/homePage.js'
 import ArenasPage from './views/arenasPage.js'
 import ArenaPage from './views/arenaPage.js'
 import TeamBuilderPage from './views/teamBuilderPage.js'
+import LeaderboardPage from './views/leaderboardPage.js'
 import User from './models/userModel.js'
 import STORE from './store.js'
+
 
 const app = function() {
 
@@ -19,6 +21,7 @@ const app = function() {
 			'arena': 'renderArenaPage',
 			'arenas': 'renderArenasPage',
 			'teams': 'renderTeamPage',
+			'leaderboard': 'renderLeaderboardPage',
 			'*default': 'redirect'
 
 		},
@@ -50,6 +53,12 @@ const app = function() {
 		renderArenasPage: function() {
 
 			ReactDOM.render(<ArenasPage />, document.querySelector('.container'))
+
+		},
+
+		renderLeaderboardPage: function() {
+
+			ReactDOM.render(<LeaderboardPage />, document.querySelector('.container'))
 
 		},
 

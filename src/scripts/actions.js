@@ -407,6 +407,8 @@ const ACTIONS = {
 
 					setKey['winLoss'] = 0
 
+					setKey['id'] = playerId
+
 					accumulativePlayerScores[playerId] = setKey
 
 				}
@@ -415,7 +417,8 @@ const ACTIONS = {
 
 		var ranked = _.sortBy(accumulativePlayerScores, 'winLoss')
 		console.log(ranked)
-		
+		STORE._set({leaderboard_stats: ranked})
+
 	},
 
 	//------------------------------------------------//
