@@ -289,11 +289,56 @@ const ACTIONS = {
         .done((res)=>{
 
         	console.log('created a new arena', res)
+        	if(STORE.data.current_arena === 'no current arena'){
+        		ACTIONS.update_current_arena(res._id)
+
+        	}
+        	ACTIONS.update_arenas_of_user(res._id)
         	ACTIONS.refresh_needed_data()
         })
         .fail((err)=>{
             console.log('could not create arena', err)
         })
+
+	},
+
+	update_arenas_of_user: function(newArena){
+
+		var updatedArenas = []
+
+		if(STORE.data.user.attributes.arenas != undefined){
+
+			var updatedArenas = STORE.data.user.attributes.arenas
+			updatedArenas.push(newArena)
+
+		}
+		else{
+			var updatedArenas = [newArena]
+		}
+
+		$.ajax({
+
+	            method: 'put',
+	            type: 'json',
+	            url: 'api/users/' + STORE.data.userId,
+	            data: {arenas: updatedArenas}
+	            
+	        })
+
+	        .done((res)=>{
+
+	        	console.log('updated the arenas for the user', res)
+	       		ACTIONS.refresh_needed_data()
+	       		//should update the status of the match to complete
+
+	        })
+
+	        .fail((err)=>{
+
+	            console.log('could not update the arenas for the user', err)
+
+	        })
+
 
 	},
 
@@ -466,11 +511,41 @@ const ACTIONS = {
 
 	get_user: function(userId){
 		
-		STORE._set({'user': User.getCurrentUser()})
-		STORE._set({'userId': User.getCurrentUser().attributes._id})
-		ACTIONS.get_current_arena()
-		ACTIONS.get_user_arenas()
-		ACTIONS.get_logged_in_user()
+		if(User.getCurrentUser() != null){
+
+			STORE._set({'user': User.getCurrentUser()})
+			STORE._set({'userId': User.getCurrentUser().attributes._id})
+			ACTIONS.get_logged_in_user()
+			
+			if(STORE.data.user.attributes.current_arena != undefined){
+
+				ACTIONS.get_current_arena()
+
+			}
+			else{
+
+				STORE._set({current_arena: 'no current arena'})
+				STORE._set({current_arena_id: 'no current arena'})
+
+			}
+
+			if(STORE.data.user.attributes.arenas != undefined){
+
+				ACTIONS.get_user_arenas()
+
+
+			}
+			else{
+				STORE._set({joined_arenas: 'no arenas'})
+			}
+
+		}
+
+		else{
+
+			location.hash = "home"
+		}
+		
 
 	},
 

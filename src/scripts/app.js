@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import Backbone from 'backbone'
 import init from './init'
 import HomePage from './views/homePage.js'
-import ArenasPage from './views/arenasPage.js'
+import EditArenasPage from './views/editArenasPage.js'
 import ArenaPage from './views/arenaPage.js'
 import TeamBuilderPage from './views/teamBuilderPage.js'
 import LeaderboardPage from './views/leaderboardPage.js'
@@ -21,7 +21,7 @@ const app = function() {
 			'home': 'renderLoginPage',
 			'profile': 'renderProfilePage',
 			'arena': 'renderArenaPage',
-			'arenas': 'renderArenasPage',
+			'edit_arenas': 'renderEditArenasPage',
 			'teams': 'renderTeamPage',
 			'leaderboard': 'renderLeaderboardPage',
 			'*default': 'redirect'
@@ -58,9 +58,9 @@ const app = function() {
 
 		},
 		
-		renderArenasPage: function() {
+		renderEditArenasPage: function() {
 
-			ReactDOM.render(<ArenasPage />, document.querySelector('.container'))
+			ReactDOM.render(<EditArenasPage />, document.querySelector('.container'))
 
 		},
 
