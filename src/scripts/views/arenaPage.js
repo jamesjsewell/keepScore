@@ -52,7 +52,7 @@ const ArenaPage = React.createClass({
 	goToArenaBuilderPage: function(evt){
 
 		evt.preventDefault()
-		location.hash = 'arena_builder'
+		location.hash = 'arenas'
 
 	},
 
@@ -63,7 +63,7 @@ const ArenaPage = React.createClass({
 
  		}
 
- 		if(this.state.current_arena != undefined && this.state.queued_match_collection != undefined && this.state.completed_match_collection != undefined && this.state.team_collection.models != undefined){
+ 		if(this.state.current_arena != 'no current arena' && this.state.current_arena != undefined && this.state.queued_match_collection != undefined && this.state.completed_match_collection != undefined && this.state.team_collection.models != undefined){
  			
 			return (
 

@@ -5,9 +5,9 @@ import User from '../models/userModel.js'
 //imported components
 import Navbar from './components/navbar.js'
 import PlayersOfTeamComponent from './components/teamPageComponents/playersOfTeamSelect.js'
-import CreateArenaComponent from './components/allArenasPageComponents/arenaCreateComponent.js'
+import CreateArenaComponent from './components/editArenasPageComponents/arenaCreateComponent.js'
 import TeamsComponent from './components/teamPageComponents/teamsComponent.js'
-import ArenaComponent from './components/allArenasPageComponents/arenaComponent.js'
+import ArenaComponent from './components/editArenasPageComponents/arenaComponent.js'
 
 const ArenasPage = React.createClass({
 
@@ -47,7 +47,7 @@ const ArenasPage = React.createClass({
 
  	render: function(){
 
- 		if(STORE.data.my_created_arenas != undefined){
+ 		if(STORE.data.my_created_arenas != undefined && STORE.data.current_arena != 'no current arena'){
 
  			var myArenas = STORE.data.my_created_arenas
 			
@@ -79,7 +79,13 @@ const ArenasPage = React.createClass({
 			return (
 
 				<div className='arenas-page-wrapper'>
+					<Navbar />
 
+		 			<div className='arena-create-wrapper'>
+		 				
+		 				<CreateArenaComponent />
+
+		 			</div>
 				</div>
 
 			)
