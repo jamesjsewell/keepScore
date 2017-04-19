@@ -544,6 +544,34 @@ const ACTIONS = {
 	        })
 	},
 
+	update_current_arena: function(arenaId){
+	
+		$.ajax({
+
+	            method: 'put',
+	            type: 'json',
+	            url: 'api/users/' + STORE.data.userId,
+	            data: {current_arena: arenaId}
+	            
+	            
+	        })
+
+	        .done((res)=>{
+
+	        	console.log('updated the users current arena', res)
+	       		ACTIONS.refresh_needed_data()
+	       		location.reload()
+	       		//should update the status of the match to complete
+
+	        })
+
+	        .fail((err)=>{
+
+	            console.log('could not update the users current arena', err)
+
+	        })
+	},
+
 	get_current_arena: function(userId){
 
 		//ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user_current_arena','current_arena', {'players'})

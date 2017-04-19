@@ -20,12 +20,6 @@ const ProfilePage = React.createClass({
 
 	},
 
-	componentWillUnmount: function() {
-
-		STORE.off('dataUpdated')
-
-	},
-
 	getInitialState: function() {
 
 		return STORE.data
@@ -67,11 +61,8 @@ const ProfilePage = React.createClass({
 
  	render: function(){
 
- 		if(STORE.data.joined_arenas != undefined){
-
- 			var joinedArenas = STORE.data.joined_arenas
-			console.log(joinedArenas)
-
+ 		if(this.state.joined_arenas != undefined){
+		
 			return (
 
 		 		<div className='profile-page-wrapper'>
@@ -81,7 +72,7 @@ const ProfilePage = React.createClass({
 		 			<button onClick={this._handleUpload}>upload</button>
 
 		 			<div className='joined-arenas-wrapper'>
-		 				{this._renderArenas(joinedArenas)}
+		 				{this._renderArenas(this.state.joined_arenas)}
 		 			</div>
 
 
@@ -126,6 +117,7 @@ const JoinedArenaComponent = React.createClass({
 		}
 		else{
 			console.log('joining arena')
+			ACTIONS.update_current_arena(this.props.arena._id)
 		}
 
 
