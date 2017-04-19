@@ -568,10 +568,18 @@ const ACTIONS = {
 			.then(function(arena) {
 
 				let currentArena = arenaColl.where({'_id': arenaId})
+				var	currentArenaId = ""
+				if(currentArena[0] != undefined){
+					var currentArenaId = currentArena[0].attributes._id
+				}
 				STORE._set({
 					current_arena: currentArena,
-					current_arena_id: currentArena[0].attributes._id
+					current_arena_id: currentArenaId
 				})
+
+				if(currentArena != undefined){
+
+				}
 				
 				ACTIONS.get_queued_matches(STORE.data.current_arena_id)
 				ACTIONS.get_teams_by_arena()
