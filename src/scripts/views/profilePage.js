@@ -62,15 +62,22 @@ const ProfilePage = React.createClass({
  	render: function(){
 
  		if(this.state.joined_arenas != undefined){
-		
+			
+			var imgUrl = User.getCurrentUser().attributes.avatar_url
+			console.log(imgUrl)
+
 			return (
 
 		 		<div className='profile-page-wrapper'>
 		 			
 		 			<Navbar />
-
+		 			<h2>{User.getCurrentUser().attributes.name}</h2>
+		 			<div>
+		 				<img src={imgUrl} />
+		 			</div>
 		 			<button onClick={this._handleUpload}>upload</button>
 
+		 			<h3>your arenas</h3>
 		 			<div className='joined-arenas-wrapper'>
 		 				{this._renderArenas(this.state.joined_arenas)}
 		 			</div>

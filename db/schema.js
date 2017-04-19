@@ -20,7 +20,7 @@ const UsersSchema = new mongoose.Schema({
     matches: [ {type: mongoose.Schema.Types.ObjectId, ref: 'Match'} ],
     first_name: { type: String },
     last_name: { type: String },
-    avatar_url: { type: String },
+    avatar_url: { type: String, default: 'https://cdn.filestackcontent.com/2FtCJ99TxOROfAloEg5w'},
     location: { type: String },
     about: { type: String },
     games_played: { type: Number },

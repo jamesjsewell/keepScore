@@ -46,6 +46,7 @@ const ArenaPage = React.createClass({
 
 		evt.preventDefault()
 		location.hash = 'join_arenas'
+		console.log('switching to page', location.hash)
 
 	},
 
@@ -53,7 +54,7 @@ const ArenaPage = React.createClass({
 
 		evt.preventDefault()
 		location.hash = 'edit_arenas'
-
+		console.log('switching to page', location.hash)
 	},
 
  	render: function(){

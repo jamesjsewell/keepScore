@@ -190,7 +190,10 @@ const PlayersComponent = React.createClass({
 	
 		return(
 			
-			<label><input type="checkbox" name="players" value={this.props.player._id} />{this.props.player.name}</label>	
+			<label>
+			<img id="small" src={this.props.player.avatar_url} />
+			<input type="checkbox" name="players" value={this.props.player._id} />{this.props.player.name}
+			</label>	
 
 		)
 
