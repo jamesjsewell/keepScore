@@ -355,7 +355,10 @@ const ACTIONS = {
 			var theMatch = matches.models[i].attributes
 
 			var scoresObj = theMatch.scores
-		
+
+			var winningPlayer = theMatch.winning_player
+
+			console.log(theMatch)
 			for(var playerId in scoresObj){	
 
 				var playerScore = scoresObj[playerId]
@@ -366,29 +369,53 @@ const ACTIONS = {
 
 						accumulativePlayerScores[playerId]['points'] = Number(accumulativePlayerScores[playerId]['points']) + Number(playerScore)
 
-					}	
+					}
+
+					if(winningPlayer._id != playerId){
+						accumulativePlayerScores[playerId]['losses'] += 1
+						accumulativePlayerScores[playerId]['wins'] += 0
+
+					}
+					else{
+						accumulativePlayerScores[playerId]['wins'] += 1
+						accumulativePlayerScores[playerId]['losses'] += 0
+					}
+
+					var wins = accumulativePlayerScores[playerId]['wins']
+					var losses = accumulativePlayerScores[playerId]['losses']
+					var matchesPlayed = wins+losses
+					var winLoss = wins/matchesPlayed*100
+
+					accumulativePlayerScores[playerId]['winLoss'] = winLoss
 
 				}
 
 				else{
-						var setKey = {}
-						setKey['points'] = Number(playerScore)
-						accumulativePlayerScores[playerId] = setKey
+					
+					var setKey = {}
+					setKey['points'] = Number(playerScore)
+
+					if(winningPlayer._id != playerId){
+						setKey['losses'] = 1
+						setKey['wins'] = 0
+
+					}
+					else{
+						setKey['wins'] = 1
+						setKey['losses'] = 0
+					}
+
+					setKey['winLoss'] = 0
+
+					accumulativePlayerScores[playerId] = setKey
 
 				}
-
 			}
 		}
 
-		console.log(accumulativePlayerScores)
-
-		//process data and set it on the storej
-		//for each player in the arena, 
-		//store the output as an objec on the store, each object on the array would have
-		//information about the player. derive player stats from each match looked through.
-		//look at the accumulative player scores and find the greatest out of all of them. this
-		//will determine the players rank 
-
+		var ranked = _.sortBy(accumulativePlayerScores, 'winLoss')
+		console.log(ranked)
+		
 	},
 
 	//------------------------------------------------//
