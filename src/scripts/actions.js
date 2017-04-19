@@ -160,6 +160,8 @@ const ACTIONS = {
 					completed_match_collection: matchColl
 				})
 
+				ACTIONS.calculate_leaderboard(matchColl)
+
 			})	
 	},
 
@@ -341,6 +343,51 @@ const ACTIONS = {
 				console.log('set my created arenas collection on store', STORE.data.my_created_arenas)
 
 			})	
+
+	},
+
+	calculate_leaderboard: function(matches){
+
+		var accumulativePlayerScores = {}
+
+		for(var i = 0; i < matches.models.length; i++){
+
+			var theMatch = matches.models[i].attributes
+
+			var scoresObj = theMatch.scores
+		
+			for(var playerId in scoresObj){	
+
+				var playerScore = scoresObj[playerId]
+
+				if(accumulativePlayerScores[playerId] != undefined){
+
+					if(accumulativePlayerScores[playerId]['points'] != undefined){
+
+						accumulativePlayerScores[playerId]['points'] = Number(accumulativePlayerScores[playerId]['points']) + Number(playerScore)
+
+					}	
+
+				}
+
+				else{
+						var setKey = {}
+						setKey['points'] = Number(playerScore)
+						accumulativePlayerScores[playerId] = setKey
+
+				}
+
+			}
+		}
+
+		console.log(accumulativePlayerScores)
+
+		//process data and set it on the storej
+		//for each player in the arena, 
+		//store the output as an objec on the store, each object on the array would have
+		//information about the player. derive player stats from each match looked through.
+		//look at the accumulative player scores and find the greatest out of all of them. this
+		//will determine the players rank 
 
 	},
 
