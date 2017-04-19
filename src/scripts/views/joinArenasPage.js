@@ -141,7 +141,7 @@ const JoinArenasPage = React.createClass({
 
 		 			<div className='my-arenas-wrapper'>
 		 				<div>{this._renderAutoComplete(suggestions)	}</div>
-		 				<input onClick={this._handleClick} onKeyUp = {this._handleKeyPress} name = "arenaSearch" placeholder = "username of player" />
+		 				<input onClick={this._handleClick} onKeyUp = {this._handleKeyPress} name = "arenaSearch" placeholder = "name of arena" />
 		 				{this._renderArenas(arenas, filtered)}
 		 			</div>
 

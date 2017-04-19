@@ -649,6 +649,7 @@ const ACTIONS = {
 
 	        	console.log('updated the users profile image', res)
 	       		ACTIONS.refresh_needed_data()
+	       		location.reload()
 	       		//should update the status of the match to complete
 
 	        })
