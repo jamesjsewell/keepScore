@@ -295,6 +295,33 @@ const ACTIONS = {
 
 	},
 
+	update_arena: function(players, name, arenaId){
+
+		$.ajax({
+
+	            method: 'put',
+	            type: 'json',
+	            url: `api/arenas/${arenaId}`,
+	            data: {players: players, name:name}
+	            
+	        })
+
+	        .done((res)=>{
+
+	        	console.log('updated the arena players', res)
+	       		ACTIONS.refresh_needed_data()
+	       		//should update the status of the match to complete
+
+	        })
+
+	        .fail((err)=>{
+
+	            console.log('could not update the arena', err)
+
+	        })
+
+	},
+
 	get_arenas_by_creator: function(){
 
 		var arenaColl = STORE.get('userCreatedArenaColl')

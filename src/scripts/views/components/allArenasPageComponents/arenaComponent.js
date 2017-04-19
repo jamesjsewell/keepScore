@@ -23,7 +23,7 @@ const ArenaComponent = React.createClass({
 
 	},
 
-	_renderSelectedPlayers: function(players){
+	_renderSelectedPlayers: function(players, selectionType){
 
 		var playersArray = []
 
@@ -35,14 +35,19 @@ const ArenaComponent = React.createClass({
 
 				var player = players[i]
 
-				if(player != undefined){
+				if(selectionType === 'newPlayers' && player != undefined && this.props.arena.players.includes(player) === false){
 
 					playersArray.push(<PlayersComponent player={player} />)
 
 				}
+				else{
+					if(player != undefined){
+						playersArray.push(<PlayersComponent player={player} />)
+					}
+				}
 				
 			}
-		
+			
 			return playersArray
 
 		}
@@ -85,19 +90,37 @@ const ArenaComponent = React.createClass({
 	},
 
 	_handleClick: function(evt){
+
 		evt.preventDefault()
 		STORE._set({last_selected_input: evt.target})
 		
-		
-
 	},
 
-	_handleUpdateTeam: function(evt){
+	_handleUpdateArena: function(evt){
 
 		evt.preventDefault()
-		var inputs = evt.target.players
-		console.log(inputs)
-		//ACTIONS.update_arena(name,players)
+
+		var players = evt.target.players
+
+		var nameTarget = evt.target.name
+
+		var name = nameTarget.value
+
+		var playerInputsArray = []
+
+		for(var i = 0; i < players.length; i++){
+
+			if(players[i].checked === true){
+
+				playerInputsArray.push(players[i].value)
+
+			}
+
+		}
+
+		ACTIONS.update_arena(playerInputsArray, name, this.props.arena._id)	
+		STORE.data.arena_builder_selected_players = {}
+
 	},
 
 	render: function(){
@@ -131,7 +154,7 @@ const ArenaComponent = React.createClass({
 
 				<div className='create-match-wrapper'>
 
-					<form onSubmit={this._handleUpdateTeam}>
+					<form onSubmit={this._handleUpdateArena}>
 						
 						<h3>{arenaName}</h3>
 
@@ -143,9 +166,9 @@ const ArenaComponent = React.createClass({
 					
 						<input onClick = {this._handleClick} onKeyUp = {this._handleKeyPress} name = {arenaId} placeholder = "username of player" />
 
-						<div>{this._renderSelectedPlayers(arenaPlayers)}</div>
+						<div>{this._renderSelectedPlayers(arenaPlayers, '')}</div>
 
-						<div>{this._renderSelectedPlayers(newSelectedPlayers)}</div>
+						<div>{this._renderSelectedPlayers(newSelectedPlayers,'newPlayers')}</div>
 
 						<button type="submit">update arena</button>
 
