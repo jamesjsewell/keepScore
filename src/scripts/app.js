@@ -7,6 +7,7 @@ import ArenasPage from './views/arenasPage.js'
 import ArenaPage from './views/arenaPage.js'
 import TeamBuilderPage from './views/teamBuilderPage.js'
 import LeaderboardPage from './views/leaderboardPage.js'
+import ProfilePage from './views/profilePage.js'
 import User from './models/userModel.js'
 import STORE from './store.js'
 
@@ -18,6 +19,7 @@ const app = function() {
 		routes: {
 
 			'home': 'renderLoginPage',
+			'profile': 'renderProfilePage',
 			'arena': 'renderArenaPage',
 			'arenas': 'renderArenasPage',
 			'teams': 'renderTeamPage',
@@ -41,6 +43,12 @@ const app = function() {
 		renderLoginPage: function() {
 
 			ReactDOM.render(<HomePage />, document.querySelector('.container'))
+
+		},
+
+		renderProfilePage: function() {
+
+			ReactDOM.render(<ProfilePage />, document.querySelector('.container'))
 
 		},
 

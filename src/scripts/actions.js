@@ -477,6 +477,33 @@ const ACTIONS = {
 
 	},
 
+	add_image_to_user: function(imgUrl){
+		console.log('got url', imgUrl)
+		$.ajax({
+
+	            method: 'put',
+	            type: 'json',
+	            url: 'api/users/' + STORE.data.userId,
+	            data: {avatar_url: imgUrl}
+	            
+	            
+	        })
+
+	        .done((res)=>{
+
+	        	console.log('updated the users profile image', res)
+	       		ACTIONS.refresh_needed_data()
+	       		//should update the status of the match to complete
+
+	        })
+
+	        .fail((err)=>{
+
+	            console.log('could not update the users profile image', err)
+
+	        })
+	},
+
 	get_current_arena: function(userId){
 
 		//ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user_current_arena','current_arena', {'players'})
