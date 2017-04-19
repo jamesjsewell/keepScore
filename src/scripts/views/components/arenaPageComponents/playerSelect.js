@@ -472,6 +472,7 @@ var SelectedPlayersComponent = React.createClass({
 		return(
 			
 			<label name="freeForAll">
+			<img id="small" src={this.props.player.avatar_url} />
 			{this.props.player.name}
 			<input type="checkbox" name={nameOfInput} value={this.props.player._id} />
 			</label>

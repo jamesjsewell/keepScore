@@ -303,7 +303,10 @@ const PlayersComponent = React.createClass({
 	
 		return(
 			
-			<label>{this.props.player.name}</label>	
+			<label>
+			<img id="small" src={this.props.player.avatar_url} />
+			{this.props.player.name}
+			</label>	
 
 		)
 

@@ -130,7 +130,7 @@ const PlayerComponent = React.createClass({
 		return(
 
 			<div className = 'player-of-team-wrapper'>
-
+				<img id="small" src={this.props.player.avatar_url} />
 				<p>{this.props.player.name}</p>
 
 			</div>

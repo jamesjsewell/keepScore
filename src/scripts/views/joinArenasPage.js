@@ -223,11 +223,11 @@ const ArenaSuggestionsComponent = React.createClass({
 	},
 
 	render: function(){
-		
-		return(
-			
-			<button type="button" onClick={this._handleClick}>{this.props.arena.name}</button>
 
+		return(
+			<label>
+			<button type="button" onClick={this._handleClick}>{this.props.arena.name}</button>
+			</label>
 		)
 
 	}

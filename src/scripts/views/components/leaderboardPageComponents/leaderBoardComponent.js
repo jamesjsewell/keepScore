@@ -15,9 +15,9 @@ const LeaderBoardComponent = React.createClass({
 
 			var allPlayerStats = STORE.data.leaderboard_stats
 			console.log(allPlayerStats)
+		
+			for(var i = allPlayerStats.length+1; i >= 0; i--){		
 			
-			for(var i = allPlayerStats.length+1; i >= 0; i--){				
-
 				var thePlayerStats = allPlayerStats[i]
 
 				if(thePlayerStats != undefined){
@@ -68,20 +68,22 @@ const PlayerComponent = React.createClass({
 			winLoss = this.props.stats.winLoss,
 			points = this.props.stats.points,
 			wins = this.props.stats.wins,
-			losses = this.props.stats.losses
+			losses = this.props.stats.losses,
+			theUrl = this.props.player.avatar_url
 		}
 
 		return(
 			
-			<label>
-
+			<div>
+				
+				<img id="small" src={theUrl} />
 				<h4>{name}</h4>
 				<p>win/loss ratio {winLoss}</p>
 				<p>points scored{points}</p>
 				<p>wins{wins}</p>
 				<p>losses{losses}</p>
 
-			</label>	
+			</div>	
 
 		)
 

@@ -267,7 +267,7 @@ const PlayerComponent = React.createClass({
 		return(
 
 			<div className = 'player-of-match-wrapper'>
-
+				<img id="small" src={this.props.player.avatar_url} />
 				<p>{this.props.player.name}</p>
 				<input name='score' id={this.props.player._id} placeholder='enter score' />
 

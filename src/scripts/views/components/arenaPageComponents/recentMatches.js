@@ -184,6 +184,7 @@ const PlayerComponent = React.createClass({
 
 			<div className = 'player-of-match-wrapper'>
 
+				<img id="small" src={this.props.player.avatar_url} />
 				<p>{this.props.player.name}: {this.props.score}</p>
 
 			</div>
