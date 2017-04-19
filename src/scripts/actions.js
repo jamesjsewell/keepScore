@@ -252,7 +252,7 @@ const ACTIONS = {
 		
 		teamColl.fetch({
 
-				data: {arena: arenaId}
+				data: {arena: STORE.data.current_arena[0].attributes._id}
 
 			})
 
@@ -424,22 +424,6 @@ const ACTIONS = {
 
 	//   COLLECT HIGH LEVEL DATA    //
 
-	fetch_arenas: function(){
-
-		var arenaColl = STORE.get('arenaCollection')
-
-		arenaColl.fetch()
-
-			.then(function() {
-
-				STORE._set({
-					arenaCollection: arenaColl
-				})
- 		
-			})	
-
-	},
-
 	get_user_arenas: function(){
 
 		if(STORE.data.logged_in_user != undefined){
@@ -561,6 +545,7 @@ const ACTIONS = {
 	        	console.log('updated the users current arena', res)
 	       		ACTIONS.refresh_needed_data()
 	       		location.reload()
+	       		location.hash = "#arena"
 	       		//should update the status of the match to complete
 
 	        })
