@@ -45,14 +45,14 @@ const ArenaPage = React.createClass({
 	goToArenasPage: function(evt){
 
 		evt.preventDefault()
-		location.hash = 'arenas'
+		location.hash = 'join_arenas'
 
 	},
 
 	goToArenaBuilderPage: function(evt){
 
 		evt.preventDefault()
-		location.hash = 'arenas'
+		location.hash = 'edit_arenas'
 
 	},
 
