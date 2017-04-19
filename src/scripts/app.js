@@ -8,6 +8,7 @@ import ArenaPage from './views/arenaPage.js'
 import TeamBuilderPage from './views/teamBuilderPage.js'
 import LeaderboardPage from './views/leaderboardPage.js'
 import ProfilePage from './views/profilePage.js'
+import JoinArenasPage from './views/joinArenasPage.js'
 import User from './models/userModel.js'
 import STORE from './store.js'
 
@@ -22,6 +23,7 @@ const app = function() {
 			'profile': 'renderProfilePage',
 			'arena': 'renderArenaPage',
 			'edit_arenas': 'renderEditArenasPage',
+			'join_arenas': 'renderJoinArenasPage',
 			'teams': 'renderTeamPage',
 			'leaderboard': 'renderLeaderboardPage',
 			'*default': 'redirect'
@@ -61,6 +63,12 @@ const app = function() {
 		renderEditArenasPage: function() {
 
 			ReactDOM.render(<EditArenasPage />, document.querySelector('.container'))
+
+		},
+
+		renderJoinArenasPage: function() {
+
+			ReactDOM.render(<JoinArenasPage />, document.querySelector('.container'))
 
 		},
 

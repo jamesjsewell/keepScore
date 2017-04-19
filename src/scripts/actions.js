@@ -391,6 +391,47 @@ const ACTIONS = {
 
 	},
 
+	join_arena: function(arenaId){
+
+		var updatedArenas = []
+
+		if(STORE.data.user.attributes.arenas != undefined){
+
+			var updatedArenas = STORE.data.user.attributes.arenas
+			updatedArenas.push(arenaId)
+
+		}
+		else{
+			var updatedArenas = [arenaId]
+		}
+
+		$.ajax({
+
+	            method: 'put',
+	            type: 'json',
+	            url: 'api/users/' + STORE.data.userId,
+	            data: {arenas: updatedArenas}
+	            
+	        })
+
+	        .done((res)=>{
+
+	        	console.log('updated the arenas for the user', res)
+	        	ACTIONS.update_current_arena(arenaId)
+	       		ACTIONS.refresh_needed_data()
+	       		//should update the status of the match to complete
+
+	        })
+
+	        .fail((err)=>{
+
+	            console.log('could not update the arenas for the user', err)
+
+	        })
+		
+
+	},
+
 	calculate_leaderboard: function(matches){
 
 		var accumulativePlayerScores = {}
@@ -481,6 +522,22 @@ const ACTIONS = {
 		
 	},
 
+	get_all_arenas: function(){
+
+		var arenaColl = STORE.get('allArenasCollection')
+		
+		arenaColl.fetch()
+
+			.then(function() {
+
+				STORE._set({
+					all_arenas: arenaColl
+				})
+
+			})	
+	
+	},
+
 	query_user_by_name: function(userInput){
 		///ab+c/i
 		//"$new RegExp(/"+ userInput +"/, 'g')"
@@ -516,7 +573,7 @@ const ACTIONS = {
 			STORE._set({'user': User.getCurrentUser()})
 			STORE._set({'userId': User.getCurrentUser().attributes._id})
 			ACTIONS.get_logged_in_user()
-			
+			ACTIONS.get_all_arenas()
 			if(STORE.data.user.attributes.current_arena != undefined){
 
 				ACTIONS.get_current_arena()
@@ -660,6 +717,62 @@ const ACTIONS = {
 				ACTIONS.get_teams_by_arena()
 
 			})	
+
+	},
+
+	query_arena_by_name: function(userInput){
+		///ab+c/i
+		//"$new RegExp(/"+ userInput +"/, 'g')"
+		var arenaColl = STORE.get('filteredArenasCollection')
+		console.log(userInput, 'user input', "$new RegExp(/"+ userInput +"/, 'i')")
+
+		if(userInput.length < 1){
+
+			arenaColl.fetch({
+
+			})
+
+			.then(function() {
+				console.log(arenaColl)
+				STORE._set({
+					auto_complete_arenas: arenaColl,
+					arena_search_results: undefined
+
+				})
+
+				console.log('set filtered arenas collection on store', arenaColl.models)
+				console.log(STORE.data.auto_complete_arenas)
+
+			})	
+
+		}
+		else{
+
+			arenaColl.fetch({
+
+				data: {
+
+					name: "$"+userInput
+
+				}
+
+			})
+
+			.then(function() {
+				console.log(arenaColl)
+				STORE._set({
+					auto_complete_arenas: arenaColl
+				})
+
+				console.log('set filtered arenas collection on store', arenaColl.models)
+				console.log(STORE.data.auto_complete_arenas)
+
+			})	
+
+
+		}
+		
+
 
 	},
 	

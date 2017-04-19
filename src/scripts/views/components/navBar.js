@@ -56,6 +56,7 @@ const Navbar = React.createClass({
 	 			<a href="#arena">arena</a>
 	 			<a href="#teams">team builder</a>
 				<a href="#edit_arenas">edit arenas</a>
+				<a href="#join_arenas">join arenas</a>
 				<a onClick={this._handleLogout} href="#home">{User.getCurrentUser() === null || User.getCurrentUser().attributes._id === false ? 'login' : 'logout'}</a>	
 
 	 		</ul>

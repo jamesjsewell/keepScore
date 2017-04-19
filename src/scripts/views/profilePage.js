@@ -98,9 +98,7 @@ const ProfilePage = React.createClass({
 
  			<div></div>
 
- 		)	
-
- 		
+ 		)		
  		
  	}
 
@@ -112,12 +110,14 @@ const JoinedArenaComponent = React.createClass({
 
 		evt.preventDefault()
 
-		if(this.props.arena._id === STORE.data.current_arena[0].attributes._id){
-			console.log('already in arena')
-		}
-		else{
-			console.log('joining arena')
-			ACTIONS.update_current_arena(this.props.arena._id)
+		if(STORE.data.current_arena != undefined && STORE.data.current_arena != 'no current arena'){
+			if(this.props.arena._id === STORE.data.current_arena[0].attributes._id){
+				console.log('already in arena')
+			}
+			else{
+				console.log('joining arena')
+				ACTIONS.update_current_arena(this.props.arena._id)
+			}
 		}
 
 
@@ -137,11 +137,17 @@ const JoinedArenaComponent = React.createClass({
 
 		}
 
+		var currentArena = ""
+
+		if(STORE.data.current_arena != undefined && STORE.data.current_arena != 'no current arena'){
+			currentArena = STORE.data.current_arena[0].attributes._id
+		}
+
 		return(
 			<div>
 				<div>{name}</div>
 				<div>{numberOfPlayers} players</div>
-				<button onClick={this._handleEnterArena} >{id === STORE.data.current_arena[0].attributes._id ? 'you are here' : 'enter arena'}</button>
+				<button onClick={this._handleEnterArena} >{id === currentArena ? 'you are here' : 'enter arena'}</button>
 			</div>
 		)
 		
