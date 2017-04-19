@@ -358,7 +358,6 @@ const ACTIONS = {
 
 			var winningPlayer = theMatch.winning_player
 
-			console.log(theMatch)
 			for(var playerId in scoresObj){	
 
 				var playerScore = scoresObj[playerId]
@@ -441,6 +440,18 @@ const ACTIONS = {
 
 	},
 
+	get_user_arenas: function(){
+
+		if(STORE.data.logged_in_user != undefined){
+			console.log(STORE.data.logged_in_user.arenas)
+			STORE._set({'joined_arenas': STORE.data.logged_in_user.arenas})
+			console.log(STORE.data.joined_arenas)
+		}
+
+		
+		
+	},
+
 	query_user_by_name: function(userInput){
 		///ab+c/i
 		//"$new RegExp(/"+ userInput +"/, 'g')"
@@ -474,6 +485,35 @@ const ACTIONS = {
 		STORE._set({'user': User.getCurrentUser()})
 		STORE._set({'userId': User.getCurrentUser().attributes._id})
 		ACTIONS.get_current_arena()
+		ACTIONS.get_user_arenas()
+		ACTIONS.get_logged_in_user()
+
+	},
+
+	get_logged_in_user: function(){
+
+		var userColl = STORE.get('allUsersCollection')
+
+		userColl.fetch({
+
+				data: {
+
+					_id: STORE.data.userId
+
+				}
+
+			})
+
+			.then(function() {
+				console.log(userColl)
+				STORE._set({
+					logged_in_user: userColl.models[0].attributes
+				})
+
+				console.log('set logged in user', STORE.data.logged_in_user)
+				ACTIONS.get_user_arenas()
+
+			})	
 
 	},
 

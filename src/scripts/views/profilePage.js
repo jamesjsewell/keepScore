@@ -39,9 +39,6 @@ const ProfilePage = React.createClass({
 		client.pick({
 		accept: ['image/*'], maxSize: 2*1024*1024
 		}).then(function(result) {
-		//console.log(JSON.stringify(result.filesUploaded))
-		//console.log(JSON.stringify(result.filesUploaded))
-		//ACTIONS.add_image_to_user(JSON.parse(result.filesUploaded)[0].url)
 
 		var theJson = JSON.parse(JSON.stringify(result.filesUploaded))
 		console.log(theJson[0].url)
@@ -50,18 +47,43 @@ const ProfilePage = React.createClass({
 
 	},
 
+	_renderArenas: function(arenas){
+
+		if(arenas != undefined){
+
+			var arenasArray = [] 
+
+			for(var i = 0; i < arenas.length; i++){
+
+				arenasArray.push(<JoinedArenaComponent arena={arenas[i]} />)
+
+			}
+
+			return arenasArray
+
+		}
+
+	},
+
  	render: function(){
 
+ 		if(STORE.data.joined_arenas != undefined){
 
+ 			var joinedArenas = STORE.data.joined_arenas
+			console.log(joinedArenas)
 
- 		if(this.state.current_arena != undefined && this.state.leaderboard_stats != undefined){
- 			
 			return (
 
 		 		<div className='profile-page-wrapper'>
 		 			
 		 			<Navbar />
+
 		 			<button onClick={this._handleUpload}>upload</button>
+
+		 			<div className='joined-arenas-wrapper'>
+		 				{this._renderArenas(joinedArenas)}
+		 			</div>
+
 
 		 		</div>
 
@@ -86,8 +108,53 @@ const ProfilePage = React.createClass({
  			<div></div>
 
  		)	
+
+ 		
  		
  	}
+
+})
+
+const JoinedArenaComponent = React.createClass({
+
+	_handleEnterArena: function(evt){
+
+		evt.preventDefault()
+
+		if(this.props.arena._id === STORE.data.current_arena[0].attributes._id){
+			console.log('already in arena')
+		}
+		else{
+			console.log('joining arena')
+		}
+
+
+	},
+
+	render: function(){
+
+		var name = "",
+		numberOfPlayers="",
+		id =""
+
+		if(this.props.arena != undefined){
+
+			var name = this.props.arena.name,
+			numberOfPlayers = this.props.arena.players.length,
+			id = this.props.arena._id
+
+		}
+
+		return(
+			<div>
+				<div>{name}</div>
+				<div>{numberOfPlayers} players</div>
+				<button onClick={this._handleEnterArena} >{id === STORE.data.current_arena[0].attributes._id ? 'you are here' : 'enter arena'}</button>
+			</div>
+		)
+		
+
+	}
 
 })
 
