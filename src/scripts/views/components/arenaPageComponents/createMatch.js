@@ -4,9 +4,13 @@ import ACTIONS from '../../../actions.js'
 import User from '../../../models/userModel.js'
 import _ from 'underscore'
 import PlayerChoiceComponent from './playerSelect.js'
-
+import $ from 'jquery'
 
 const CreateMatchComponent = React.createClass({
+
+	_handleChange: function(){
+		return null
+	},
 
 	_setGameType: function(evt){
 
@@ -15,6 +19,8 @@ const CreateMatchComponent = React.createClass({
 		STORE._set({match_create_type: evt.target.value})
 		STORE._set({suggested_players: [] })
 		STORE._set({selected_players_match: []})
+		console.log(STORE.data.match_create_type)
+
 		
 	},
 
@@ -123,14 +129,18 @@ const CreateMatchComponent = React.createClass({
 				<form onKeyDown={ (event)=>{if (event.keyCode == 13) { return false} }} name="createMatch" className = 'create-match-form' onSubmit={this._handleSubmit}>
 
 					<input type='text' name='matchName' placeholder='define match name'/>
-
-					<select name="gameType" onChange={this._setGameType} >
-
-					    <option value="dual">dual</option>
-					    <option value="ffa">free for all</option>
-					    <option value="team">team</option>
-			
-  					</select>
+					
+					<div>
+					
+					    	<button onClick={this._setGameType} className='btn green accent-1 green-text' type="button" id="dual" value="dual" >{STORE.data.match_create_type === 'dual' ? 'gametype is dual': 'dual'}</button>
+					    
+					    
+					    	<button onClick={this._setGameType} className='btn green accent-1 green-text' type ="button" id="ffa" value="ffa">{STORE.data.match_create_type === 'ffa' ? 'gametype is ffa': 'free for all'}</button>
+					    
+					    
+					    	<button onClick={this._setGameType} className='btn green accent-1 green-text' type ="button" id="team" value="team" > {STORE.data.match_create_type === 'team' ? 'gametype is team': 'team'} </button>
+					    	
+  					</div>
 
   					<PlayerChoiceComponent arenaTeams={this.props.arenaTeams} gameType={STORE.data.match_create_type} players={this.props.arena.attributes.players}/>
 

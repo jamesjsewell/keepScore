@@ -10,7 +10,12 @@ import RecentMatchesComponent from './components/arenaPageComponents/recentMatch
 import CreateMatchComponent from './components/arenaPageComponents/createMatch.js'
 
 
-STORE._set({match_create_type: 'dual'})
+if(STORE.data.match_create_type){
+
+}
+else{
+	STORE._set({match_create_type: 'dual'})
+}
 
 const ArenaPage = React.createClass({
 

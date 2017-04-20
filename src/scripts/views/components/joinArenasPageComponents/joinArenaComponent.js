@@ -204,7 +204,7 @@ const JoinArenaComponent = React.createClass({
 					<div className="card-content">
 						<h5 className='white-text center-align'>Arena: {arenaName ? arenaName : 'unnamed arena'}</h5>
 
-						<div className='card-panel center-align container green accent-4'>{this._renderSelectedPlayers(arenaPlayers, '')}</div>
+						<div className='card-panel center-align col s8 green accent-4'>{this._renderSelectedPlayers(arenaPlayers, '')}</div>
 					</div>
 
 					<a className="card-content waves-effect waves-light green accent-1 green-text btn" onClick={this._handleJoinArena} > {alreadyMember ? 'member of arena' : 'join arena'} </a>

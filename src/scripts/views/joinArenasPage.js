@@ -139,7 +139,7 @@ const JoinArenasPage = React.createClass({
 		 			
 		 			<Navbar />
 
-	 				<div className="green accent-3 col s3 center-align container">
+	 				<div className="col s3 center-align container">
 
 	 					<div className="input-field col s2 container">
 	 						<h5 className="white-text">search arenas</h5>
@@ -233,7 +233,7 @@ const ArenaSuggestionsComponent = React.createClass({
 
 		return(
 			<label>
-			<button className="chip" type="button" onClick={this._handleClick}>{this.props.arena.name}</button>
+			<button className="chip waves-effect waves-light btn" type="button" onClick={this._handleClick}>{this.props.arena.name}</button>
 			</label>
 		)
 
