@@ -76,11 +76,11 @@ const Navbar = React.createClass({
 
 		 			<ul className='col s2 center-align green accent-3'>
 
-		 			<li className={loginStatus}><a className="breadcrumb" onClick={this._handleLogout} href="#home">{User.getCurrentUser() === null || User.getCurrentUser().attributes._id === false ? 'login' : 'logout'}</a></li>	
-		 			<li className={profileStatus}><a className="breadcrumb" href="#profile">my profile</a></li>
-					<li className={editArenasStatus}><a className="breadcrumb" href="#edit_arenas">edit arenas</a></li>
-					<li className={arenaStatus}><a className="breadcrumb" href="#arena">arena</a></li>
-					<li className={joinArenaStatus}><a className="breadcrumb" href="#join_arenas">join arenas</a></li>
+		 			<li className={loginStatus}><a className="breadcrumb flow-text" onClick={this._handleLogout} href="#home">{User.getCurrentUser() === null || User.getCurrentUser().attributes._id === false ? 'login' : 'logout'}</a></li>	
+		 			<li className={profileStatus}><a className="breadcrumb flow-text" href="#profile">my profile</a></li>
+					<li className={editArenasStatus}><a className="breadcrumb flow-text" href="#edit_arenas">edit arenas</a></li>
+					<li className={arenaStatus}><a className="breadcrumb flow-text" href="#arena">arena</a></li>
+					<li className={joinArenaStatus}><a className="breadcrumb flow-text" href="#join_arenas">join arenas</a></li>
 					
 					</ul>
 

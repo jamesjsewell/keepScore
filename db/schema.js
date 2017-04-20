@@ -64,7 +64,7 @@ const MatchSchema = new mongoose.Schema({
 
 const ArenaSchema = new mongoose.Schema({
 
-    name: { type: String },
+    name: { type: String, default: 'unnamed arena' },
     matches: [ {type: mongoose.Schema.Types.ObjectId, ref: 'Match'} ],
   	players: [ {type: mongoose.Schema.Types.ObjectId, ref: 'User'} ],
     queue_order: [ {type: mongoose.Schema.Types.ObjectId, ref: 'Match'} ],

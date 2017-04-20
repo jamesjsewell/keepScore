@@ -133,7 +133,7 @@ const JoinArenaComponent = React.createClass({
 		if(this.props.arena != undefined){
 			var isMember = STORE.data.arenaMembers[this.props.arena._id]
 			var arenaId = this.props.arena._id
-			
+			console.log(isMember)
 			if(isMember === false){
 				console.log('joining arena')
 				ACTIONS.join_arena(arenaId, this.props.arena)
@@ -163,7 +163,7 @@ const JoinArenaComponent = React.createClass({
 					if(isMember[0] != undefined){
 						if(isMember[0].name){
 							var alreadyMember = true
-							STORE.data.arenaMembers[this.props.arena._id] = false 
+							STORE.data.arenaMembers[this.props.arena._id] = alreadyMember
 						}	
 					}
 
@@ -194,20 +194,36 @@ const JoinArenaComponent = React.createClass({
 				
 
 			}
-		
-			return(
+			
+			if(alreadyMember === false){
 
-				<div className='create-match-wrapper'>
-						
-					<h3>{arenaName}</h3>
+				return(
 
-					<div>{this._renderSelectedPlayers(arenaPlayers, '')}</div>
-
-					<button onClick={this._handleJoinArena} > {alreadyMember ? 'member of arena' : 'join arena'} </button>
+				<div className="card-panel green accent-3 col s6 center-align">
 					
+					<div className="card-content">
+						<h5 className='white-text center-align'>Arena: {arenaName ? arenaName : 'unnamed arena'}</h5>
+
+						<div className='card-panel center-align container green accent-4'>{this._renderSelectedPlayers(arenaPlayers, '')}</div>
+					</div>
+
+					<a className="card-content waves-effect waves-light green accent-1 green-text btn" onClick={this._handleJoinArena} > {alreadyMember ? 'member of arena' : 'join arena'} </a>
+
 				</div>
 
-			)
+				)
+
+			}
+			else{
+				return(
+
+				<div className="card-panel green accent-3 col s6 center-align">
+					<h5 className='white-text center-align'>you are a member of {arenaName ? arenaName : 'unnamed arena'}</h5>
+				</div>
+
+				)
+			}
+			
 
 		}
 	
@@ -307,7 +323,7 @@ const ArenaPlayerSuggestionsComponent = React.createClass({
 		console.log(this.props.player.name)
 		return(
 			
-			<button type="button" onClick={this._handleClick}>{this.props.player.name}</button>
+			<a className="waves-effect waves-light btn" type="button" onClick={this._handleClick}>{this.props.player.name}</a>
 
 		)
 
@@ -322,8 +338,8 @@ const PlayersComponent = React.createClass({
 	
 		return(
 			
-			<label>
-			<img id="small" src={this.props.player.avatar_url} />
+			<label className="chip green accent-2">
+			<img className="circle" src={this.props.player.avatar_url} />
 			{this.props.player.name}
 			</label>	
 

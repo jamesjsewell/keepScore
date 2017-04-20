@@ -135,16 +135,22 @@ const JoinArenasPage = React.createClass({
 			
 			return (
 
-		 		<div className='arenas-page-wrapper'>
+		 		<div className='green accent-4'>
 		 			
 		 			<Navbar />
 
-		 			<div className='my-arenas-wrapper'>
-		 				<div>{this._renderAutoComplete(suggestions)	}</div>
-		 				<input onClick={this._handleClick} onKeyUp = {this._handleKeyPress} name = "arenaSearch" placeholder = "name of arena" />
+	 				<div className="green accent-3 col s3 center-align container">
+
+	 					<div className="input-field col s2 container">
+	 						<h5 className="white-text">search arenas</h5>
+	 						<input className="white" onClick = {this._handleClick} onKeyUp = {this._handleKeyPress} name = "arenaSearch" placeholder = "name of arena" type="text" />
+	 					</div>
+	 					<label className="">{this._renderAutoComplete(suggestions)}</label>
+	 				</div>
+
+	 				<div className="container center-align">
 		 				{this._renderArenas(arenas, filtered)}
 		 			</div>
-
 
 		 		</div>
 
@@ -201,9 +207,9 @@ const ArenaSuggestionsComponent = React.createClass({
 				else{
 					var arrayOfArenas = []
 					if(STORE.data.arena_search_results != undefined){
-						var arrayOfArenas = STORE.data.arena_search_results
-						arrayOfArenas.push(this.props.arena)
-						
+						//var arrayOfArenas = STORE.data.arena_search_results
+						//arrayOfArenas.push(this.props.arena)
+						var arrayOfArenas = [this.props.arena]
 					}
 					else{
 						var arrayOfArenas = [this.props.arena]
@@ -227,7 +233,7 @@ const ArenaSuggestionsComponent = React.createClass({
 
 		return(
 			<label>
-			<button type="button" onClick={this._handleClick}>{this.props.arena.name}</button>
+			<button className="chip" type="button" onClick={this._handleClick}>{this.props.arena.name}</button>
 			</label>
 		)
 
