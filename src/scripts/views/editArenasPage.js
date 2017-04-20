@@ -34,7 +34,7 @@ const ArenasPage = React.createClass({
 			var arenasArray = [] 
 
 			for(var i = 0; i < arenas.length; i++){
-
+				console.log(arenas[i].attributes)
 				arenasArray.push(<ArenaComponent arena={arenas[i].attributes} />)
 
 			}

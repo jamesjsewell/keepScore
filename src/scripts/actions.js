@@ -293,6 +293,8 @@ const ACTIONS = {
         		ACTIONS.update_current_arena(res._id)
 
         	}
+        	STORE.data.arena_create_selected_players = {}
+        	STORE.data.auto_complete_users = {}
         	ACTIONS.update_arenas_of_user(res._id)
         	ACTIONS.refresh_needed_data()
         })

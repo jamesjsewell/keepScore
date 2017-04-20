@@ -174,8 +174,10 @@ const ArenaPlayerSuggestionsComponent = React.createClass({
 	render: function(){
 		
 		return(
-			
-			<button type="button" onClick={this._handleClick}>{this.props.player.name}</button>
+			<button className="chip avatar" onClick={this._handleClick} type="button" name="players" value={this.props.player._id} >
+			<img src={this.props.player.avatar_url} />
+		 	{this.props.player.name} 
+			</button>	
 
 		)
 
@@ -190,10 +192,11 @@ const PlayersComponent = React.createClass({
 	
 		return(
 			
-			<label>
-			<img id="small" src={this.props.player.avatar_url} />
-			<input type="checkbox" name="players" value={this.props.player._id} />{this.props.player.name}
-			</label>	
+			<div className="chip avatar">
+			<img src={this.props.player.avatar_url} />
+			<input id={this.props.player._id} type="checkbox" name="players" value={this.props.player._id} />
+			<label htmlFor={this.props.player._id} > {this.props.player.name} </label>	
+			</div>	
 
 		)
 
