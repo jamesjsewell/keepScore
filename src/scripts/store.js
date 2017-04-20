@@ -18,7 +18,8 @@ const STORE = Object.assign({}, Backbone.Events, {
 		teamCollection: new TeamCollection(),
 		userCollection: new User(),
 		allUsersCollection: new UserCollection(),
-		match_create_type: 'dual'
+		match_create_type: 'dual',
+		arenaMembers: {}
 	},
 
 	get: function(prop) {

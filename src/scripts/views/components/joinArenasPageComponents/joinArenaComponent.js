@@ -2,6 +2,7 @@ import React from 'react'
 import STORE from '../../../store.js'
 import ACTIONS from '../../../actions.js'
 import User from '../../../models/userModel.js'
+import _ from 'underscore'
 
 const JoinArenaComponent = React.createClass({
 
@@ -124,22 +125,18 @@ const JoinArenaComponent = React.createClass({
 	},
 
 	_handleJoinArena: function(evt){
-
+		
 		evt.preventDefault()
-	
-		if(this.props.arena != undefined && STORE.data.current_arena != undefined){
-
+		
+		
+		
+		if(this.props.arena != undefined){
+			var isMember = STORE.data.arenaMembers[this.props.arena._id]
 			var arenaId = this.props.arena._id
-
-			var currentArena = ""
-
-			if(STORE.data.current_arena != 'no current arena'){
-				var currentArena = STORE.data.current_arena[0].attributes._id 
-			}
 			
-			if(arenaId != currentArena){
+			if(isMember === false){
 				console.log('joining arena')
-				ACTIONS.join_arena(arenaId)
+				ACTIONS.join_arena(arenaId, this.props.arena)
 
 			}
 
@@ -149,7 +146,29 @@ const JoinArenaComponent = React.createClass({
 
 	render: function(){
 
+		var alreadyMember = false
+		
+
 		if(this.props.arena != undefined){
+
+			STORE.data.arenaMembers[this.props.arena._id] = false 
+
+			if(this.props.arena.players != undefined){
+
+				if(STORE.data.logged_in_user != undefined){
+
+					var isMember = _.filter(this.props.arena.players, function(player){ if(player._id === STORE.data.userId){ return true}})
+					console.log(isMember)
+
+					if(isMember[0] != undefined){
+						if(isMember[0].name){
+							var alreadyMember = true
+							STORE.data.arenaMembers[this.props.arena._id] = false 
+						}	
+					}
+
+				}
+			}
 
 			var suggestions = ""
 
@@ -184,7 +203,7 @@ const JoinArenaComponent = React.createClass({
 
 					<div>{this._renderSelectedPlayers(arenaPlayers, '')}</div>
 
-					<button onClick={this._handleJoinArena} > {arenaId === currentArenaId ? 'already a member' : 'join arena'} </button>
+					<button onClick={this._handleJoinArena} > {alreadyMember ? 'member of arena' : 'join arena'} </button>
 					
 				</div>
 

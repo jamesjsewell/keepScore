@@ -203,6 +203,7 @@ const ArenaSuggestionsComponent = React.createClass({
 					if(STORE.data.arena_search_results != undefined){
 						var arrayOfArenas = STORE.data.arena_search_results
 						arrayOfArenas.push(this.props.arena)
+						
 					}
 					else{
 						var arrayOfArenas = [this.props.arena]

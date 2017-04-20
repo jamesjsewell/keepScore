@@ -391,7 +391,7 @@ const ACTIONS = {
 
 	},
 
-	join_arena: function(arenaId){
+	join_arena: function(arenaId, arena){
 
 		var updatedArenas = []
 
@@ -404,6 +404,48 @@ const ACTIONS = {
 		else{
 			var updatedArenas = [arenaId]
 		}
+		console.log(arena)
+		if(arena != undefined){
+
+			var users = arena.players
+			var userIds = []
+
+			for(var i = 0; i < users.length; i++){
+
+				var theUser = users[i]._id
+				userIds.push(theUser)
+
+			}
+			users = userIds
+			users.push(STORE.data.userId)
+			console.log(users, 'users')
+			console.log(updatedArenas, 'arenas')
+
+				$.ajax({
+
+			            method: 'put',
+			            type: 'json',
+			            url: 'api/arenas/' + arenaId,
+			            data: {players: users}
+			            
+			        })
+
+			        .done((res)=>{
+
+			        	console.log('updated the arena users', res)
+			        	
+			       		//should update the status of the match to complete
+
+			        })
+
+			        .fail((err)=>{
+
+			            console.log('could not update arena users', err)
+
+			        })
+
+		}
+		
 
 		$.ajax({
 
@@ -419,6 +461,7 @@ const ACTIONS = {
 	        	console.log('updated the arenas for the user', res)
 	        	ACTIONS.update_current_arena(arenaId)
 	       		ACTIONS.refresh_needed_data()
+	       		ACTIONS.get_arenas_by_creator()
 	       		//should update the status of the match to complete
 
 	        })
