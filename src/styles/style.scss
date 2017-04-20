@@ -1,78 +1,17 @@
-* {
-	font-family: Helvetica, Arial, sans-serif;
-	box-sizing: border-box;
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+@import './materialize.scss';
+
+
+.icon-block {
+  padding: 0 15px;
 }
-
-label{
-	display: block;
+.icon-block .material-icons {
+	font-size: inherit;
 }
-
-.hidden { display:none; }
-
-.queue-wrapper{
-	padding: .5rem;
-	background: grey;
-	width: 30%;
-	display: inline-block;
-	vertical-align: top;
-	
-}
-
-.recent-matches-wrapper{
-	padding: .5rem;
-	background: grey;
-	width: 30%;
-	display: inline-block;
-	margin-left: .5rem;
-	
-}
-
-.match-wrapper{
-	padding: .25rem;
-	margin: .5rem;
-	display: block;
-	background: white;
-}
-
-a{
-	margin: auto;
-	padding: .5rem;
-}
-
-
-.create-match-wrapper{
-	width: 30%;
-	margin-bottom: 1rem;
-	background: grey;
-	padding: .5rem;
-}
-
-label{
-
-	text-align: right;
-}
-
-img {
-
-
-	width: 128px;
-	max-width: 100%;
-}
-
-#small{
-
-
-	width: 32px;
-	height: 32px;
-	max-width: 100%;
-}
-
-#dual-player-title{
-
-	padding: .2rem;
-	margin: 0;
-}
-
-
-
-	

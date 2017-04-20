@@ -884,7 +884,7 @@ const ACTIONS = {
 			.done(
 				function(resp) {
 					alert('logged in!')
-					location.hash = 'arena'
+					location.hash = 'profile'
 					STORE._set({userId: resp._id})
 					
 				}

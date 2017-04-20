@@ -68,7 +68,7 @@ const ProfilePage = React.createClass({
 
 			return (
 
-		 		<div className='profile-page-wrapper'>
+		 		<div className='green green accent-4'>
 		 			
 		 			<Navbar />
 		 			<h2>{User.getCurrentUser().attributes.name}</h2>
@@ -77,10 +77,13 @@ const ProfilePage = React.createClass({
 		 			</div>
 		 			<button onClick={this._handleUpload}>upload</button>
 
-		 			<h3>your arenas</h3>
-		 			<div className='joined-arenas-wrapper'>
-		 				{this._renderArenas(this.state.joined_arenas)}
-		 			</div>
+
+		 			<div className = 'row'>
+			 			<div className = 'col s12 m6'>
+			 				<h3>your arenas</h3>
+			 				{this._renderArenas(this.state.joined_arenas)}
+			 			</div>
+			 		</div>
 
 
 		 		</div>
@@ -151,11 +154,15 @@ const JoinedArenaComponent = React.createClass({
 		}
 
 		return(
-			<div>
-				<div>{name}</div>
-				<div>{numberOfPlayers} players</div>
-				<button onClick={this._handleEnterArena} >{id === currentArena ? 'you are here' : 'enter arena'}</button>
+			
+			<div className="card blue-grey darken-1">
+				<div className="card-content white-text">
+					<span className="card-title">{name}</span>
+					<div>{numberOfPlayers} players</div>
+					<button className="waves-effect waves-light btn" onClick={this._handleEnterArena} >{id === currentArena ? 'you are here' : 'enter arena'}</button>
+				</div>
 			</div>
+			
 		)
 		
 

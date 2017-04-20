@@ -46,20 +46,47 @@ const Navbar = React.createClass({
 	},
 
  	render: function(){
+ 		//<a className="breadcrumb" href="#leaderboard">view leaderboard</a>
+ 		//<a className="breadcrumb" href="#teams">team builder</a>
+ 		var profileStatus = ''
+ 		var editArenasStatus = ''
+ 		var arenaStatus = ''
+ 		var joinArenaStatus = ''
 
+ 		if(location.hash === '#login' || location.hash === '#logout' || location.hash === '#home'){
+ 			var loginStatus = 'active'
+ 		}
+ 		if(location.hash === '#profile'){
+ 			var profileStatus = 'active'
+ 		}
+ 		if(location.hash === '#edit_arenas'){
+ 			var editArenasStatus = 'active'
+ 		}
+ 		if(location.hash === '#arena'){
+ 			var arenaStatus = 'active'
+ 		}
+ 		if(location.hash === '#join_arenas'){
+ 			var joinArenaStatus = 'active'
+ 		}
  		return (
 
-	 		<ul className='navbar-wrapper'>
+ 			<nav>
 
-	 			<a href="#profile">my profile</a>
-	 			<a href="#leaderboard">view leaderboard</a>
-	 			<a href="#arena">arena</a>
-	 			<a href="#teams">team builder</a>
-				<a href="#edit_arenas">edit arenas</a>
-				<a href="#join_arenas">join arenas</a>
-				<a onClick={this._handleLogout} href="#home">{User.getCurrentUser() === null || User.getCurrentUser().attributes._id === false ? 'login' : 'logout'}</a>	
+		 		<div className='nav-wrapper col s2 center-align green accent-3'>
 
-	 		</ul>
+		 			<ul className='col s2 center-align green accent-3'>
+
+		 			<li className={loginStatus}><a className="breadcrumb" onClick={this._handleLogout} href="#home">{User.getCurrentUser() === null || User.getCurrentUser().attributes._id === false ? 'login' : 'logout'}</a></li>	
+		 			<li className={profileStatus}><a className="breadcrumb" href="#profile">my profile</a></li>
+					<li className={editArenasStatus}><a className="breadcrumb" href="#edit_arenas">edit arenas</a></li>
+					<li className={arenaStatus}><a className="breadcrumb" href="#arena">arena</a></li>
+					<li className={joinArenaStatus}><a className="breadcrumb" href="#join_arenas">join arenas</a></li>
+					
+					</ul>
+
+		 		</div>
+
+	 		</nav>
 
  		)
 
