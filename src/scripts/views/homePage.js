@@ -1,7 +1,7 @@
 import React from 'react'
 import STORE from '../store.js'
 import ACTIONS from '../actions.js'
-import Navbar from './components/navbar.js'
+import Navbar from './components/navBar.js'
 
 const HomePage = React.createClass({
 

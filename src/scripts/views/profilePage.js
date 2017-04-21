@@ -2,7 +2,7 @@ import React from 'react'
 import STORE from '../store.js'
 import ACTIONS from '../actions.js'
 import User from '../models/userModel.js'
-import Navbar from './components/navbar.js'
+import Navbar from './components/navBar.js'
 import filestack from 'filestack-js';
 
 const apikey = 'AdJ0jZ9GGR6g4iEIZxIOwz';

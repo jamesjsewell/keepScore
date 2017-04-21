@@ -2,7 +2,6 @@ import React from 'react'
 import STORE from '../../store.js'
 import ACTIONS from '../../actions.js'
 import User from '../../models/userModel.js'
-import $ from 'jquery'
 
 const Navbar = React.createClass({
 
@@ -18,6 +17,11 @@ const Navbar = React.createClass({
 
 		STORE.off('dataUpdated')
 
+	},
+
+	componentDidMount: function(){
+		console.log($('.button-collapse'))
+		$(".button-collapse").sideNav();
 	},
 
 	getInitialState: function() {
@@ -70,41 +74,33 @@ const Navbar = React.createClass({
  			var joinArenaStatus = 'active'
  		}
  		return (
- 			<div className="container center-align col s12 offset-m3">
- 			<nav id="navBar">
- 	
-		 		<div className='nav-wrapper green accent-3 hide-on-med-and-down'>
-		 			
-		 			<ul className='green accent-3'>
+ 			<div>
+				<h1 id='app-title'>gametrackr</h1>
+	 			<div className="container center-align col s12 offset-m3 green accent-3">
+		 			<nav id="navBar" className="green accent-3">
+			 			<div className="nav-wrapper className='green accent-3">
+			 			  <a data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
+					 	  <ul className='green accent-3 left hide-on-med-and-down'>
 
-		 			<li className={loginStatus}><a className="breadcrumb flow-text" onClick={this._handleLogout} href="#home">{User.getCurrentUser() === null || User.getCurrentUser().attributes._id === false ? 'login' : 'logout'}</a></li>	
-		 			<li className={profileStatus}><a className="breadcrumb flow-text" href="#profile">my arenas</a></li>
-					<li className={editArenasStatus}><a className="breadcrumb flow-text" href="#edit_arenas">create arenas</a></li>
-					<li className={arenaStatus}><a className="breadcrumb flow-text" href="#arena">play</a></li>
-					<li className={joinArenaStatus}><a className="breadcrumb flow-text" href="#join_arenas">find arenas</a></li>
-					</ul>
+				 			<li className={loginStatus}><a className="breadcrumb flow-text" onClick={this._handleLogout} href="#home">{User.getCurrentUser() === null || User.getCurrentUser().attributes._id === false ? 'login' : 'logout'}</a></li>	
+				 			<li className={profileStatus}><a className="breadcrumb flow-text" href="#profile">my arenas</a></li>
+							<li className={editArenasStatus}><a className="breadcrumb flow-text" href="#edit_arenas">create arenas</a></li>
+							<li className={arenaStatus}><a className="breadcrumb flow-text" href="#arena">play</a></li>
+							<li className={joinArenaStatus}><a className="breadcrumb flow-text" href="#join_arenas">find arenas</a></li>
+						  </ul>
 
-		 		</div>
-
-		 		<div className='nav-wrapper green accent-3 hide-on-large-only'>
-		 			
-		 			<ul className='green accent-3'>
-
-		 			<a className="breadcrumb flow-text" onClick={this._handleLogout} href="#home">{User.getCurrentUser() === null || User.getCurrentUser().attributes._id === false ? 'login' : 'logout'}</a>
-		 			<a className="breadcrumb flow-text" href="#profile">my arenas</a>
-					<a className="breadcrumb flow-text" href="#edit_arenas">create arenas</a>
-					<a className="breadcrumb flow-text" href="#arena">play</a>
-					<a className="breadcrumb flow-text" href="#join_arenas">find arenas</a>
-				
-					</ul>
-		 		</div>
-
-
-		
-
-	 		</nav>
-	 		</div>
-
+						  <ul className='green accent-3 side-nav' id='mobile-demo'>
+				 			<li className={loginStatus}><a className="breadcrumb flow-text" onClick={this._handleLogout} href="#home">{User.getCurrentUser() === null || User.getCurrentUser().attributes._id === false ? 'login' : 'logout'}</a></li>	
+				 			<li className={profileStatus}><a className="breadcrumb flow-text" href="#profile">my arenas</a></li>
+							<li className={editArenasStatus}><a className="breadcrumb flow-text" href="#edit_arenas">create arenas</a></li>
+							<li className={arenaStatus}><a className="breadcrumb flow-text" href="#arena">play</a></li>
+							<li className={joinArenaStatus}><a className="breadcrumb flow-text" href="#join_arenas">find arenas</a></li>
+						   </ul>
+					 	</div>
+			 		</nav>
+			 		<img className={this.state.dataLoaded ? 'hide loading-gif' : 'loading-gif responsive-img'} src="images/loading.gif" />			
+			 	</div>
+			</div>
  		)
 
  	}

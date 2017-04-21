@@ -126,7 +126,9 @@ const ACTIONS = {
 	get_queued_matches: function(arenaId){
 
 		var matchColl = STORE.get('matchCollection')
-		
+		STORE._set({
+			dataLoaded: false
+			})
 		matchColl.fetch({
 
 				data: {arena: arenaId, status: 'inactive'}
@@ -136,7 +138,8 @@ const ACTIONS = {
 			.then(function(resp) {
 			
 				STORE._set({
-					queued_match_collection: matchColl
+					queued_match_collection: matchColl,
+					dataLoaded: true
 				})
 
 				ACTIONS.get_completed_matches(arenaId)
@@ -147,7 +150,9 @@ const ACTIONS = {
 	get_completed_matches: function(arenaId){
 
 		var matchColl = STORE.get('completedMatchCollection')
-		
+		STORE._set({
+			dataLoaded: false
+			})
 		matchColl.fetch({
 
 				data: {arena: arenaId, status: 'complete'}
@@ -157,7 +162,8 @@ const ACTIONS = {
 			.then(function() {
 				
 				STORE._set({
-					completed_match_collection: matchColl
+					completed_match_collection: matchColl,
+					dataLoaded: true
 				})
 
 				ACTIONS.calculate_leaderboard(matchColl)
@@ -168,13 +174,16 @@ const ACTIONS = {
 	fetch_matches: function(){
 
 		var matchColl = STORE.get('matchCollection')
-		
+		STORE._set({
+			dataLoaded: false
+			})
 		matchColl.fetch()
 
 			.then(function() {
 
 				STORE._set({
-					matchCollection: matchColl
+					matchCollection: matchColl,
+					dataLoaded: true
 				})
 
 			})	
@@ -249,7 +258,9 @@ const ACTIONS = {
 	get_teams_by_arena: function(arenaId){
 
 		var teamColl = STORE.get('teamCollection')
-		
+		STORE._set({
+			dataLoaded: false
+			})
 		teamColl.fetch({
 
 				data: {arena: STORE.data.current_arena[0].attributes._id}
@@ -259,7 +270,8 @@ const ACTIONS = {
 			.then(function() {
 				
 				STORE._set({
-					team_collection: teamColl
+					team_collection: teamColl,
+					dataLoaded: true
 				})
 
 				ACTIONS.get_arenas_by_creator()
@@ -375,6 +387,9 @@ const ACTIONS = {
 
 		var arenaColl = STORE.get('userCreatedArenaColl')
 		console.log(STORE.data.userId)
+		STORE._set({
+			dataLoaded: false
+			})
 		arenaColl.fetch({
 
 				data: {"creator": STORE.data.userId}
@@ -384,7 +399,8 @@ const ACTIONS = {
 			.then(function() {
 				
 				STORE._set({
-					my_created_arenas: arenaColl.models
+					my_created_arenas: arenaColl.models,
+					dataLoaded: true
 				})
 
 				console.log('set my created arenas collection on store', STORE.data.my_created_arenas)
@@ -570,13 +586,16 @@ const ACTIONS = {
 	get_all_arenas: function(){
 
 		var arenaColl = STORE.get('allArenasCollection')
-		
+		STORE._set({
+			dataLoaded: false
+		})
 		arenaColl.fetch()
 
 			.then(function() {
 
 				STORE._set({
-					all_arenas: arenaColl
+					all_arenas: arenaColl,
+					dataLoaded: true
 				})
 
 			})	
@@ -588,11 +607,15 @@ const ACTIONS = {
 		//"$new RegExp(/"+ userInput +"/, 'g')"
 		var userColl = STORE.get('allUsersCollection')
 		console.log(userInput, 'user input', "$new RegExp(/"+ userInput +"/, 'i')")
+		STORE._set({
+			dataLoaded: false
+			})
 		userColl.fetch({
 
 				data: {
 
-					name: "$"+userInput
+					name: "$"+userInput,
+					dataLoaded: true
 
 				}
 
@@ -654,7 +677,9 @@ const ACTIONS = {
 	get_logged_in_user: function(){
 
 		var userColl = STORE.get('allUsersCollection')
-
+		STORE._set({
+			dataLoaded: false
+			})
 		userColl.fetch({
 
 				data: {
@@ -668,7 +693,8 @@ const ACTIONS = {
 			.then(function() {
 				console.log(userColl)
 				STORE._set({
-					logged_in_user: userColl.models[0].attributes
+					logged_in_user: userColl.models[0].attributes,
+					dataLoaded: true
 				})
 
 				console.log('set logged in user', STORE.data.logged_in_user)
@@ -740,7 +766,9 @@ const ACTIONS = {
 		//ACTIONS.ajax_to_store(`api/users/${userId}`,'selected_user_current_arena','current_arena', {'players'})
 		var arenaId = User.getCurrentUser().attributes.current_arena
 		var arenaColl = STORE.get('arenaCollection')
-		
+		STORE._set({
+			dataLoaded: false
+			})
 		arenaColl.fetch()
 
 			.then(function(arena) {
@@ -752,7 +780,8 @@ const ACTIONS = {
 				}
 				STORE._set({
 					current_arena: currentArena,
-					current_arena_id: currentArenaId
+					current_arena_id: currentArenaId,
+					dataLoaded: true
 				})
 
 				if(currentArena != undefined){
@@ -773,7 +802,9 @@ const ACTIONS = {
 		console.log(userInput, 'user input', "$new RegExp(/"+ userInput +"/, 'i')")
 
 		if(userInput.length < 1){
-
+			STORE._set({
+			dataLoaded: false
+			})
 			arenaColl.fetch({
 
 			})
@@ -782,7 +813,8 @@ const ACTIONS = {
 				console.log(arenaColl)
 				STORE._set({
 					auto_complete_arenas: arenaColl,
-					arena_search_results: undefined
+					arena_search_results: undefined,
+					dataLoaded: true
 
 				})
 
@@ -793,7 +825,9 @@ const ACTIONS = {
 
 		}
 		else{
-
+			STORE._set({
+			dataLoaded: false
+			})
 			arenaColl.fetch({
 
 				data: {
@@ -807,7 +841,8 @@ const ACTIONS = {
 			.then(function() {
 				console.log(arenaColl)
 				STORE._set({
-					auto_complete_arenas: arenaColl
+					auto_complete_arenas: arenaColl,
+					dataLoaded: true
 				})
 
 				console.log('set filtered arenas collection on store', arenaColl.models)

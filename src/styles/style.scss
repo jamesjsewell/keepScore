@@ -19,4 +19,20 @@
 	font-size: inherit;
 }
 
+#app-title {
+	color: #263238;
+    background: #eceff1;
+    padding: 2rem;
+    text-align: center;
+    font-size: 6rem;
+    font-family: 'Lobster', cursive;
+}
 
+input:not([type]), input[type=text], textarea, button.btn, button, .btn {
+	font-size: 2rem;
+}
+
+button.btn {
+	padding: 1rem 2rem;
+	height: auto;
+}

@@ -3,7 +3,7 @@ import STORE from '../store.js'
 import ACTIONS from '../actions.js'
 import User from '../models/userModel.js'
 //imported components
-import Navbar from './components/navbar.js'
+import Navbar from './components/navBar.js'
 import PlayersOfTeamComponent from './components/teamPageComponents/playersOfTeamSelect.js'
 import CreateArenaComponent from './components/editArenasPageComponents/arenaCreateComponent.js'
 import TeamsComponent from './components/teamPageComponents/teamsComponent.js'

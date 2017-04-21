@@ -3,7 +3,7 @@ import STORE from '../store.js'
 import ACTIONS from '../actions.js'
 import User from '../models/userModel.js'
 //imported components
-import Navbar from './components/navbar.js'
+import Navbar from './components/navBar.js'
 import JoinArenaComponent from './components/joinArenasPageComponents/joinArenaComponent.js'
 
 const JoinArenasPage = React.createClass({

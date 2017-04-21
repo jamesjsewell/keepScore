@@ -82,17 +82,15 @@ const app = function() {
 		
 			var checkUserAuth = function() {
 
-				if(User.getCurrentUser() === null){
+				if(!User.getCurrentUser()){
 
 					location.hash = 'home'
-
 				}
-
 			}
 			
 			checkUserAuth()
 
-			this.on("route", checkUserAuth())
+			this.on("route", checkUserAuth)
 		}
 
 	})

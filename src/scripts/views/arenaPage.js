@@ -3,7 +3,7 @@ import STORE from '../store.js'
 import ACTIONS from '../actions.js'
 import User from '../models/userModel.js'
 //imported components
-import Navbar from './components/navbar.js'
+import Navbar from './components/navBar.js'
 import PlayerChoiceComponent from './components/arenaPageComponents/playerSelect.js'
 import QueueComponent from './components/arenaPageComponents/matchesQueue.js'
 import RecentMatchesComponent from './components/arenaPageComponents/recentMatches.js'
@@ -73,7 +73,7 @@ const ArenaPage = React.createClass({
  			
 			return (
 
-	 		<div className='deep-purple darken-4'>
+	 		<div className='blue-grey darken-4'>
 	 			
 	 			<Navbar />
 	 			<h2 className="white-text center-align title">{this.state.current_arena[0].attributes.name}</h2>
@@ -104,7 +104,7 @@ const ArenaPage = React.createClass({
 
 			return (
 
-				<div className='deep-purple darken-4 center-align'>
+				<div className='green accent-4 center-align'>
 					
 					<Navbar />
 					
@@ -119,7 +119,7 @@ const ArenaPage = React.createClass({
 
  		return(
 
- 			<div className="deep-purple darken-4"></div>
+ 			<div className="blue-grey darken-4"></div>
 
  		)	
  		
