@@ -73,7 +73,7 @@ const ArenaPage = React.createClass({
  			
 			return (
 
-	 		<div className='green accent-4'>
+	 		<div className='deep-purple darken-4'>
 	 			
 	 			<Navbar />
 	 			
@@ -93,7 +93,7 @@ const ArenaPage = React.createClass({
 
 			return (
 
-				<div className='arenas-page-wrapper'>
+				<div className='deep-purple darken-4 center-align'>
 					
 					<Navbar />
 					<button onClick={this.goToArenasPage}>join an arena</button>
@@ -107,7 +107,7 @@ const ArenaPage = React.createClass({
 
  		return(
 
- 			<div></div>
+ 			<div className="deep-purple darken-4"></div>
 
  		)	
  		

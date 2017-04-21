@@ -135,7 +135,7 @@ const JoinArenasPage = React.createClass({
 			
 			return (
 
-		 		<div className='green accent-4'>
+		 		<div className='blue-grey darken-4'>
 		 			
 		 			<Navbar />
 
@@ -162,7 +162,7 @@ const JoinArenasPage = React.createClass({
 
 			return (
 
-				<div className='arenas-page-wrapper'>
+				<div className='blue-grey darken-4'>
 					<Navbar />
 
 		 			<div className='arena-create-wrapper'>

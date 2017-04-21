@@ -68,7 +68,7 @@ const ProfilePage = React.createClass({
 
 			return (
 
-		 		<div className='green green accent-4'>
+		 		<div className='blue-grey darken-4'>
 		 			
 		 			<Navbar />
 
@@ -96,7 +96,7 @@ const ProfilePage = React.createClass({
 
 			return (
 
-				<div className='arenas-page-wrapper'>
+				<div className='blue-grey darken-4'>
 
 				</div>
 

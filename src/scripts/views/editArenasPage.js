@@ -53,7 +53,7 @@ const ArenasPage = React.createClass({
 			
 			return (
 
-		 		<div className='center-align green accent-4'>
+		 		<div className='blue-grey darken-4 center-align'>
 		 			
 		 			<Navbar />
 
@@ -80,7 +80,7 @@ const ArenasPage = React.createClass({
 
 			return (
 
-				<div className='arenas-page-wrapper'>
+				<div className='blue-grey darken-4'>
 					<Navbar />
 
 		 			<div className='arena-create-wrapper'>
