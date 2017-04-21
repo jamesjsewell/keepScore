@@ -71,19 +71,19 @@ const ProfilePage = React.createClass({
 		 		<div className='green green accent-4'>
 		 			
 		 			<Navbar />
-		 			<h2>{User.getCurrentUser().attributes.name}</h2>
-		 			<div>
-		 				<img src={imgUrl} />
+
+		 			<div className="col s12 container center-align m6 offset-m3 green accent-4">
+						<div className = 'card green accent-3'>
+		 					<h2 className="card-title card-content white-text center-align">{User.getCurrentUser().attributes.name}</h2>
+				 			<div>
+				 				<img id="profile-pic" className = "responsive-img" src={imgUrl} />
+				 			</div>
+		 					<button className='btn green accent-1 green-text flow-text' onClick={this._handleUpload}>upload</button>
+		 				</div>
 		 			</div>
-		 			<button onClick={this._handleUpload}>upload</button>
-
-
-		 			<div className = 'row'>
-			 			<div className = 'col s12 m6'>
-			 				<h3>your arenas</h3>
-			 				{this._renderArenas(this.state.joined_arenas)}
-			 			</div>
-			 		</div>
+			 			
+	 				<h3 className='center-align white-text'>Your Arenas</h3>
+	 				{this._renderArenas(this.state.joined_arenas)}
 
 
 		 		</div>
@@ -155,11 +155,11 @@ const JoinedArenaComponent = React.createClass({
 
 		return(
 			
-			<div className="card blue-grey darken-1">
-				<div className="card-content white-text">
-					<span className="card-title">{name}</span>
-					<div>{numberOfPlayers} players</div>
-					<button className="waves-effect waves-light btn" onClick={this._handleEnterArena} >{id === currentArena ? 'you are here' : 'enter arena'}</button>
+			<div className="col s12 container center-align m6 offset-m3 green accent-4">
+				<div className = 'card green accent-3'>
+					<span className="card-title card-content white-text center-align">{name}</span>
+					<h4 className="card-content white-text center-align">{numberOfPlayers} players</h4>
+					<button className='btn green accent-1 green-text flow-text' onClick={this._handleEnterArena} >{id === currentArena ? 'you are here' : 'enter arena'}</button>
 				</div>
 			</div>
 			

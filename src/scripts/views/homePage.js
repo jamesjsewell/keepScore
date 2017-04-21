@@ -51,26 +51,54 @@ const HomePage = React.createClass({
 
  		return (
 
-	 		<div className='home-page-wrapper'>
+	 		<div className='blue-grey darken-4'>
 
 	 			<Navbar />
 
-	 			<form onSubmit={this._handleLogin} className='loginWrapper'>
+	 			<div className="col s12 container center-align m6 offset-m3 green accent-4">
+					<div className = 'card green accent-3'>
+						<h2 className="card-content title white-text center-align">Login</h2>
+			 			<form className='card-content container center-align green accent-3' onSubmit={this._handleLogin} className='loginWrapper'>
 
-	 				<input type='text' name='email' className='email-input' />
-	 				<input type='password' name='password' className='password-input' />
-	 				<button type='submit' className='login-button'/>
+			 				<div className="green accent-4 card-content input-field container white-text">
+			 					<input className="white white-text" type='text' name='email' placeholder='enter email' className='email-input' />
+			 				</div>
 
-	 			</form>
+			 				<div className="green accent-4 card-content input-field container white-text">
+			 					<input className="white white-text" type='password' name='password' placeholder='enter password' className='password-input' />
+			 				</div>
+
+			 				<button type='submit' className='container btn green accent-1 green-text flow-text' >Login</button>
+
+			 			</form>
+			 		</div>
+				 </div>
 	 			
-	 			<form onSubmit={this._handleRegister} className='submitWrapper'>
+	 			<div className="col s12 container center-align m6 offset-m3 green accent-4">
 
-	 				<input type='text' name='userName' className='password-input' />
-	 				<input type='text' name='email' className='email-input' />
-	 				<input type='password' name='password' className='password-input' />
-	 				<button type='submit' className='register-button'/>
+					<div className = 'card green accent-3'>
+						<h2 className="title white-text center-align card-content">Register</h2>
+			 			<form className='card-content container center-align green accent-3' onSubmit={this._handleRegister} className='submitWrapper'>
 
-	 			</form>
+			 				<div className="green accent-4 card-content input-field container white-text">
+			 					<input type='text' name='userName' placeholder="enter user name" className='password-input' />
+			 				</div>
+
+			 				<div className="green accent-4 card-content input-field container white-text">
+			 					<input type='text' name='email' placeholder="enter email" className='email-input' />
+			 				</div>
+
+			 				<div className="green accent-4 card-content input-field container white-text">
+			 					<input type='password' name='password' placeholder="enter password" className='password-input' />
+			 				</div>
+
+			 				<button className='container btn green accent-1 green-text flow-text' type='submit'>Register</button>
+
+			 			</form>
+
+			 		</div>
+
+			 	</div>
 	 			
 	 		</div>
 
