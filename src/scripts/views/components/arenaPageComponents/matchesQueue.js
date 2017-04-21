@@ -107,7 +107,7 @@ const MatchComponent = React.createClass({
 
 		return(
 
-			<div className = 'match-wrapper'>
+			<div className = 'card container center-align'>
 
 				<h2>{this.props.matchName}</h2>
 				<h3>{gameType}</h3>
@@ -235,7 +235,7 @@ const PlayersOfMatchComponent = React.createClass({
 
 				</form>
 
-				<div className={teamDisplay ? '' : 'hidden'}>
+				<div className={teamDisplay ? '' : 'hide'}>
 
 					<form onSubmit={this._handleSubmit} name={this.props.match._id}>
 
@@ -245,7 +245,7 @@ const PlayersOfMatchComponent = React.createClass({
 						<h3>{team2Name}</h3>
 						<div>{this._makePlayers(this.props.match.team2)}</div>
 
-						<button className={this.props.showCompleteBtn ? '' : 'hidden'} type='submit'>complete</button>
+						<button className={this.props.showCompleteBtn ? '' : 'hide'} type='submit'>complete</button>
 
 					</form>
 
@@ -266,12 +266,11 @@ const PlayerComponent = React.createClass({
 
 		return(
 
-			<div className = 'player-of-match-wrapper'>
-				<img id="small" src={this.props.player.avatar_url} />
-				<p>{this.props.player.name}</p>
-				<input name='score' id={this.props.player._id} placeholder='enter score' />
-
-			</div>
+			<label className="chip green accent-2">
+			<img className="circle" src={this.props.player.avatar_url} />
+			{this.props.player.name}
+			<input name='score' id={this.props.player._id} placeholder='enter score' />
+			</label>
 
 		)
 	}

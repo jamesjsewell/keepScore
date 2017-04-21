@@ -208,15 +208,27 @@ const PlayerChoiceComponent = React.createClass({
 
 			return(
 
-				<div name='player-select-wrapper'>
+				<div className="col s6 container center-align m6 offset-m3 green accent-4">
 
-					<div>{suggestions}</div>
-					
-					<input onKeyUp = {this._handleKeyPress} name = "addPlayer1" placeholder = "player1" />
+					<div className = 'card green accent-3'>
 
-					<input onKeyUp = {this._handleKeyPress} name = "addPlayer2" placeholder = "player2" />
+						<div className='card-content container' name='player-select-wrapper'>
 
-					<div multiple size="2" >{this._renderSelectedPlayers(STORE.data.selected_players_match)}</div>
+							<div>{suggestions}</div>
+							
+							<div className="input-field card-content white">
+								<input className="" onKeyUp = {this._handleKeyPress} name = "addPlayer1" placeholder = "player1" />
+							</div>
+
+							<div className="input-field card-content white">
+								<input className="" onKeyUp = {this._handleKeyPress} name = "addPlayer2" placeholder = "player2" />
+							</div>
+							<h6 className="white-text center-align">selected players</h6>
+							<div className="card-content" multiple size="2" >{this._renderSelectedPlayers(STORE.data.selected_players_match)}</div>
+
+						</div>
+
+					</div>
 
 				</div>
 
@@ -230,15 +242,29 @@ const PlayerChoiceComponent = React.createClass({
 
 			return(
 
-				<div name='player-select-wrapper'>
+			<div className="col s6 container center-align m6 offset-m3 green accent-4">
 
-					<div>{suggestions}</div>
-					
-					<input onKeyUp = {this._handleKeyPress} name = "team1" placeholder = "team 1" />
+					<div className = 'card green accent-3'>
 
-					<input onKeyUp = {this._handleKeyPress} name = "team2" placeholder = "team 2" />
+						<div name='card-content container center-align'>
 
-					<div>{this._renderSelectedTeams(STORE.data.match_selected_teams)}</div>
+							<div>{suggestions}</div>
+
+							<div className="input-field card-content white">
+								<input onKeyUp = {this._handleKeyPress} name = "team1" placeholder = "team 1" />
+							</div>
+
+							<div className="input-field card-content white">
+								<input onKeyUp = {this._handleKeyPress} name = "team2" placeholder = "team 2" />
+							</div>
+
+							<h5 className="white-text center-align"> select teams </h5>
+
+							<div>{this._renderSelectedTeams(STORE.data.match_selected_teams)}</div>
+
+						</div>
+
+					</div>
 
 				</div>
 
@@ -250,13 +276,26 @@ const PlayerChoiceComponent = React.createClass({
 
 			return(
 
-				<div name='player-select-wrapper'>
+				<div className="col s6 container center-align m6 offset-m3 green accent-4">
 
-					<div>{suggestions}</div>
-					
-					<input onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
+					<div className = 'card green accent-3'>
 
-					<div multiple size={STORE.data.selected_players_match != undefined ? STORE.data.selected_players_match.length : 3} name="freeForAll">{this._renderSelectedPlayers(STORE.data.selected_players_match)}</div>	
+						<div name='card-content container center-align green accent-3'>
+
+
+							<div className="green accent-3">{suggestions}</div>
+
+							<div className="input-field card-content white">
+								<input onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
+							</div>
+
+							<div className="card-content">
+								<div multiple size={STORE.data.selected_players_match != undefined ? STORE.data.selected_players_match.length : 3} name="freeForAll">{this._renderSelectedPlayers(STORE.data.selected_players_match)}</div>	
+							</div>
+
+						</div>
+
+					</div>
 
 				</div>
 
@@ -347,27 +386,51 @@ var SelectedTeamsComponent = React.createClass({
 
 	_makePlayers: function(player){
 
-		return(
+		if(player != undefined){
 
-			<p>
-				{player.name}
-			</p>
+			return(
+
+			
+				<div className="chip avatar">
+					<img src={player.avatar_url} />
+					<a className="green-text" type="button" name="players" value={player._id} > {player.name} </a>	
+				</div>
+			
 
 		)
+
+		}
+		else{
+			return null
+		}
+		
 
 	},
 
 	render: function(){
 		
-		return(
-			
-			<label name="team">
-			{this.props.team.attributes.name}
-			<input type="checkbox" name="team" value={this.props.team.attributes._id} />
-			{this.props.team.attributes.players.map(this._makePlayers)}
-			</label>
+		if(this.props.team.attributes._id != undefined){
 
-		)
+			return(
+			
+				<div className="container card-content white-text" name="team">
+			
+				
+				<input id={this.props.team.attributes._id} type="checkbox" name="team" value={this.props.team.attributes._id} />
+				<label className = "white-text" htmlFor={this.props.team.attributes._id} > {this.props.team.attributes.name} </label>	
+				<p>{this.props.team.attributes.players.map(this._makePlayers)}</p>
+
+				</div>
+
+			)
+
+
+
+		}
+		else {
+			return null
+		}
+		
 
 	}
 
@@ -437,9 +500,12 @@ const PlayerSuggestionsComponent = React.createClass({
 	render: function(){
 
 		return(
-			
-			<button type="button" onClick={this._handleClick}>{this.props.player.name}</button>
 
+			<a className="chip avatar" onClick={this._handleClick}>
+			<img src={this.props.player.avatar_url} />
+			<p className="green-text" type="button" name="players" value={this.props.player._id} > {this.props.player.name} </p>	
+			</a>	
+	
 		)
 
 	}
@@ -471,11 +537,11 @@ var SelectedPlayersComponent = React.createClass({
 	
 		return(
 			
-			<label name="freeForAll">
-			<img id="small" src={this.props.player.avatar_url} />
-			{this.props.player.name}
-			<input type="checkbox" name={nameOfInput} value={this.props.player._id} />
-			</label>
+			<div className="chip avatar" onClick={this._handleClick}>
+			<img src={this.props.player.avatar_url} />
+			<input id={this.props.player._id} type="checkbox" name="players" value={this.props.player._id} />
+			<label name="players" className = "green-text" htmlFor={this.props.player._id} > {this.props.player.name} </label>	
+			</div>
 
 		)
 
