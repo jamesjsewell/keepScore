@@ -25,14 +25,14 @@ const cookifyUser = function(req,res,next) {
 }
 
 const parseQuery = function(req,res,next) {
-  console.log('parseQuery running')
+  
   if (req.query) {
     for (var prop in req.query) {
       if (req.query[prop][0] === '$') {
-        console.log('before parseQuery',prop, req.query[prop])
+        
         let val = req.query[prop]
         req.query[prop] = new RegExp(req.query[prop].substr(1), 'i')
-        console.log('after parseQuery',prop, req.query[prop])
+        
       }
     }
   }

@@ -2,6 +2,7 @@ import React from 'react'
 import STORE from '../../store.js'
 import ACTIONS from '../../actions.js'
 import User from '../../models/userModel.js'
+import $ from 'jquery'
 
 const Navbar = React.createClass({
 
@@ -71,10 +72,10 @@ const Navbar = React.createClass({
  		return (
 
  			<nav>
-
+ 	
 		 		<div className='nav-wrapper col s2 center-align green accent-3'>
-
-		 			<ul className='col s2 center-align green accent-3'>
+		 			
+		 			<ul className='col s2 center-align green accent-3 hide-on-med-and-down'>
 
 		 			<li className={loginStatus}><a className="breadcrumb flow-text" onClick={this._handleLogout} href="#home">{User.getCurrentUser() === null || User.getCurrentUser().attributes._id === false ? 'login' : 'logout'}</a></li>	
 		 			<li className={profileStatus}><a className="breadcrumb flow-text" href="#profile">my arenas</a></li>

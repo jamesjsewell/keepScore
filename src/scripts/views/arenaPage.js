@@ -76,6 +76,17 @@ const ArenaPage = React.createClass({
 	 		<div className='deep-purple darken-4'>
 	 			
 	 			<Navbar />
+	 			<h2 className="white-text center-align title">{this.state.current_arena[0].attributes.name}</h2>
+	 			<div className="row m6">
+
+	 				<div className="col s9 m6 offset-m3 center-align">
+
+	 					<button className='btn transparent white-text flow-text' onClick={function(){location.hash="leaderboard"}} type='submit'>view leaderboard</button>
+	 					<br />
+	 					<button className='btn transparent white-text flow-text' onClick={function(){location.hash="teams"}} type='submit'>creae teams</button>
+	 				</div>
+
+	 			</div>
 	 			
 	 			<CreateMatchComponent arena={this.state.current_arena[0]} arenaTeams={this.state.team_collection.models}/>
 	 			
@@ -96,8 +107,9 @@ const ArenaPage = React.createClass({
 				<div className='deep-purple darken-4 center-align'>
 					
 					<Navbar />
-					<button onClick={this.goToArenasPage}>join an arena</button>
-					<button onClick={this.goToArenaBuilderPage}>create an arena</button>
+					
+					<button className='btn transparent white-text flow-text' onClick={this.goToArenasPage}>join an arena</button>
+					<button className='btn transparent white-text flow-text' onClick={this.goToArenaBuilderPage}>create an arena</button>
 
 				</div>
 

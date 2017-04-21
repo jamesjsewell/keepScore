@@ -65,7 +65,6 @@ const ArenasPage = React.createClass({
 		 			</div>
 
 		 			<div className='my-arenas-wrapper'>
-		 			<h3 className="title white-text">Edit My Arenas</h3>
 		 				{this._renderArenas(myArenas)}
 		 			</div>
 

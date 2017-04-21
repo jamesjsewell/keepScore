@@ -38,16 +38,16 @@ const TeamBuilderPage = React.createClass({
  			console.log(this.state.current_arena[0])
 			return (
 
-		 		<div className='green accent-4'>
+		 		<div className='blue-grey darken-4'>
 		 			
 		 			<Navbar />
+		 			<h2 className="title white-text center-align">Create Teams</h2>
+		 			
 
-		 			<div className='blue-grey darken-4'>
-		 				<h2 className="title white-text center-align">Create Teams</h2>
 		 				<CreateTeamComponent arena={this.state.current_arena[0]} />
 		 				<TeamsComponent arenaTeams={this.state.team_collection.models} arena={this.state.current_arena[0]} />
 
-		 			</div>
+		 		
 
 		 		</div>
 

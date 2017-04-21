@@ -74,7 +74,7 @@ const ProfilePage = React.createClass({
 
 		 			<div className="col s12 container center-align m6 offset-m3 green accent-4">
 						<div className = 'card green accent-3'>
-		 					<h2 className="card-title card-content white-text center-align">{User.getCurrentUser().attributes.name}</h2>
+		 					<h4 className="card-content white-text center-align">{User.getCurrentUser().attributes.name}</h4>
 				 			<div>
 				 				<img id="profile-pic" className = "responsive-img" src={imgUrl} />
 				 			</div>
@@ -82,7 +82,6 @@ const ProfilePage = React.createClass({
 		 				</div>
 		 			</div>
 			 			
-	 				<h3 className='center-align white-text'>Your Arenas</h3>
 	 				{this._renderArenas(this.state.joined_arenas)}
 
 
@@ -157,7 +156,7 @@ const JoinedArenaComponent = React.createClass({
 			
 			<div className="col s12 container center-align m6 offset-m3 green accent-4">
 				<div className = 'card green accent-3'>
-					<span className="card-title card-content white-text center-align">{name}</span>
+					<h3 className="card-content white-text center-align">{name}</h3>
 					<h4 className="card-content white-text center-align">{numberOfPlayers} players</h4>
 					<button className='btn green accent-1 green-text flow-text' onClick={this._handleEnterArena} >{id === currentArena ? 'you are here' : 'enter arena'}</button>
 				</div>

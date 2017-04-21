@@ -44,15 +44,15 @@ const QueueComponent = React.createClass({
 
 			return(
 
-			<div className="col s6 container center-align m6 green accent-4">
+			<div className="col s12 offset-m3 container center-align">
 
-				<div className = 'card green accent-4'>
+				
 
 					<div className="">
 						{this._makeMatches(this.props.queueMatches)}
 					</div>
 
-				</div>
+				
 
 			</div>
 
@@ -111,7 +111,7 @@ const MatchComponent = React.createClass({
 
 		return(
 
-			<div className="col s6 container center-align m6 offset-m3 green accent-4">
+			
 
 				<div className = 'card green accent-3'>
 
@@ -120,11 +120,11 @@ const MatchComponent = React.createClass({
 					
 					<PlayersOfMatchComponent showCompleteBtn = {showCompleteButton} match={this.props.match} players={this.props.match.players} />
 					
-					<button onClick={this.delete_match}>remove</button>
+					<button className='btn green accent-1 green-text flow-text' onClick={this.delete_match}>remove</button>
 
 				</div>
 
-			</div>
+			
 
 		)
 	}
@@ -241,7 +241,7 @@ const PlayersOfMatchComponent = React.createClass({
 					<ul className="collection">
 					{this._makePlayers(this.props.players)}
 					</ul>
-					<button className={this.props.showCompleteBtn ? '' : 'hide'} type='submit'>complete</button>
+					<button className={this.props.showCompleteBtn ? "btn green accent-1 green-text flow-text" : 'hide'} type='submit'>complete</button>
 						
 				</form>
 
@@ -255,15 +255,15 @@ const PlayersOfMatchComponent = React.createClass({
 
 				<form className="card-content container" onSubmit={this._handleSubmit} name={this.props.match._id}>
 
-					<h6 className="white-text card-content">{team1Name}</h6>
+					<h4 className="white-text card-content">{team1Name}</h4>
 
 					<ul className="collection card-content">{this._makePlayers(this.props.match.team1)}</ul>
 
-					<h6 className="white-text card-content">{team2Name}</h6>
+					<h4 className="white-text card-content">{team2Name}</h4>
 
 					<ul className="collection card-content">{this._makePlayers(this.props.match.team2)}</ul>
 
-					<button className={this.props.showCompleteBtn ? '' : 'hide'} type='submit'>complete</button>
+					<button className={this.props.showCompleteBtn ? 'btn green accent-1 green-text flow-text' : 'hide'} type='submit'>complete</button>
 
 				</form>
 
@@ -280,7 +280,7 @@ const PlayerComponent = React.createClass({
 
 		return(
 
-			<li className="collection-item avatar green accent-4 white-text">
+			<li className="collection-item avatar">
 			<img className="circle" src={this.props.player.avatar_url} />
 			{this.props.player.name}
 			<input name='score' id={this.props.player._id} placeholder='enter score' />

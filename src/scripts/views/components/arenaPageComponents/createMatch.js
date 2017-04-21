@@ -62,9 +62,6 @@ const CreateMatchComponent = React.createClass({
 			var team2Id = team2.value
 			console.log(team1)
 			
-
-		
-
 				var team1Obj = this.props.arenaTeams.filter(function(team){
 
 					if(team.attributes._id === team1Id){

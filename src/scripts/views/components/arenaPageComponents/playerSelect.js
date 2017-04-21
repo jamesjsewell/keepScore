@@ -501,10 +501,10 @@ const PlayerSuggestionsComponent = React.createClass({
 
 		return(
 
-			<a className="chip avatar" onClick={this._handleClick}>
+			<button className="chip avatar btn green accent-1 green-text flow-text s6" onClick={this._handleClick} type="button" name="players" value={this.props.player._id} >
 			<img src={this.props.player.avatar_url} />
-			<p className="green-text" type="button" name="players" value={this.props.player._id} > {this.props.player.name} </p>	
-			</a>	
+		 	{this.props.player.name} 
+			</button>	
 	
 		)
 
