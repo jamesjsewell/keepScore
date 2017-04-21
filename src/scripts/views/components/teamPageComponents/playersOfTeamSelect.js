@@ -140,7 +140,10 @@ const TeamPlayerSuggestionsComponent = React.createClass({
 
 		return(
 			
-			<button type="button" onClick={this._handleClick}>{this.props.player.name}</button>
+			<button className="chip avatar btn green accent-1 green-text flow-text s6" onClick={this._handleClick} type="button" name="players" value={this.props.player._id} >
+			<img src={this.props.player.avatar_url} />
+		 	{this.props.player.name} 
+			</button>	
 
 		)
 
@@ -159,7 +162,7 @@ const PlayersComponent = React.createClass({
 			<img src={this.props.player.avatar_url} />
 			<input id={this.props.player._id} type="checkbox" name="players" value={this.props.player._id} />
 			<label htmlFor={this.props.player._id} > {this.props.player.name} </label>	
-			</div>
+			</div>	
 
 		)
 

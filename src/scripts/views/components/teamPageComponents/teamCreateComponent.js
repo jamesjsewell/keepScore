@@ -35,17 +35,23 @@ const CreateTeamComponent = React.createClass({
 
 		return(
 
-			<div className = 'create-team-wrapper'>
+			<div className="col s6 container center-align m6 offset-m3 green accent-4">
+
+				<div className = 'card green accent-3'>
 				
-				<form className = 'create-team-form' onSubmit={this._handleSubmit}>
+					<form className = 'card-content container center-align white-text' onSubmit={this._handleSubmit}>
 
-					<input type='text' name='teamName' placeholder='define team name'/>
+						<div className="card-content input-field container">
+							<input type='text' name='teamName' placeholder='define team name'/>
+						</div>
 
-  					<PlayersOfTeamComponent players={this.props.arena.attributes.players} />
+	  					<PlayersOfTeamComponent players={this.props.arena.attributes.players} />
 
-  					<button type='submit'>create team</button>
+	  					<button className='btn green accent-1 green-text flow-text' type='submit'>create team</button>
 
-				</form>
+					</form>
+
+				</div>
 
 			</div>
 

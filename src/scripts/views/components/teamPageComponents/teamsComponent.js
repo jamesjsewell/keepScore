@@ -75,11 +75,15 @@ const TeamComponent = React.createClass({
 		
 		return(
 
-			<div className = 'team-wrapper'>
+			<div className="col s6 container center-align m6 offset-m3 green accent-4">
 
-				<h2>{this.props.teamName}</h2>
-				<PlayersOfTeamComponent team={this.props.team} players={this.props.team.players} />
-				<button onClick={this.delete_team}>remove</button>
+				<div className = 'card green accent-3'>
+
+					<h2 className="card-content card-title white-text center-align">{this.props.teamName}</h2>
+					<PlayersOfTeamComponent team={this.props.team} players={this.props.team.players} />
+					<button className='btn green accent-1 green-text flow-text' onClick={this.delete_team}>remove</button>
+
+				</div>
 
 			</div>
 
