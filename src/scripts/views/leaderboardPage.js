@@ -5,6 +5,7 @@ import User from '../models/userModel.js'
 //imported components
 import Navbar from './components/navbar.js'
 import LeaderboardComponent from './components/leaderboardPageComponents/LeaderboardComponent.js'
+import RecentMatchesComponent from './components/arenaPageComponents/recentMatches.js'
 
 
 const LeaderboardPage = React.createClass({
@@ -46,6 +47,8 @@ const LeaderboardPage = React.createClass({
 		 				<LeaderboardComponent arena={this.state.current_arena[0]} players={this.state.current_arena[0].attributes.players}/>
 
 		 			</div>
+
+		 			<RecentMatchesComponent arena={this.state.current_arena[0]} queueMatches={this.state.completed_match_collection.models} />
 
 		 		</div>
 

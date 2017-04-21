@@ -45,7 +45,7 @@ const RecentMatchesComponent = React.createClass({
 
 			return(
 
-				<div className='recent-matches-wrapper'>
+				<div className="col s3 container center-align m6 green accent-4">
 
 					{this._makeMatches(this.props.queueMatches)}
 
@@ -98,17 +98,20 @@ const MatchComponent = React.createClass({
 		}
 
 		return(
+			//<button className="chip waves-effect waves-light btn" onClick={this.delete_match}>remove</button>
+			<div className="col s6 container center-align m6 offset-m3 green accent-4">
 
-			<div className = 'match-wrapper'>
+				<div className = 'card green accent-3'>
 
-				<h2>{this.props.matchName}</h2>
-				<h3>{gameType}</h3>
-				<p>{winner} won with a score of {winningScore}</p>
-				<p className={showTeamDetails ? '' : 'hidden'} >{loser} lost with a score of {losingScore}</p>
-				<p>{this.props.match.winning_player.name} was the top player and scored {this.props.match.winning_score}</p>
-				<PlayersOfMatchComponent  match={this.props.match} players={this.props.match.players} />
-				<button onClick={this.delete_match}>remove</button>
-				<p>{moment(this.props.match.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
+					<h3 className="card-title card-content white-text center-align">{this.props.matchName}</h3>
+					<h5 className="card-content white-text center-align">{gameType}</h5>
+					<h5 className="card-content white-text">{winner} won with a score of {winningScore}</h5>
+					<p className={showTeamDetails ? 'white-text card-content center-align' : 'hide'} >{loser} lost with a score of {losingScore}</p>
+					<p className="card-content white-text center-align">{this.props.match.winning_player.name} was the top player and scored {this.props.match.winning_score}</p>
+					<PlayersOfMatchComponent  match={this.props.match} players={this.props.match.players} />
+					<p className="card-content white-text">{moment(this.props.match.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
+
+				</div>
 
 			</div>
 
@@ -153,19 +156,19 @@ const PlayersOfMatchComponent = React.createClass({
 
 			<div className = 'players-of-match-wrapper'>
 
-				<form onSubmit={this._handleSubmit} name={this.props.match._id} className={teamDisplay ? 'hidden' : ''}>
+				<form onSubmit={this._handleSubmit} name={this.props.match._id} className={teamDisplay ? 'hide' : 'card-content'}>
 
-					{this._makePlayers(this.props.players)}
+					<ul className="card-content collection">{this._makePlayers(this.props.players)}</ul>
 
 				</form>
 
-				<div className={teamDisplay ? '' : 'hidden'}>
+				<div className={teamDisplay ? '' : 'hide'}>
 		
-					<h3>{this.props.match.team1_name}</h3>
-					<div>{this._makePlayers(this.props.match.team1)}</div>
+					<h5 className="white-text card-content">{this.props.match.team1_name}</h5>
+					<ul className="collection card-content">{this._makePlayers(this.props.match.team1)}</ul>
 
-					<h3>{this.props.match.team2_name}</h3>
-					<div>{this._makePlayers(this.props.match.team2)}</div>
+					<h5 className="white-text card-content">{this.props.match.team2_name}</h5>
+					<ul className="collection card-content">{this._makePlayers(this.props.match.team2)}</ul>
 
 				</div>
 
@@ -182,12 +185,16 @@ const PlayerComponent = React.createClass({
 
 		return(
 
-			<div className = 'player-of-match-wrapper'>
 
-				<img id="small" src={this.props.player.avatar_url} />
-				<p>{this.props.player.name}: {this.props.score}</p>
+			<li className = "collection-item avatar card-content green accent-4">
 
-			</div>
+			<img className = "circle" src={this.props.player.avatar_url} />
+
+			<p className = "white-text">{this.props.player.name}</p>
+
+			<p className = "white-text">score: {this.props.score}</p>
+
+			</li>
 
 		)
 	}

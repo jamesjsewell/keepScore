@@ -79,8 +79,9 @@ const ArenaPage = React.createClass({
 	 			
 	 			<CreateMatchComponent arena={this.state.current_arena[0]} arenaTeams={this.state.team_collection.models}/>
 	 			
+	 			
 	 			<QueueComponent arena={this.state.current_arena[0]} queueMatches={this.state.queued_match_collection.models} />
-	 			<RecentMatchesComponent arena={this.state.current_arena[0]} queueMatches={this.state.completed_match_collection.models} />
+	 			
 
 	 		</div>
 
