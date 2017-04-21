@@ -121,7 +121,9 @@ const PlayersOfArenaSelectComponent = React.createClass({
 
 					<div>{this._renderAutoComplete(suggestions)	}</div>
 					
-					<input onClick={this._handleClick} onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
+					<div className="input-field col s2 container white-text">
+						<input onClick={this._handleClick} onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
+					</div>
 
 					<div>{this._renderSelectedPlayers(arenaPlayers)}</div>
 					
@@ -174,7 +176,7 @@ const ArenaPlayerSuggestionsComponent = React.createClass({
 	render: function(){
 		
 		return(
-			<button className="chip avatar" onClick={this._handleClick} type="button" name="players" value={this.props.player._id} >
+			<button className="chip avatar btn green accent-1 green-text flow-text s6" onClick={this._handleClick} type="button" name="players" value={this.props.player._id} >
 			<img src={this.props.player.avatar_url} />
 		 	{this.props.player.name} 
 			</button>	

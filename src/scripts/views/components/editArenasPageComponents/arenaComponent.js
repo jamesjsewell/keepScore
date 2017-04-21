@@ -165,30 +165,37 @@ const ArenaComponent = React.createClass({
 		
 			return(
 
-				<div className='create-match-wrapper'>
 
-					<button onClick={ () => {STORE._set({"edit_arena": arenaId })} } className="btn" type="button">edit arena</button>
+				<div className="col s6 container center-align m6 offset-m3 green accent-4">
 
-					<form onSubmit={this._handleUpdateArena}>
-						
-						<h3>{arenaName}</h3>
+					<div className = 'card green accent-3'>
 
-						<h4>rename {arenaName}</h4>
+						<button className='btn green accent-1 green-text flow-text' onClick={ () => {STORE._set({"edit_arena": arenaId })} } type="button">edit arena</button>
 
-						<input name = "name" placeholder = "rename arena" />
+						<form className="card-content center-align white-text green accent-3" onSubmit={this._handleUpdateArena}>
+							
+							<h3 className="card-content center-align white-text card-title">{arenaName}</h3>
 
-						<div>{this._renderAutoComplete(suggestions, editable)}</div>
-					
-						<input onClick = {this._handleClick} onKeyUp = {this._handleKeyPress} name = {arenaId} placeholder = "username of player" />
+							<div className="card-content input-field container">
+								<input className="white-text" name = "name" placeholder = "rename arena" />
+							</div>
 
-						<div>{this._renderSelectedPlayers(arenaPlayers, '', editable)}</div>
+							<div>{this._renderAutoComplete(suggestions, editable)}</div>
+							
+							<div className="card-content input-field container">
+								<input onClick = {this._handleClick} onKeyUp = {this._handleKeyPress} name = {arenaId} placeholder = "username of player" />
+							</div>
 
-						<div>{this._renderSelectedPlayers(newSelectedPlayers,'newPlayers', editable)}</div>
+							<div>{this._renderSelectedPlayers(arenaPlayers, '', editable)}</div>
 
-						<button type="submit">update arena</button>
+							<div>{this._renderSelectedPlayers(newSelectedPlayers,'newPlayers', editable)}</div>
 
-					</form>
-					
+							<button className='btn green accent-1 green-text flow-text' type="submit">update arena</button>
+
+						</form>
+
+					</div>
+
 				</div>
 
 			)
@@ -291,7 +298,10 @@ const ArenaPlayerSuggestionsComponent = React.createClass({
 		console.log(this.props.player.name)
 		return(
 			
-			<button type="button" onClick={this._handleClick}>{this.props.player.name}</button>
+			<button className="chip avatar btn green accent-1 green-text flow-text s6" onClick={this._handleClick} type="button" name="players" value={this.props.player._id} >
+			<img src={this.props.player.avatar_url} />
+		 	{this.props.player.name} 
+			</button>
 
 		)
 
