@@ -70,24 +70,40 @@ const Navbar = React.createClass({
  			var joinArenaStatus = 'active'
  		}
  		return (
-
- 			<nav>
+ 			<div className="container center-align col s12 offset-m3">
+ 			<nav id="navBar">
  	
-		 		<div className='nav-wrapper col s2 center-align green accent-3'>
+		 		<div className='nav-wrapper green accent-3 hide-on-med-and-down'>
 		 			
-		 			<ul className='col s2 center-align green accent-3 hide-on-med-and-down'>
+		 			<ul className='green accent-3'>
 
 		 			<li className={loginStatus}><a className="breadcrumb flow-text" onClick={this._handleLogout} href="#home">{User.getCurrentUser() === null || User.getCurrentUser().attributes._id === false ? 'login' : 'logout'}</a></li>	
 		 			<li className={profileStatus}><a className="breadcrumb flow-text" href="#profile">my arenas</a></li>
 					<li className={editArenasStatus}><a className="breadcrumb flow-text" href="#edit_arenas">create arenas</a></li>
 					<li className={arenaStatus}><a className="breadcrumb flow-text" href="#arena">play</a></li>
 					<li className={joinArenaStatus}><a className="breadcrumb flow-text" href="#join_arenas">find arenas</a></li>
-					
 					</ul>
 
 		 		</div>
 
+		 		<div className='nav-wrapper green accent-3 hide-on-large-only'>
+		 			
+		 			<ul className='green accent-3'>
+
+		 			<a className="breadcrumb flow-text" onClick={this._handleLogout} href="#home">{User.getCurrentUser() === null || User.getCurrentUser().attributes._id === false ? 'login' : 'logout'}</a>
+		 			<a className="breadcrumb flow-text" href="#profile">my arenas</a>
+					<a className="breadcrumb flow-text" href="#edit_arenas">create arenas</a>
+					<a className="breadcrumb flow-text" href="#arena">play</a>
+					<a className="breadcrumb flow-text" href="#join_arenas">find arenas</a>
+				
+					</ul>
+		 		</div>
+
+
+		
+
 	 		</nav>
+	 		</div>
 
  		)
 

@@ -871,12 +871,12 @@ const ACTIONS = {
 		User.logout()
 			.done(
 				function(resp) {
-					alert('you logged out!')
+					
 					location.hash = 'home'
 				})
 			.fail(
 				function(err) {
-					alert('error logging out!')
+					
 					console.log(err)
 				})
 	},
@@ -885,7 +885,7 @@ const ACTIONS = {
 		User.login(email,password)
 			.done(
 				function(resp) {
-					alert('logged in!')
+					
 					location.hash = 'profile'
 					STORE._set({userId: resp._id})
 					
@@ -893,7 +893,7 @@ const ACTIONS = {
 			)
 			.fail(
 				function(err) {
-					alert('problem logging in!')
+				
 					console.log(err)
 				})
 	},
@@ -903,14 +903,14 @@ const ACTIONS = {
 			.done(
 				//success function
 				function(resp) {
-					alert(`new user ${resp.email} registered`)
+					
 					console.log(resp)
 					ACTIONS.logUserIn(userData.email, userData.password)
 				}
 				)
 			.fail(
 				function(err) {
-					alert('problem registering user!')
+				
 					console.log(err)
 				}
 				)
