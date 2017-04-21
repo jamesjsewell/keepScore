@@ -44,11 +44,20 @@ const LeaderBoardComponent = React.createClass({
 		
 		return(
 
-				<div name='player-select-wrapper'>
+			<div className="col s6 container center-align m6 offset-m3 green accent-4">
 
-					{this._makePlayers(this.props.players)}
-					
+				<h2 className="white-text center-align title">Leaderboard</h2>
+				<div className = 'card green accent-3'>
+
+					<ul className="collection card-content" name='player-select-wrapper'>
+
+						{this._makePlayers(this.props.players)}
+						
+					</ul>
+
 				</div>
+
+			</div>
 
 			)
 	
@@ -74,16 +83,16 @@ const PlayerComponent = React.createClass({
 
 		return(
 			
-			<div>
+			<li className="collection-item avatar card-content green accent-3">
 				
-				<img id="small" src={theUrl} />
-				<h4>{name}</h4>
-				<p>win/loss ratio {winLoss}</p>
-				<p>points scored{points}</p>
-				<p>wins{wins}</p>
-				<p>losses{losses}</p>
+				<img className="circle" src={theUrl} />
+				<h4 className="white-text">{name}</h4>
+				<h5 className="white-text">win/loss ratio {winLoss}</h5>
+				<h5 className="white-text">points scored {points}</h5>
+				<h5 className="white-text">wins {wins}</h5>
+				<p className="white-text">losses {losses}</p>
 
-			</div>	
+			</li>	
 
 		)
 

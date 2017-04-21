@@ -46,7 +46,7 @@ const RecentMatchesComponent = React.createClass({
 			return(
 
 				<div className="col s3 container center-align m6 green accent-4">
-
+					<h2 className="title white-text center-align">Recent Matches</h2>
 					{this._makeMatches(this.props.queueMatches)}
 
 				</div>
