@@ -614,8 +614,7 @@ const ACTIONS = {
 
 				data: {
 
-					name: "$"+userInput,
-					dataLoaded: true
+					name: "$"+userInput
 
 				}
 
@@ -624,7 +623,8 @@ const ACTIONS = {
 			.then(function() {
 				console.log(userColl)
 				STORE._set({
-					auto_complete_users: userColl
+					auto_complete_users: userColl,
+					data_loaded: true
 				})
 
 				console.log('set filtered users collection on store', userColl.models)
