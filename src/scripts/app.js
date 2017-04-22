@@ -38,43 +38,43 @@ const app = function() {
 
 		renderTeamPage: function(){
 
-			ReactDOM.render(<TeamBuilderPage />, document.querySelector('.container'))
+			ReactDOM.render(<TeamBuilderPage />, document.querySelector('.page-container-for-app'))
 
 		},
 
 		renderLoginPage: function() {
 
-			ReactDOM.render(<HomePage />, document.querySelector('.container'))
+			ReactDOM.render(<HomePage />, document.querySelector('.page-container-for-app'))
 
 		},
 
 		renderProfilePage: function() {
 
-			ReactDOM.render(<ProfilePage />, document.querySelector('.container'))
+			ReactDOM.render(<ProfilePage />, document.querySelector('.page-container-for-app'))
 
 		},
 
 		renderArenaPage: function() {
 
-			ReactDOM.render(<ArenaPage />, document.querySelector('.container'))
+			ReactDOM.render(<ArenaPage />, document.querySelector('.page-container-for-app'))
 
 		},
 		
 		renderEditArenasPage: function() {
 
-			ReactDOM.render(<EditArenasPage />, document.querySelector('.container'))
+			ReactDOM.render(<EditArenasPage />, document.querySelector('.page-container-for-app'))
 
 		},
 
 		renderJoinArenasPage: function() {
 
-			ReactDOM.render(<JoinArenasPage />, document.querySelector('.container'))
+			ReactDOM.render(<JoinArenasPage />, document.querySelector('.page-container-for-app'))
 
 		},
 
 		renderLeaderboardPage: function() {
 
-			ReactDOM.render(<LeaderboardPage />, document.querySelector('.container'))
+			ReactDOM.render(<LeaderboardPage />, document.querySelector('.page-container-for-app'))
 
 		},
 
