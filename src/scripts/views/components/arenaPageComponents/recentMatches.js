@@ -150,8 +150,6 @@ const MatchComponent = React.createClass({
 						<h5 className="card-content white-text center-align">{gameType}</h5>
 						<h5 className="card-content white-text">{winner} tied with a score of {winningScore}</h5>
 						<h5 className={showTeamDetails ? 'hide' : 'white-text card-content center-align'} >{loser} tied with a score of {losingScore}</h5>
-						<p className={showTeamDetails ? 'white-text card-content center-align' : 'hide'} >{loser} tied with a score of {losingScore}</p>
-						<p className="card-content white-text center-align">{this.props.match.winning_player.name} was the top player and scored {this.props.match.winning_score}</p>
 						<PlayersOfMatchComponent  match={this.props.match} players={this.props.match.players} />
 						<p className="card-content white-text">{moment(this.props.match.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
 
