@@ -530,7 +530,7 @@ const ACTIONS = {
 					var wins = accumulativePlayerScores[playerId]['wins']
 					var losses = accumulativePlayerScores[playerId]['losses']
 					var matchesPlayed = wins+losses
-					var winLoss = wins/matchesPlayed*100
+					var winLoss = Math.round(wins/matchesPlayed*100) + "%"
 
 					accumulativePlayerScores[playerId]['winLoss'] = winLoss
 

@@ -193,8 +193,11 @@ const PlayersOfMatchComponent = React.createClass({
 			
 		}
 
+
 		var winningPlayer = _.max(playerAndScore, function(aPlayerScore){ 
 			return aPlayerScore.score })
+
+		
 
 		console.log('completing the match')
 		ACTIONS.update_match_scores(scoresObj, this.props.match._id, winningPlayer.score, winningPlayer.player, winningTeam, winningTeamScore, losingTeam, losingTeamScore)

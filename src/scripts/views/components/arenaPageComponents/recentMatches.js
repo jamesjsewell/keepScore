@@ -79,6 +79,23 @@ const MatchComponent = React.createClass({
 		var loser = this.props.match.losing_team
 		var losingScore = this.props.match.losing_team_score
 		var showTeamDetails = false
+		var tieGame = false
+
+		if(this.props.match.game_type === 'ffa' || this.props.match.game_type === 'dual'){
+			var lookForTies = 0
+			for(var i in this.props.match.scores){
+				console.log(this.props.match.scores[i], winningScore)
+				var thePlayer = this.props.match.scores[i]
+				if(Number(thePlayer) === Number(winningScore)){
+					lookForTies = lookForTies + 1
+				}
+			}
+			if(lookForTies > 1){
+				tieGame = true
+				console.log(tieGame)
+
+			}
+		}
 
 		if(this.props.match.game_type === 'ffa'){
 			var gameType = 'free-for-all'
@@ -91,31 +108,59 @@ const MatchComponent = React.createClass({
 			var losingScore = this.props.match.losing_team_score
 			showTeamDetails = true
 			var gameType = 'team deathmatch'
+
+			if(winningScore === losingScore){
+				tieGame = true
+			}
 		}
 
 		if(this.props.match.game_type === 'dual'){
 			var gameType = 'one vs one'
 		}
 
-		return(
-			//<button className="chip waves-effect waves-light btn" onClick={this.delete_match}>remove</button>
-			<div className="col s6 container center-align m6 offset-m3 green accent-4">
+		if(tieGame === false){
+			return(
+				//<button className="chip waves-effect waves-light btn" onClick={this.delete_match}>remove</button>
+				<div className="col s6 container center-align m6 offset-m3 green accent-4">
 
-				<div className = 'card green accent-3'>
+					<div className = 'card green accent-3'>
 
-					<h3 className="card-title card-content white-text center-align">{this.props.matchName}</h3>
-					<h5 className="card-content white-text center-align">{gameType}</h5>
-					<h5 className="card-content white-text">{winner} won with a score of {winningScore}</h5>
-					<p className={showTeamDetails ? 'white-text card-content center-align' : 'hide'} >{loser} lost with a score of {losingScore}</p>
-					<p className="card-content white-text center-align">{this.props.match.winning_player.name} was the top player and scored {this.props.match.winning_score}</p>
-					<PlayersOfMatchComponent  match={this.props.match} players={this.props.match.players} />
-					<p className="card-content white-text">{moment(this.props.match.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
+						<h3 className="card-title card-content white-text center-align">{this.props.matchName}</h3>
+						<h5 className="card-content white-text center-align">{gameType}</h5>
+						<h5 className="card-content white-text">{winner} won with a score of {winningScore}</h5>
+						<p className={showTeamDetails ? 'white-text card-content center-align' : 'hide'} >{loser} lost with a score of {losingScore}</p>
+						<p className="card-content white-text center-align">{this.props.match.winning_player.name} was the top player and scored {this.props.match.winning_score}</p>
+						<PlayersOfMatchComponent  match={this.props.match} players={this.props.match.players} />
+						<p className="card-content white-text">{moment(this.props.match.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
+
+					</div>
 
 				</div>
 
-			</div>
+			)
+		}
+		else{
+			return(
 
-		)
+				<div className="col s6 container center-align m6 offset-m3 green accent-4">
+
+					<div className = 'card green accent-3'>
+
+						<h3 className="card-title card-content white-text center-align">{this.props.matchName}</h3>
+						<h5 className="card-content white-text center-align">{gameType}</h5>
+						<h5 className="card-content white-text">{winner} tied with a score of {winningScore}</h5>
+						<h5 className={showTeamDetails ? 'hide' : 'white-text card-content center-align'} >{loser} tied with a score of {losingScore}</h5>
+						<p className={showTeamDetails ? 'white-text card-content center-align' : 'hide'} >{loser} tied with a score of {losingScore}</p>
+						<p className="card-content white-text center-align">{this.props.match.winning_player.name} was the top player and scored {this.props.match.winning_score}</p>
+						<PlayersOfMatchComponent  match={this.props.match} players={this.props.match.players} />
+						<p className="card-content white-text">{moment(this.props.match.createdAt).format('MMMM Do YYYY, h:mm:ss a')}</p>
+
+					</div>
+
+				</div>
+
+			)
+		}
 	}
 })
 
