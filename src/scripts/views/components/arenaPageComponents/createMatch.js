@@ -140,11 +140,11 @@ const CreateMatchComponent = React.createClass({
 								
 								<h6 className="card-content white-text flow-text">select game-type</h6>
 
-							    <button onClick={this._setGameType} className='btn-floating green accent-1 green-text flow-text s6' type="button"  value="dual" >{STORE.data.match_create_type === 'dual' ? 'dual': 'dual'} </button>
+							    <button id="game-type" onClick={this._setGameType} className='btn-floating green accent-1 green-text flow-text s6' type="button"  value="dual" >{STORE.data.match_create_type === 'dual' ? 'dual': 'dual'} </button>
 							 
-							    <button onClick={this._setGameType} className='btn-floating green accent-1 green-text flow-text s6' type ="button"  value="ffa">{STORE.data.match_create_type === 'ffa' ? 'free': 'free'} </button>
+							    <button id="game-type" onClick={this._setGameType} className='btn-floating green accent-1 green-text flow-text s6' type ="button"  value="ffa">{STORE.data.match_create_type === 'ffa' ? 'free': 'free'} </button>
 							
-							    <button onClick={this._setGameType} className='btn-floating green accent-1 green-text flow-text s6' type ="button" value="team" > {STORE.data.match_create_type === 'team' ? 'team': 'team'} </button>
+							    <button id="game-type" onClick={this._setGameType} className='btn-floating green accent-1 green-text flow-text s6' type ="button" value="team" > {STORE.data.match_create_type === 'team' ? 'team': 'team'} </button>
 
 								<h6 className="card-content white-text center-align">game-type set to {STORE.data.match_create_type}</h6>
 

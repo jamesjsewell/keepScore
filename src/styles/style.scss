@@ -28,11 +28,18 @@
     font-family: 'Lobster', cursive;
 }
 
-input:not([type]), input[type=text], textarea, button.btn, button, .btn {
-	font-size: 2rem;
+input:not([type]), input[type=text], textarea, button.btn, button, .btn, .password-input, .email-input, .username-input {
+	font-size: 2rem !important;
 }
 
-button.btn {
+button.btn{
 	padding: 1rem 2rem;
 	height: auto;
+}
+
+#game-type{
+    font-size: 2rem !important;
+    margin: .5rem;
+    width: 8rem !important;
+    height: 8rem !important;
 }

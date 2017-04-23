@@ -75,7 +75,7 @@ const Navbar = React.createClass({
  		}
  		return (
  			<div>
-				<h1 id='app-title'>gametrackr</h1>
+				<h1 id='app-title' className='flow-text'>GameTally</h1>
 	 			<div className="container center-align col s12 offset-m3 green accent-3">
 		 			<nav id="navBar" className="green accent-3">
 			 			<div className="nav-wrapper className='green accent-3">
