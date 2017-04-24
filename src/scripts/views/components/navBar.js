@@ -106,7 +106,7 @@ const Navbar = React.createClass({
 			 	</div>
 			 	
 
-			    <div id="loading" className={this.state.dataLoaded ? 'hide' : 'progress container z-depth-3'} >
+			    <div id="loading" className={this.state.dataLoaded ? 'hide' : 'progress container z-depth-6'} >
         			<div className="indeterminate"></div>
   				</div>
 
