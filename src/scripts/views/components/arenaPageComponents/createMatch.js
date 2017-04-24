@@ -47,7 +47,11 @@ const CreateMatchComponent = React.createClass({
 
 				}
 
-				ACTIONS.create_match(STORE.data.match_create_type, playerInputsArray, evt.target.matchName.value)
+				if(players.length > 2){
+
+					ACTIONS.create_match(STORE.data.match_create_type, playerInputsArray, evt.target.matchName.value)
+
+				}
 
 			}
 			
@@ -113,7 +117,12 @@ const CreateMatchComponent = React.createClass({
 					alert('these teams share players') 
 				}
 				else{
-					ACTIONS.create_match('team', teamPlayers, evt.target.matchName.value, team1Players, team2Players, team1Name, team2Name)
+
+					if(team1Players.length > 0 && team2Players.length > 0){
+
+						ACTIONS.create_match('team', teamPlayers, evt.target.matchName.value, team1Players, team2Players, team1Name, team2Name)
+
+					}
 				}
 			
 			}	

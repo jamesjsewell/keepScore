@@ -368,7 +368,7 @@ const TeamSuggestionsComponent = React.createClass({
 
 		return(
 			
-			<button type="button" onClick={this._handleClick}>{this.props.team.attributes.name}</button>
+			<button className="chip avatar btn green accent-1 green-text flow-text s6" type="button" onClick={this._handleClick}>{this.props.team.attributes.name}</button>
 
 		)
 
@@ -416,7 +416,7 @@ var SelectedTeamsComponent = React.createClass({
 				<div className="container card-content white-text" name="team">
 			
 				
-				<input id={this.props.team.attributes._id} type="checkbox" name="team" value={this.props.team.attributes._id} />
+				<input id={this.props.team.attributes._id} type="checkbox" defaultChecked="checked" name="team" value={this.props.team.attributes._id} />
 				<label className = "white-text" htmlFor={this.props.team.attributes._id} > {this.props.team.attributes.name} </label>	
 				<p>{this.props.team.attributes.players.map(this._makePlayers)}</p>
 
@@ -539,7 +539,7 @@ var SelectedPlayersComponent = React.createClass({
 			
 			<div className="chip avatar" onClick={this._handleClick}>
 			<img src={this.props.player.avatar_url} />
-			<input id={this.props.player._id} type="checkbox" name="players" value={this.props.player._id} />
+			<input id={this.props.player._id} type="checkbox" defaultChecked="checked" name="players" value={this.props.player._id} />
 			<label name="players" className = "green-text" htmlFor={this.props.player._id} > {this.props.player.name} </label>	
 			</div>
 
