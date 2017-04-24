@@ -55,6 +55,9 @@ const Navbar = React.createClass({
  	render: function(){
  		//<a className="breadcrumb" href="#leaderboard">view leaderboard</a>
  		//<a className="breadcrumb" href="#teams">team builder</a>
+ 		//<div id="loading" className={this.state.dataLoaded ? 'hide loading-gif progress' : 'loading-gif responsive-img progress'} src="images/loading.gif" >
+        //			<div className="indeterminate"></div>
+    	//		</div>
  		var profileStatus = ''
  		var editArenasStatus = ''
  		var arenaStatus = ''
@@ -101,8 +104,15 @@ const Navbar = React.createClass({
 					 	</div>
 			 		</nav>		
 			 	</div>
-			 	<img className={this.state.dataLoaded ? 'hide loading-gif' : 'loading-gif responsive-img'} src="images/loading.gif" />	
-			</div>
+			 	
+
+			    <div id="loading" className={this.state.dataLoaded ? 'hide' : 'progress container z-depth-3'} >
+        			<div className="indeterminate"></div>
+  				</div>
+
+
+
+				</div>
  		)
 
  	}

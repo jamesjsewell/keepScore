@@ -10,7 +10,16 @@
 @import url('https://fonts.googleapis.com/css?family=Crete+Round');
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
 
+#loading{
+    max-width: 100%;
+    line-height: 100vh;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    height: 3.5rem;
 
+}
 
 .icon-block {
   padding: 0 15px;
