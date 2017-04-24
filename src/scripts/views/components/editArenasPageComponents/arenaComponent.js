@@ -93,6 +93,7 @@ const ArenaComponent = React.createClass({
 
 		evt.preventDefault()
 		STORE._set({last_selected_input: evt.target})
+		STORE._set({"edit_arena": this.props.arena._id })
 		
 	},
 
@@ -177,7 +178,7 @@ const ArenaComponent = React.createClass({
 							<h3 className="card-content center-align white-text card-title">{arenaName}</h3>
 
 							<div className="card-content input-field container">
-								<input className="white-text" name = "name" placeholder = "rename arena" />
+								<input onClick = { () => {STORE._set({"edit_arena": arenaId })} } className="white-text" name = "name" placeholder = "rename arena" />
 							</div>
 
 							<div>{this._renderAutoComplete(suggestions, editable)}</div>
@@ -239,8 +240,6 @@ const ArenaPlayerSuggestionsComponent = React.createClass({
 					
 					console.log('player already in selected')
 
-
-
 				}
 
 				else{
@@ -253,7 +252,6 @@ const ArenaPlayerSuggestionsComponent = React.createClass({
 					STORE._set({arena_builder_selected_players: arrayOfPlayersObj})
 
 				}
-
 
 			}
 
@@ -272,7 +270,6 @@ const ArenaPlayerSuggestionsComponent = React.createClass({
 				}
 
 			}
-
 
 		}
 
@@ -318,7 +315,7 @@ const PlayersComponent = React.createClass({
 
 			<div className="chip avatar">
 			<img src={this.props.player.avatar_url} />
-			<input id={this.props.player._id} type="checkbox" name="players" value={this.props.player._id} />
+			<input id={this.props.player._id} type="checkbox" defaultChecked="checked" name="players" value={this.props.player._id} />
 			<label htmlFor={this.props.player._id} > {this.props.player.name} </label>	
 			</div>	
 
