@@ -216,11 +216,11 @@ const PlayerChoiceComponent = React.createClass({
 
 							<div>{suggestions}</div>
 							
-							<div className="input-field card-content white">
+							<div className="input-field card-content ">
 								<input className="" onKeyUp = {this._handleKeyPress} name = "addPlayer1" placeholder = "player1" />
 							</div>
 
-							<div className="input-field card-content white">
+							<div className="input-field card-content ">
 								<input className="" onKeyUp = {this._handleKeyPress} name = "addPlayer2" placeholder = "player2" />
 							</div>
 							<h6 className="white-text center-align">selected players</h6>

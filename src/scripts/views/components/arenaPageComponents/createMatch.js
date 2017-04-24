@@ -160,7 +160,7 @@ const CreateMatchComponent = React.createClass({
 						   	</div>
 
 
-							<div className="input-field card-content white container">
+							<div className="input-field card-content container">
 
 								<input className="flow-text" type='text' name='matchName' placeholder='define match name'/>
 							
