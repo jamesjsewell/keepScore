@@ -48,6 +48,10 @@ const ACTIONS = {
 		team1Name = data.team1_name,
 		team2Name = data.team2_name
 
+		STORE._set({
+			dataLoaded: false
+			})
+
 		console.log(arena)
 		$.ajax({
 
@@ -75,6 +79,9 @@ const ACTIONS = {
 
 	        	console.log('posted a new team match', res)
 	        	ACTIONS.refresh_needed_data()
+	        	STORE._set({
+				dataLoaded: true
+				})
 	        })
 	        .fail((err)=>{
 	            console.log('could not post match', err)
@@ -82,7 +89,9 @@ const ACTIONS = {
 	},
 
 	delete_match: function(matchId){
-
+		STORE._set({
+			dataLoaded: false
+			})
 		$.ajax({
 
 	            method: 'delete',
@@ -93,6 +102,9 @@ const ACTIONS = {
 	        .done((res)=>{
 	        	console.log('deleted a match', res)
 	       		ACTIONS.refresh_needed_data()
+	       		STORE._set({
+				dataLoaded: true
+				})
 
 	        })
 	        .fail((err)=>{
@@ -102,7 +114,9 @@ const ACTIONS = {
 	},
 
 	update_match_scores: function(inputScores, matchId, winningScore, winningPlayer, winningTeam, winningTeamScore, losingTeam, losingTeamScore){
-
+		STORE._set({
+			dataLoaded: false
+			})
 		$.ajax({
 
 	            method: 'put',
@@ -114,6 +128,9 @@ const ACTIONS = {
 	        .done((res)=>{
 	        	console.log('updated the match scores', res)
 	       		ACTIONS.refresh_needed_data()
+	       		STORE._set({
+				dataLoaded: true
+				})
 	       		//should update the status of the match to complete
 
 	        })
@@ -209,7 +226,9 @@ const ACTIONS = {
 	//   TEAM ACTIONS				//
 
 	create_team: function(players, teamName){
-			
+			STORE._set({
+			dataLoaded: false
+			})
 			var body = {}
 			body['players'] = players
 			body['name'] = teamName
@@ -228,6 +247,9 @@ const ACTIONS = {
 
 	        	console.log('created a new team', res)
 	        	ACTIONS.refresh_needed_data()
+	        	STORE._set({
+					dataLoaded: true
+				})
 	        })
 	        .fail((err)=>{
 	            console.log('could not create team', err)
@@ -236,7 +258,9 @@ const ACTIONS = {
 	},
 
 	delete_team: function(teamId){
-
+		STORE._set({
+			dataLoaded: false
+			})
 		$.ajax({
 
 	            method: 'delete',
@@ -247,6 +271,9 @@ const ACTIONS = {
 	        .done((res)=>{
 	        	console.log('deleted a team', res)
 	       		ACTIONS.refresh_needed_data()
+	       		STORE._set({
+					dataLoaded: true
+				})
 
 	        })
 	        .fail((err)=>{
@@ -284,7 +311,9 @@ const ACTIONS = {
 	//   	ARENA LOGIC             //
 
 	create_arena: function(players, arenaName){
-			
+		STORE._set({
+			dataLoaded: false
+			})
 		var body = {}
 		body['players'] = players
 		body['name'] = arenaName
@@ -309,6 +338,9 @@ const ACTIONS = {
         	STORE.data.auto_complete_users = {}
         	ACTIONS.update_arenas_of_user(res._id)
         	ACTIONS.refresh_needed_data()
+        	STORE._set({
+			dataLoaded: true
+			})
         })
         .fail((err)=>{
             console.log('could not create arena', err)
@@ -317,7 +349,9 @@ const ACTIONS = {
 	},
 
 	update_arenas_of_user: function(newArena){
-
+		STORE._set({
+			dataLoaded: false
+			})
 		var updatedArenas = []
 
 		if(STORE.data.user.attributes.arenas != undefined){
@@ -343,6 +377,9 @@ const ACTIONS = {
 
 	        	console.log('updated the arenas for the user', res)
 	       		ACTIONS.refresh_needed_data()
+	       		STORE._set({
+				dataLoaded: true
+				})
 	       		//should update the status of the match to complete
 
 	        })
@@ -357,7 +394,9 @@ const ACTIONS = {
 	},
 
 	update_arena: function(players, name, arenaId){
-
+		STORE._set({
+			dataLoaded: false
+			})
 		$.ajax({
 
 	            method: 'put',
@@ -371,6 +410,9 @@ const ACTIONS = {
 
 	        	console.log('updated the arena players', res)
 	       		ACTIONS.refresh_needed_data()
+	       		STORE._set({
+					dataLoaded: true
+				})
 	       		//should update the status of the match to complete
 
 	        })
@@ -410,7 +452,9 @@ const ACTIONS = {
 	},
 
 	join_arena: function(arenaId, arena){
-
+		STORE._set({
+			dataLoaded: false
+			})
 		var updatedArenas = []
 
 		if(STORE.data.user.attributes.arenas != undefined){
@@ -451,6 +495,9 @@ const ACTIONS = {
 			        .done((res)=>{
 
 			        	console.log('updated the arena users', res)
+			        	STORE._set({
+						dataLoaded: true
+						})
 			        	
 			       		//should update the status of the match to complete
 
@@ -624,7 +671,7 @@ const ACTIONS = {
 				console.log(userColl)
 				STORE._set({
 					auto_complete_users: userColl,
-					data_loaded: true
+					dataLoaded: true
 				})
 
 				console.log('set filtered users collection on store', userColl.models)
@@ -706,6 +753,9 @@ const ACTIONS = {
 
 	add_image_to_user: function(imgUrl){
 		console.log('got url', imgUrl)
+		STORE._set({
+			dataLoaded: false
+			})
 		$.ajax({
 
 	            method: 'put',
@@ -721,6 +771,9 @@ const ACTIONS = {
 	        	console.log('updated the users profile image', res)
 	       		ACTIONS.refresh_needed_data()
 	       		location.reload()
+	       		STORE._set({
+				dataLoaded: true
+				})
 	       		//should update the status of the match to complete
 
 	        })
@@ -733,7 +786,9 @@ const ACTIONS = {
 	},
 
 	update_current_arena: function(arenaId){
-	
+		STORE._set({
+			dataLoaded: false
+			})
 		$.ajax({
 
 	            method: 'put',
@@ -750,6 +805,9 @@ const ACTIONS = {
 	       		ACTIONS.refresh_needed_data()
 	       		location.reload()
 	       		location.hash = "#arena"
+	       		STORE._set({
+					dataLoaded: true
+				})
 	       		//should update the status of the match to complete
 
 	        })
@@ -857,47 +915,6 @@ const ACTIONS = {
 
 	},
 	
-	//----------------------------------------------------//
-
-	set_status_of_player_in_arena: function(arenaId, playerId){
-
-	},
-
-	//there is only one active match at any given time
-	return_active_match_for_arena: function(arenaId){
-
-	},
-
-	//----------------------------------------------------//
-	
-
-	add_match_to_queue: function(matchId, arenaId){
-		//will get the queue array
-		//put a new match id on the queue array
-		//update the queue array in the database
-	},
-
-	move_match_up_down_the_queue: function(matchId, arenaId){
-		//will get the queue array
-		//re-arrange the queue array
-		//update the queue array in the database
-	},
-
-	remove_match_from_queue: function(matchId, arenaId){
-		//will get the queue array
-		//re-arrange the queue array
-		//update the queue array in the database
-	},
-
-	complete_match: function(matchId, arenaId, matchData){
-		//will get the queue array
-		//re-arrange the queue array
-		//update the match history section
-	},
-
-	modify_queue_sequence: function(arenaId, modification){
-		//will modify the sequence of the queue
-	},
 	//----------------------------------------------------//
 
 	//USER LOGIN FLOW

@@ -160,7 +160,7 @@ const PlayersComponent = React.createClass({
 			
 			<div className="chip avatar">
 			<img src={this.props.player.avatar_url} />
-			<input id={this.props.player._id} type="checkbox" name="players" value={this.props.player._id} />
+			<input id={this.props.player._id} type="checkbox" defaultChecked="checked" name="players" value={this.props.player._id} />
 			<label htmlFor={this.props.player._id} > {this.props.player.name} </label>	
 			</div>	
 
