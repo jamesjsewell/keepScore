@@ -83,7 +83,7 @@ const ArenaPage = React.createClass({
 
 	 					<button className='btn transparent white-text flow-text' onClick={function(){location.hash="leaderboard"}} type='submit'>view leaderboard</button>
 	 					<br />
-	 					<button className='btn transparent white-text flow-text' onClick={function(){location.hash="teams"}} type='submit'>creae teams</button>
+	 					<button className='btn transparent white-text flow-text' onClick={function(){location.hash="teams"}} type='submit'>create teams</button>
 	 				</div>
 
 	 			</div>
