@@ -97,6 +97,28 @@ const PlayerChoiceComponent = React.createClass({
 
 	},
 
+	_handleClick: function(evt){
+
+		evt.preventDefault()
+
+		if(STORE.data.match_create_type === 'dual'){
+
+			var inputName = evt.target.name
+		
+			if(inputName === 'addPlayer1'){
+				var dualPlayer = 'player1'
+			}
+
+			if(inputName === 'addPlayer2'){
+				var dualPlayer = 'player2'
+			}
+    		
+	  		STORE._set({selected_player_input: dualPlayer })
+
+		}
+
+	},
+
 	_handleKeyPress: function(evt){
 
 		var txt = evt.target.value
@@ -217,11 +239,11 @@ const PlayerChoiceComponent = React.createClass({
 							<div>{suggestions}</div>
 							
 							<div className="input-field card-content ">
-								<input className="" onKeyUp = {this._handleKeyPress} name = "addPlayer1" placeholder = "player1" />
+								<input className="" onClick={this._handleClick} onKeyUp = {this._handleKeyPress} name = "addPlayer1" placeholder = "player1" />
 							</div>
 
 							<div className="input-field card-content ">
-								<input className="" onKeyUp = {this._handleKeyPress} name = "addPlayer2" placeholder = "player2" />
+								<input className="" onClick={this._handleClick} onKeyUp = {this._handleKeyPress} name = "addPlayer2" placeholder = "player2" />
 							</div>
 							<h6 className="white-text center-align">selected players</h6>
 							<div className="card-content" multiple size="2" >{this._renderSelectedPlayers(STORE.data.selected_players_match)}</div>
@@ -449,7 +471,7 @@ const PlayerSuggestionsComponent = React.createClass({
 
 			if(STORE.data.match_create_type === 'dual'){
 
-				if(this.props.dualPlayer === 'player1'){
+				if(STORE.data.selected_player_input === 'player1'){
 					
 					var arrayOfPlayers = STORE.data.selected_players_match
 					arrayOfPlayers[0] = this.props.player
@@ -457,7 +479,7 @@ const PlayerSuggestionsComponent = React.createClass({
 					console.log(STORE.data.selected_players_match)
 
 				}
-				if(this.props.dualPlayer === 'player2'){
+				if(STORE.data.selected_player_input === 'player2'){
 
 					var arrayOfPlayers = STORE.data.selected_players_match
 					arrayOfPlayers[1] = this.props.player
