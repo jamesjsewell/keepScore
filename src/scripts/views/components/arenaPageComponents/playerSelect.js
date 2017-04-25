@@ -131,7 +131,7 @@ const PlayerChoiceComponent = React.createClass({
     			console.log(player)
     			console.log(player.name)
     			console.log(txt)
-    			return player.name.includes(txt)
+    			return player.name.toUpperCase().includes(txt.toUpperCase())
     		}
   		
 	  		})
@@ -166,7 +166,7 @@ const PlayerChoiceComponent = React.createClass({
     			console.log(player)
     			console.log(player.name)
     			console.log(txt)
-    			return player.name.includes(txt)
+    			return player.name.toUpperCase().includes(txt.toUpperCase())
     		}
   		
 	  		})
@@ -202,7 +202,7 @@ const PlayerChoiceComponent = React.createClass({
     			console.log(team)
     			console.log(team.attributes.name)
     			console.log(txt)
-    			return team.attributes.name.includes(txt)
+    			return team.attributes.name.toUpperCase().includes(txt).toUpperCase()
     		}
   		
 	  		})

@@ -653,7 +653,7 @@ const ACTIONS = {
 		///ab+c/i
 		//"$new RegExp(/"+ userInput +"/, 'g')"
 		var userColl = STORE.get('allUsersCollection')
-		console.log(userInput, 'user input', "$new RegExp(/"+ userInput +"/, 'i')")
+	
 		STORE._set({
 			dataLoaded: false
 			})

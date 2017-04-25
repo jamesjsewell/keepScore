@@ -93,7 +93,7 @@ const ArenaComponent = React.createClass({
 
 		evt.preventDefault()
 		STORE._set({last_selected_input: evt.target})
-		STORE._set({"edit_arena": this.props.arena._id })
+		STORE._set({edit_arena: this.props.arena._id })
 		
 	},
 
@@ -175,7 +175,7 @@ const ArenaComponent = React.createClass({
 
 						<form className="card-content center-align white-text green accent-3" onSubmit={this._handleUpdateArena}>
 							
-							<h3 className="card-content center-align white-text card-title">{arenaName}</h3>
+							<h3 className="card-content center-align white-text card-title flow-text">{arenaName}</h3>
 
 							<div className="card-content input-field container">
 								<input onClick = { () => {STORE._set({"edit_arena": arenaId })} } className="white-text" name = "name" placeholder = "rename arena" />
@@ -297,7 +297,7 @@ const ArenaPlayerSuggestionsComponent = React.createClass({
 			
 			<button className="chip avatar btn green accent-1 green-text flow-text s6" onClick={this._handleClick} type="button" name="players" value={this.props.player._id} >
 			<img src={this.props.player.avatar_url} />
-		 	{this.props.player.name} 
+		 	<label className="flow-text"> {this.props.player.name} </label>
 			</button>
 
 		)
@@ -316,7 +316,7 @@ const PlayersComponent = React.createClass({
 			<div className="chip avatar">
 			<img src={this.props.player.avatar_url} />
 			<input id={this.props.player._id} type="checkbox" defaultChecked="checked" name="players" value={this.props.player._id} />
-			<label htmlFor={this.props.player._id} > {this.props.player.name} </label>	
+			<label className = "flow-text" htmlFor={this.props.player._id} > {this.props.player.name} </label>	
 			</div>	
 
 		)

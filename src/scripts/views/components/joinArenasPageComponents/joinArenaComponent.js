@@ -202,7 +202,7 @@ const JoinArenaComponent = React.createClass({
 				<div className="card-panel green accent-3 col s6 center-align">
 					
 					<div className="card-content">
-						<h5 className='white-text center-align'>Arena: {arenaName ? arenaName : 'unnamed arena'}</h5>
+						<h5 className='white-text center-align flow-text'>Arena: {arenaName ? arenaName : 'unnamed arena'}</h5>
 
 						<div className='card-panel center-align col s8 green accent-4'>{this._renderSelectedPlayers(arenaPlayers, '')}</div>
 					</div>

@@ -61,7 +61,7 @@ const PlayersOfTeamComponent = React.createClass({
 				console.log(player)
 				console.log(player.name)
 				console.log(txt)
-				return player.name.includes(txt)
+				return player.name.toUpperCase().includes(txt.toUpperCase())
 			}
 		
   		})

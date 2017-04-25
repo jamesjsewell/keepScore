@@ -163,6 +163,11 @@ const ArenaPlayerSuggestionsComponent = React.createClass({
 
 				}
 			}
+			else{
+
+				STORE._set({arena_create_selected_players: {'create_arena': [this.props.player]}})
+
+			}
 		}
 
 		else{
