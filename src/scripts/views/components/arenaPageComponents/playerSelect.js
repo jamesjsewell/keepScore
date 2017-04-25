@@ -250,11 +250,11 @@ const PlayerChoiceComponent = React.createClass({
 
 							<div>{suggestions}</div>
 
-							<div className="input-field card-content white">
+							<div className="input-field card-content">
 								<input onKeyUp = {this._handleKeyPress} name = "team1" placeholder = "team 1" />
 							</div>
 
-							<div className="input-field card-content white">
+							<div className="input-field card-content">
 								<input onKeyUp = {this._handleKeyPress} name = "team2" placeholder = "team 2" />
 							</div>
 
@@ -285,7 +285,7 @@ const PlayerChoiceComponent = React.createClass({
 
 							<div className="green accent-3">{suggestions}</div>
 
-							<div className="input-field card-content white">
+							<div className="input-field card-content">
 								<input onKeyUp = {this._handleKeyPress} name = "addPlayer" placeholder = "username of player" />
 							</div>
 
