@@ -859,27 +859,11 @@ const ACTIONS = {
 		var arenaColl = STORE.get('filteredArenasCollection')
 		console.log(userInput, 'user input', "$new RegExp(/"+ userInput +"/, 'i')")
 
-		if(userInput.length < 1){
+		if(userInput.length <= 1){
 			STORE._set({
-			dataLoaded: false
+			arena_search_results: undefined,
+			auto_complete_arenas: {}
 			})
-			arenaColl.fetch({
-
-			})
-
-			.then(function() {
-				console.log(arenaColl)
-				STORE._set({
-					auto_complete_arenas: arenaColl,
-					arena_search_results: undefined,
-					dataLoaded: true
-
-				})
-
-				console.log('set filtered arenas collection on store', arenaColl.models)
-				console.log(STORE.data.auto_complete_arenas)
-
-			})	
 
 		}
 		else{

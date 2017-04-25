@@ -143,7 +143,7 @@ const JoinArenasPage = React.createClass({
 
 	 					<div className="input-field col s2 container">
 	 						<h5 className="white-text title center-align">search arenas</h5>
-	 						<input className="white" onClick = {this._handleClick} onKeyUp = {this._handleKeyPress} name = "arenaSearch" placeholder = "name of arena" type="text" />
+	 						<input className="" onClick = {this._handleClick} onKeyUp = {this._handleKeyPress} name = "arenaSearch" placeholder = "name of arena" type="text" />
 	 					</div>
 	 					<label className="">{this._renderAutoComplete(suggestions)}</label>
 	 				</div>
@@ -216,6 +216,7 @@ const ArenaSuggestionsComponent = React.createClass({
 					}
 			
 					STORE._set({arena_search_results: arrayOfArenas})
+					STORE._set({auto_complete_arenas: {}})
 
 				}
 			}
@@ -224,6 +225,7 @@ const ArenaSuggestionsComponent = React.createClass({
 		else{
 
 			STORE._set({arena_search_results: [this.props.arena]})
+			STORE._set({auto_complete_arenas: {}})
 
 		}
 

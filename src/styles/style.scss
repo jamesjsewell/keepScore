@@ -56,11 +56,13 @@ input:not([type]), input[type=text], textarea, button.btn, button, .btn, .passwo
    }
 
 
-button.btn{
+button.btn, a.btn{
 	padding: 1rem 2rem;
+    margin: 1rem;
 	height: auto;
+    border-radius: 1rem;
 }
-
+ 
 #game-type{
     font-size: 2rem !important;
     margin: .5rem;
