@@ -12,7 +12,6 @@ import JoinArenasPage from './views/joinArenasPage.js'
 import User from './models/userModel.js'
 import STORE from './store.js'
 
-
 const app = function() {
 
 	const ScoreRouter = Backbone.Router.extend({
