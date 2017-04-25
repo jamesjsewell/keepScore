@@ -43,7 +43,7 @@ const CreateArenaComponent = React.createClass({
 					<form className = 'card content green accent-3' onSubmit={this._handleSubmit}>
 
 						<div className="card-content input-field container">
-							<input className="white" type='text' name='arenaName' placeholder='define arena name'/>
+							<input className="" type='text' name='arenaName' placeholder='define arena name'/>
 						</div>
 
 
