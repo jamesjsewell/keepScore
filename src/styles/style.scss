@@ -79,6 +79,13 @@ button.btn, a.btn{
     margin: 1rem;
 	height: auto;
     border-radius: 1rem;
+    max-width: 100%;
+
+}
+
+.chip{
+    height: auto;
+    max-width: 100%;
 }
  
 #game-type{

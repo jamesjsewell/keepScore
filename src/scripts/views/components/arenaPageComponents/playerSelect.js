@@ -525,7 +525,7 @@ const PlayerSuggestionsComponent = React.createClass({
 
 			<button className="chip avatar btn green accent-1 green-text flow-text s6" onClick={this._handleClick} type="button" name="players" value={this.props.player._id} >
 			<img src={this.props.player.avatar_url} />
-		 	{this.props.player.name} 
+		 	<label className="flow-text">{this.props.player.name}</label>
 			</button>	
 	
 		)
@@ -562,7 +562,7 @@ var SelectedPlayersComponent = React.createClass({
 			<div className="chip avatar" onClick={this._handleClick}>
 			<img src={this.props.player.avatar_url} />
 			<input id={this.props.player._id} type="checkbox" defaultChecked="checked" name="players" value={this.props.player._id} />
-			<label name="players" className = "green-text" htmlFor={this.props.player._id} > {this.props.player.name} </label>	
+			<label name="players" className = "green-text flow-text" htmlFor={this.props.player._id} > {this.props.player.name} </label>	
 			</div>
 
 		)
