@@ -22,9 +22,27 @@
 
 }
 
+#sidenav-overlay{
+    position: fixed;
+    z-index: 2;
+}
+
+.nav-scrolled{
+    top: 0;
+    left: 0;
+    text-align: center;
+    transition: .5 linear all;
+    max-width: 100%;
+    width: 100%;
+    position: fixed;    
+    z-index: 3;
+   
+}
+
 .icon-block {
   padding: 0 15px;
 }
+
 .icon-block .material-icons {
 	font-size: inherit;
 }

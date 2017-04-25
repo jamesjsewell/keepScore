@@ -23,6 +23,21 @@ const Navbar = React.createClass({
 	componentDidMount: function(){
 	
 		$(".button-collapse").sideNav({'closeOnClick': true});
+		var el = document.querySelector("#navBar")
+		var style = window.getComputedStyle(el, null)
+
+		var  mn = $(".the-nav"),
+	    mns = "nav-scrolled",
+	    hdr = mn.offset().top
+	    console.log(hdr)
+
+		$(window).scroll(function() {
+		  if( $(this).scrollTop() > hdr ) {
+		    mn.addClass(mns);
+		  } else {
+		    mn.removeClass(mns);
+		  }
+		});
 
 	},
 
@@ -82,7 +97,7 @@ const Navbar = React.createClass({
  			<div>
 				<h1 id='app-title' className='flow-text'>GameTally</h1>
 	 			<div className="container center-align col s12 offset-m3 green accent-3">
-		 			<nav id="navBar" className="green accent-3">
+		 			<nav id="navBar" className="the-nav green accent-3">
 			 			<div className="nav-wrapper green accent-3">
 			 			  <a href="#" data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
 					 	  <ul className='green accent-3 left hide-on-med-and-down'>
