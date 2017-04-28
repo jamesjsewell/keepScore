@@ -143,7 +143,8 @@ const PlayersOfMatchComponent = React.createClass({
 		team2Id = "",
 		winningTeamScore = 0,
 		losingTeam = "",
-		losingTeamScore = 0
+		losingTeamScore = 0,
+		tieGame = false
 
 		for(var i = 0; i < scoreInputs.length; i++){
 			console.log(scoreInputs[i])
@@ -151,6 +152,7 @@ const PlayersOfMatchComponent = React.createClass({
 			var playerScore = scoreInputs[i].value
 			scoresObj[playerId] = playerScore
 			playerAndScore.push({'player': playerId, 'score': Number(playerScore)})
+
 
 		}
 
@@ -197,14 +199,32 @@ const PlayersOfMatchComponent = React.createClass({
 			
 		}
 
+		if(winningTeamScore === losingTeamScore){
+			tieGame = true
+		}
 
 		var winningPlayer = _.max(playerAndScore, function(aPlayerScore){ 
 			return aPlayerScore.score })
 
-		
+		var lookForTies = 0
 
-		console.log('completing the match')
-		ACTIONS.update_match_scores(scoresObj, this.props.match._id, winningPlayer.score, winningPlayer.player, winningTeam, winningTeamScore, losingTeam, losingTeamScore)
+		for(var i in scoresObj){
+		
+			var theScore = scoresObj[i]
+
+			if(Number(theScore) === Number(winningPlayer.score)){
+				lookForTies = lookForTies + 1
+			}
+
+		}
+
+		if(lookForTies > 1){
+
+			tieGame = true
+			
+		}
+
+		ACTIONS.update_match_scores(scoresObj, this.props.match._id, winningPlayer.score, winningPlayer.player, winningTeam, winningTeamScore, losingTeam, losingTeamScore, tieGame)
 
 	},
 	
@@ -282,7 +302,6 @@ const PlayersOfMatchComponent = React.createClass({
 const PlayerComponent = React.createClass({
 
 	render: function(){
-
 
 		return(
 
