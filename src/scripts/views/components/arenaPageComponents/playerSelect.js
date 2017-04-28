@@ -188,13 +188,9 @@ const PlayerChoiceComponent = React.createClass({
 
 			var inputName = evt.target.name
 		
-			if(inputName === 'team1'){
-				var whatTeam = 'team1'
-			}
-
-			if(inputName === 'team2'){
-				var whatTeam = 'team2'
-			}
+			
+			var whatTeam = STORE.data.team_input_select
+			
 
 			var filteredTeams = this.props.arenaTeams.filter(function(team) {
     		
@@ -202,7 +198,7 @@ const PlayerChoiceComponent = React.createClass({
     			console.log(team)
     			console.log(team.attributes.name)
     			console.log(txt)
-    			return team.attributes.name.toUpperCase().includes(txt).toUpperCase()
+    			return team.attributes.name.toUpperCase().includes(txt.toUpperCase())
     		}
   		
 	  		})
@@ -273,14 +269,14 @@ const PlayerChoiceComponent = React.createClass({
 							<div>{suggestions}</div>
 
 							<div className="input-field card-content">
-								<input onKeyUp = {this._handleKeyPress} name = "team1" placeholder = "team 1" />
+								<input onClick={function(){STORE._set({team_input_select: "team1"}); console.log(STORE.data.team_input_select)}} onKeyUp = {this._handleKeyPress} name = "team1" placeholder = "team 1" />
 							</div>
 
 							<div className="input-field card-content">
-								<input onKeyUp = {this._handleKeyPress} name = "team2" placeholder = "team 2" />
+								<input onClick={function(){STORE._set({team_input_select: "team2"}); console.log(STORE.data.team_input_select)}} onKeyUp = {this._handleKeyPress} name = "team2" placeholder = "team 2" />
 							</div>
 
-							<h5 className="white-text center-align"> select teams </h5>
+							<h5 className="white-text center-align"> selected teams </h5>
 
 							<div>{this._renderSelectedTeams(STORE.data.match_selected_teams)}</div>
 
@@ -360,7 +356,7 @@ const TeamSuggestionsComponent = React.createClass({
 
 		if(STORE.data.match_selected_teams){
 
-			if(this.props.whatTeam === 'team1'){
+			if(STORE.data.team_input_select === 'team1'){
 				
 				var arrayOfTeams = STORE.data.match_selected_teams
 				arrayOfTeams[0] = this.props.team
@@ -368,7 +364,7 @@ const TeamSuggestionsComponent = React.createClass({
 
 			}
 
-			if(this.props.whatTeam === 'team2'){
+			if(STORE.data.team_input_select === 'team2'){
 
 				var arrayOfTeams = STORE.data.match_selected_teams
 				arrayOfTeams[1] = this.props.team
