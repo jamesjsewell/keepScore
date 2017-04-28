@@ -55,10 +55,15 @@ const MatchSchema = new mongoose.Schema({
   	createdAt: { type: Date, default: Date.now },
     team1: [ {type: mongoose.Schema.Types.ObjectId, ref: 'User'} ],
     team2: [ {type: mongoose.Schema.Types.ObjectId, ref: 'User'} ],
+    team1_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
+    team2_id: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
     team1_name: { type: String },
     team2_name: { type: String },
     creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    status: { type: String }
+    status: { type: String },
+    tie_game: { type: Boolean },
+    winning_team_id: { type: String },
+    losing_team_id: { type: String }
 
 })
 

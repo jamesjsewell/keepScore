@@ -120,7 +120,7 @@ const CreateMatchComponent = React.createClass({
 
 					if(team1Players.length > 0 && team2Players.length > 0){
 
-						ACTIONS.create_match('team', teamPlayers, evt.target.matchName.value, team1Players, team2Players, team1Name, team2Name)
+						ACTIONS.create_match('team', teamPlayers, evt.target.matchName.value, team1Players, team2Players, team1Name, team2Name, team1Id, team2Id)
 
 					}
 				}

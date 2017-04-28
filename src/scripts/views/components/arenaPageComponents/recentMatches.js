@@ -45,12 +45,12 @@ const RecentMatchesComponent = React.createClass({
 
 			return(
 
-				<div className="col s3 container center-align m6 green accent-4">
+				<div className="col s12 container center-align offset-m3 green accent-4">
 
-					<div className="card green accent-4 center-align">
+					
 					<h2 className="card-content title white-text center-align">Recent Matches</h2>
 					{this._makeMatches(this.props.queueMatches)}
-					</div>
+					
 
 				</div>
 
@@ -124,7 +124,7 @@ const MatchComponent = React.createClass({
 		if(tieGame === false){
 			return(
 				//<button className="chip waves-effect waves-light btn" onClick={this.delete_match}>remove</button>
-				<div className="col s6 container center-align m6 offset-m3 green accent-4">
+				
 
 					<div className = 'card green accent-3'>
 
@@ -138,7 +138,6 @@ const MatchComponent = React.createClass({
 
 					</div>
 
-				</div>
 
 			)
 		}

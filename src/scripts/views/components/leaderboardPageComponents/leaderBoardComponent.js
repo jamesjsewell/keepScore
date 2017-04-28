@@ -39,25 +39,71 @@ const LeaderBoardComponent = React.createClass({
 		
 	},
 
-	render: function(){
+	_makeTeams: function(teams){
 
+		var teamsArray = []
+
+		if(STORE.data.team_leaderboard_stats != undefined && teams != undefined){
+
+			var allTeamStats = STORE.data.team_leaderboard_stats
+		
+			for(var i = allTeamStats.length+1; i >= 0; i--){		
+			
+				var theTeamStats = allTeamStats[i]
+
+				console.log(theTeamStats)
+
+				if(theTeamStats != undefined){
+
+					var theTeam = _.find(teams, function(team){ 
+
+						if(team._id === theTeamStats.id){return team }
+
+					})
+
+					teamsArray.push(<TeamComponent stats={theTeamStats} team={theTeam} />)
+				}	
+							
+			}
+
+			return teamsArray
+
+		}
+		
+	},
+
+	render: function(){
 		
 		return(
 
-			<div className="col s6 container center-align m6 offset-m3 green accent-4">
+			<div className="row">
 
 				
-				<div className = 'card green accent-3'>
+				<div className="col s12">
 
 					<h2 className="white-text center-align card-content">Leaderboard</h2>
 
-					<ul className="collection card-content" name='player-select-wrapper'>
+					<div className="col s6 s6">
+					<h3 className="white-text center-align card-content">Players</h3>
+					<ul className="collection" name='player-select-wrapper'>
 
 						{this._makePlayers(this.props.players)}
 						
 					</ul>
+					</div>
+
+					<div className="col s6 s6">
+					<h3 className="white-text center-align card-content">Teams</h3>
+					<ul className="collection" name='player-select-wrapper'>
+
+						{this._makeTeams(this.props.teams)}
+						
+					</ul>
+					</div>
 
 				</div>
+
+			
 
 			</div>
 
@@ -91,6 +137,38 @@ const PlayerComponent = React.createClass({
 				<h4 className="white-text">{name}</h4>
 				<h5 className="white-text">win/loss ratio {winLoss}</h5>
 				<h5 className="white-text">points scored {points}</h5>
+				<h5 className="white-text">wins {wins}</h5>
+				<p className="white-text">losses {losses}</p>
+
+			</li>	
+
+		)
+
+	}
+
+})
+
+const TeamComponent = React.createClass({
+
+	render: function(){
+
+	
+
+		if(this.props.team != undefined && this.props.stats != undefined){
+			
+			var winLoss = this.props.stats.winLoss,
+			wins = this.props.stats.wins,
+			losses = this.props.stats.losses,
+			name = this.props.stats.name
+			
+		}
+
+		return(
+			
+			<li className="collection-item card-content green accent-3">
+				
+				<h4 className="white-text">{name}</h4>
+				<h5 className="white-text">win/loss ratio {winLoss}</h5>
 				<h5 className="white-text">wins {wins}</h5>
 				<p className="white-text">losses {losses}</p>
 

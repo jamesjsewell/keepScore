@@ -139,6 +139,8 @@ const PlayersOfMatchComponent = React.createClass({
 		scoresObj = {},
 		playerAndScore = [],
 		winningTeam = "",
+		team1Id = "",
+		team2Id = "",
 		winningTeamScore = 0,
 		losingTeam = "",
 		losingTeamScore = 0
@@ -154,6 +156,8 @@ const PlayersOfMatchComponent = React.createClass({
 
 		if(this.props.match.game_type === 'team'){
 
+			var team1Id = this.props.match.team1_id
+			var team2Id = this.props.match.team2_id
 			var team1 = this.props.match.team1
 			var team1Score = 0
 

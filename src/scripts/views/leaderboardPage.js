@@ -34,22 +34,23 @@ const LeaderboardPage = React.createClass({
 
  	render: function(){
 
- 		if(this.state.current_arena != undefined && this.state.leaderboard_stats != undefined){
- 			
+ 		if(this.state.current_arena != undefined && this.state.leaderboard_stats != undefined && this.state.team_leaderboard_stats != undefined){
+ 			console.log(this.state.team_leaderboard_stats)
 			return (
 
 		 		<div className='blue-grey darken-4 page-container'>
 		 			
 		 			<Navbar />
 
-		 			<div className='leaderboard-wrapper '>
+		 			
 		 				
-		 				<LeaderboardComponent arena={this.state.current_arena[0]} players={this.state.current_arena[0].attributes.players}/>
+		 				<LeaderboardComponent arena={this.state.current_arena[0]} players={this.state.current_arena[0].attributes.players} teams={this.state.team_leaderboard_stats} />
 
-		 			</div>
+		 			
 
+		 			
 		 			<RecentMatchesComponent arena={this.state.current_arena[0]} queueMatches={this.state.completed_match_collection.models} />
-
+		 			
 		 		</div>
 
 			)

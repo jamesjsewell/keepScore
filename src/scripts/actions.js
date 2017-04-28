@@ -15,7 +15,7 @@ const ACTIONS = {
 
 	//       MATCH ACTIONS        //
 
-	create_match: function(gameType, matchData, name, team1, team2, team1Name, team2Name){
+	create_match: function(gameType, matchData, name, team1, team2, team1Name, team2Name, team1Id, team2Id){
 				
 		if(gameType){
 			
@@ -29,6 +29,8 @@ const ACTIONS = {
 			body['arena'] = STORE.data.current_arena_id
 			body['team1_name'] = team1Name
 			body['team2_name'] = team2Name
+			body['team1_id'] = team1Id
+			body['team2_id'] = team2Id
 
 			ACTIONS.ajax_post_match(body)
 
@@ -46,7 +48,9 @@ const ACTIONS = {
 		team2 = data.team2,
 		arena = data.arena,
 		team1Name = data.team1_name,
-		team2Name = data.team2_name
+		team2Name = data.team2_name,
+		team1Id = data.team1_id,
+		team2Id = data.team2_id
 
 		STORE._set({
 			dataLoaded: false
@@ -70,7 +74,9 @@ const ACTIONS = {
 				team1_name: team1Name,
 				team2_name: team2Name,
 				status: 'inactive',
-				creator: STORE.data.userId
+				creator: STORE.data.userId,
+				team1_id: team1Id,
+				team2_id: team2Id
 
 				}
 	        
@@ -544,6 +550,8 @@ const ACTIONS = {
 
 		var accumulativePlayerScores = {}
 
+		var accumulativeTeamScores = {}
+
 		for(var i = 0; i < matches.models.length; i++){
 
 			var theMatch = matches.models[i].attributes
@@ -552,65 +560,175 @@ const ACTIONS = {
 
 			var winningPlayer = theMatch.winning_player
 
-			for(var playerId in scoresObj){	
+			var team1Obj = theMatch.team1_id
 
-				var playerScore = scoresObj[playerId]
+			var team2Obj = theMatch.team2_id
 
-				if(accumulativePlayerScores[playerId] != undefined){
+			console.log(theMatch)
 
-					if(accumulativePlayerScores[playerId]['points'] != undefined){
+			if(!theMatch.winning_team && !theMatch.tie_game){
 
-						accumulativePlayerScores[playerId]['points'] = Number(accumulativePlayerScores[playerId]['points']) + Number(playerScore)
+
+				for(var playerId in scoresObj){	
+
+					var playerScore = scoresObj[playerId]
+
+					if(accumulativePlayerScores[playerId] != undefined){
+
+						if(accumulativePlayerScores[playerId]['points'] != undefined){
+
+							accumulativePlayerScores[playerId]['points'] = Number(accumulativePlayerScores[playerId]['points']) + Number(playerScore)
+
+						}
+
+						if(winningPlayer._id != playerId){
+							accumulativePlayerScores[playerId]['losses'] += 1
+							accumulativePlayerScores[playerId]['wins'] += 0
+
+						}
+						else{
+							accumulativePlayerScores[playerId]['wins'] += 1
+							accumulativePlayerScores[playerId]['losses'] += 0
+						}
+
+						var wins = accumulativePlayerScores[playerId]['wins']
+						var losses = accumulativePlayerScores[playerId]['losses']
+						var matchesPlayed = wins+losses
+						var winLoss = Math.round(wins/matchesPlayed*100) + "%"
+
+						accumulativePlayerScores[playerId]['winLoss'] = winLoss
 
 					}
 
-					if(winningPlayer._id != playerId){
-						accumulativePlayerScores[playerId]['losses'] += 1
-						accumulativePlayerScores[playerId]['wins'] += 0
+					else{
+						
+						var setKey = {}
+						setKey['points'] = Number(playerScore)
 
+						if(winningPlayer._id != playerId){
+							setKey['losses'] = 1
+							setKey['wins'] = 0
+
+						}
+						else{
+							setKey['wins'] = 1
+							setKey['losses'] = 0
+						}
+
+						setKey['winLoss'] = 0
+
+						setKey['id'] = playerId
+
+						accumulativePlayerScores[playerId] = setKey
+
+					}
+				}
+			}
+
+			else{
+
+				if(team1Obj != undefined && team2Obj != undefined && !theMatch.tie_game){
+
+					console.log(team1Obj._id,theMatch.winning_team)
+					if(team1Obj.name != theMatch.winning_team){
+
+						if(accumulativeTeamScores[team1Obj._id] != undefined){
+
+							accumulativeTeamScores[team1Obj._id]['losses'] += Number(1)
+
+							if(accumulativeTeamScores[team2Obj._id] != undefined){
+								accumulativeTeamScores[team2Obj._id]['wins'] += Number(1)
+							}
+							else{
+								var keyValue = {losses: 0, wins: 1}
+								accumulativeTeamScores[team2Obj._id] = keyValue
+							}
+							
+
+						}
+						else{
+
+							var keyValue = {wins: 0, losses: 1}
+							accumulativeTeamScores[team1Obj._id] = keyValue
+
+							if(accumulativeTeamScores[team2Obj._id] != undefined){
+								accumulativeTeamScores[team2Obj._id]['wins'] += Number(1)
+							}
+							else{
+								var keyValue = {losses: 0, wins: 1}
+								accumulativeTeamScores[team2Obj._id] = keyValue
+							}
+
+						}
 					}
 					else{
-						accumulativePlayerScores[playerId]['wins'] += 1
-						accumulativePlayerScores[playerId]['losses'] += 0
+
+						if(accumulativeTeamScores[team1Obj._id] != undefined){
+
+							accumulativeTeamScores[team1Obj._id]['wins'] += Number(1)
+
+							if(accumulativeTeamScores[team2Obj._id] != undefined){
+								accumulativeTeamScores[team2Obj._id]['losses'] += Number(1)
+							}
+							else{
+								var keyValue = {wins: 0, losses: 1}
+								accumulativeTeamScores[team2Obj._id] = keyValue
+							}
+							
+
+						}
+						else{
+
+							var keyValue = {losses: 0, wins: 1}
+							accumulativeTeamScores[team1Obj._id] = keyValue
+
+							if(accumulativeTeamScores[team2Obj._id] != undefined){
+								accumulativeTeamScores[team2Obj._id]['losses'] += Number(1)
+							}
+							else{
+								var keyValue = {wins: 0, losses: 1}
+								accumulativeTeamScores[team2Obj._id] = keyValue
+							}
+
+						}
+
 					}
 
-					var wins = accumulativePlayerScores[playerId]['wins']
-					var losses = accumulativePlayerScores[playerId]['losses']
+				
+
+					console.log(accumulativeTeamScores)
+					var wins = accumulativeTeamScores[team1Obj._id]['wins']
+					var losses = accumulativeTeamScores[team1Obj._id]['losses']
 					var matchesPlayed = wins+losses
 					var winLoss = Math.round(wins/matchesPlayed*100) + "%"
 
-					accumulativePlayerScores[playerId]['winLoss'] = winLoss
+					accumulativeTeamScores[team1Obj._id]['winLoss'] = winLoss
+					accumulativeTeamScores[team1Obj._id]['name'] = team1Obj.name
+
+					var wins = accumulativeTeamScores[team2Obj._id]['wins']
+					var losses = accumulativeTeamScores[team2Obj._id]['losses']
+					var matchesPlayed = wins+losses
+					var winLoss = Math.round(wins/matchesPlayed*100) + "%"
+
+					accumulativeTeamScores[team2Obj._id]['winLoss'] = winLoss
+					accumulativeTeamScores[team2Obj._id]['name'] = team2Obj.name
+					console.log(accumulativeTeamScores)
 
 				}
 
-				else{
-					
-					var setKey = {}
-					setKey['points'] = Number(playerScore)
-
-					if(winningPlayer._id != playerId){
-						setKey['losses'] = 1
-						setKey['wins'] = 0
-
-					}
-					else{
-						setKey['wins'] = 1
-						setKey['losses'] = 0
-					}
-
-					setKey['winLoss'] = 0
-
-					setKey['id'] = playerId
-
-					accumulativePlayerScores[playerId] = setKey
-
 				}
-			}
+
+		
+
 		}
+			
+		
 
 		var ranked = _.sortBy(accumulativePlayerScores, 'winLoss')
-		console.log(ranked)
+		var teamsRanked = _.sortBy(accumulativeTeamScores, 'winLoss')
+		console.log(accumulativeTeamScores)
 		STORE._set({leaderboard_stats: ranked})
+		STORE._set({team_leaderboard_stats: teamsRanked})
 
 	},
 
