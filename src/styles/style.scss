@@ -10,6 +10,11 @@
 @import url('https://fonts.googleapis.com/css?family=Crete+Round');
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
 
+html, body, .page-container{
+
+    background: #263238;
+}
+
 #loading{
     max-width: 100%;
     line-height: 100vh;
@@ -31,7 +36,6 @@
     top: 0;
     left: 0;
     text-align: center;
-    transition: .5 linear all;
     max-width: 100%;
     width: 100%;
     position: fixed;    
@@ -50,10 +54,12 @@
 #app-title {
 	color: #263238;
     background: #eceff1;
-    padding: 2rem;
+    padding-top: 6rem;
+    padding-bottom: 2rem;
     text-align: center;
     font-size: 5rem;
     font-family: 'Lobster', cursive;
+    vertical-align: bottom;
 }
 
 input:not([type]), input[type=text], textarea, button.btn, button, .btn, .password-input, .email-input, .username-input {

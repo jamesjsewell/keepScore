@@ -51,7 +51,7 @@ const HomePage = React.createClass({
 
  		return (
 
-	 		<div className='blue-grey darken-4'>
+	 		<div className='blue-grey darken-4 page-container'>
 
 	 			<Navbar />
 

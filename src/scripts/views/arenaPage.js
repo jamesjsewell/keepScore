@@ -73,7 +73,7 @@ const ArenaPage = React.createClass({
  			
 			return (
 
-	 		<div className='blue-grey darken-4'>
+	 		<div className='blue-grey darken-4 page-container'>
 	 			
 	 			<Navbar />
 	 			<h2 className="white-text center-align title">{this.state.current_arena[0].attributes.name}</h2>
@@ -119,7 +119,7 @@ const ArenaPage = React.createClass({
 
  		return(
 
- 			<div className="blue-grey darken-4"></div>
+ 			<div className="blue-grey darken-4 page-container"></div>
 
  		)	
  		

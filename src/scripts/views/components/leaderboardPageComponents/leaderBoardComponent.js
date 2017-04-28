@@ -46,8 +46,10 @@ const LeaderBoardComponent = React.createClass({
 
 			<div className="col s6 container center-align m6 offset-m3 green accent-4">
 
-				<h2 className="white-text center-align title">Leaderboard</h2>
+				
 				<div className = 'card green accent-3'>
+
+					<h2 className="white-text center-align card-content">Leaderboard</h2>
 
 					<ul className="collection card-content" name='player-select-wrapper'>
 

@@ -53,7 +53,7 @@ const ArenasPage = React.createClass({
 			
 			return (
 
-		 		<div className='blue-grey darken-4 center-align'>
+		 		<div className='blue-grey darken-4 center-align page-container'>
 		 			
 		 			<Navbar />
 

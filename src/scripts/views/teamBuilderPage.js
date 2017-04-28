@@ -38,7 +38,7 @@ const TeamBuilderPage = React.createClass({
  			console.log(this.state.current_arena[0])
 			return (
 
-		 		<div className='blue-grey darken-4'>
+		 		<div className='blue-grey darken-4 page-container'>
 		 			
 		 			<Navbar />
 		 			<h2 className="title white-text center-align">Create Teams</h2>
@@ -59,7 +59,7 @@ const TeamBuilderPage = React.createClass({
 
 			return (
 
-				<div className='blue-grey darken-4'>
+				<div className='blue-grey darken-4 page-container'>
 
 				</div>
 

@@ -38,11 +38,11 @@ const LeaderboardPage = React.createClass({
  			
 			return (
 
-		 		<div className='blue-grey darken-4'>
+		 		<div className='blue-grey darken-4 page-container'>
 		 			
 		 			<Navbar />
 
-		 			<div className='leaderboard-wrapper'>
+		 			<div className='leaderboard-wrapper '>
 		 				
 		 				<LeaderboardComponent arena={this.state.current_arena[0]} players={this.state.current_arena[0].attributes.players}/>
 
@@ -60,7 +60,7 @@ const LeaderboardPage = React.createClass({
 
 			return (
 
-				<div className='blue-grey darken-4'>
+				<div className='blue-grey darken-4 page-container'>
 
 				</div>
 
