@@ -142,7 +142,7 @@ const JoinArenasPage = React.createClass({
 	 				<div className="col s3 center-align container">
 
 	 					<div className="input-field col s2 container">
-	 						<h5 className="white-text title center-align">search arenas</h5>
+	 						<h2 className="white-text center-align">search arenas</h2>
 	 						<input className="" onClick = {this._handleClick} onKeyUp = {this._handleKeyPress} name = "arenaSearch" placeholder = "name of arena" type="text" />
 	 					</div>
 	 					<label className="">{this._renderAutoComplete(suggestions)}</label>

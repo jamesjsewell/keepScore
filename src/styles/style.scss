@@ -5,7 +5,9 @@
  *
  * Made By MaterializeCSS.com
  */
-
+$accent-color: #00838f;
+$background-color: #263238;
+$middle-color: #455a64;
 @import './materialize.scss';
 @import url('https://fonts.googleapis.com/css?family=Crete+Round');
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
@@ -52,7 +54,7 @@ html, body, .page-container{
 }
 
 #app-title {
-	color: #263238;
+	color: $background-color;
     background: #eceff1;
     padding-top: 6rem;
     padding-bottom: 2rem;
@@ -64,6 +66,7 @@ html, body, .page-container{
 
 input:not([type]), input[type=text], textarea, button.btn, button, .btn, .password-input, .email-input, .username-input {
 	font-size: 2rem !important;
+    color: white !important;
 }
 
 /* label underline focus color */
@@ -79,24 +82,62 @@ input:not([type]), input[type=text], textarea, button.btn, button, .btn, .passwo
 
    }
 
+input[type=checkbox]{
+    color: white !important;
+}
 
-button.btn, a.btn{
+label[for]{
+    color: white !important;
+}
+
+
+button.btn, a.btn, .button.green.accent-1, .btn.green.accent-1.green-text.flow-text, .card-content.waves-effect.waves-light.green.accent-1.green-text.btn{
 	padding: 1rem 2rem;
     margin: 1rem;
 	height: auto;
     border-radius: 1rem;
     max-width: 100%;
+    background: $accent-color !important;
+    color: white !important;
+    background: $accent-color !important;
 
 }
 
-.chip{
+button#game-type.btn-floating{
+    background: $accent-color !important;  
+}
+
+.chip, .chip.avatar{
     height: auto;
     max-width: 100%;
     padding: .5rem !important;
     margin: .5rem !important;
     padding-left: 1rem !important;
     margin-top: .2rem !important;
+    background: $accent-color !important;
+    color: white !important;
 
+}
+
+label{
+    color: white !important;
+}
+
+.green-text{
+    color: white !important;
+}
+
+.green.accent-2{
+
+    background: #546e7a  !important;
+}
+
+.green.accent-3{
+    background: #37474f  !important;
+}
+
+.green.accent-4{
+    background: $middle-color !important;
 }
  
 #game-type{
@@ -104,4 +145,42 @@ button.btn, a.btn{
     margin: .5rem;
     width: 6rem !important;
     height: 6rem !important;
+}
+
+.checkbox-indigo[type="checkbox"] + label:before{
+    border: 2px solid indigo;
+    background: transparent;
+    color: white !important;
+}
+.checkbox[type="checkbox"]:checked + label:before{
+    border: 2px solid transparent;
+    border-bottom: 2px solid white !important;
+    border-right: 2px solid white !important;
+    background: transparent;
+    color: white !important;
+}
+.checkbox-indigo.filled-in[type="checkbox"] + label:after{
+    border: 2px solid indigo;
+    background: transparent;
+    color: white !important;
+}
+.checkbox-indigo.filled-in[type="checkbox"]:checked + label:after{
+    background: indigo;
+    color: white !important;
+}
+.checkbox-indigo.filled-in[type="checkbox"]:checked + label:before{
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid white !important;
+    border-bottom: 2px solid white !important;
+    color: white !important;
+}
+input[type="checkbox"]:checked + label:before{
+
+    border-right: 2px solid white !important;
+    border-bottom: 2px solid white !important;
+}
+input[type="checkbox"]:not(.filled-in) + label:after{
+
+    border: 2px solid white !important;
 }

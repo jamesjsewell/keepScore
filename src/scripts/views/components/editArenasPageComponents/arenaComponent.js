@@ -171,11 +171,10 @@ const ArenaComponent = React.createClass({
 
 					<div className = 'card green accent-3'>
 
-						<button className='btn green accent-1 green-text flow-text' onClick={ () => {STORE._set({"edit_arena": arenaId })} } type="button">edit arena</button>
+						<h3 className="card-content center-align white-text">{arenaName}</h3>
 
 						<form className="card-content center-align white-text green accent-3" onSubmit={this._handleUpdateArena}>
 							
-							<h3 className="card-content center-align white-text card-title flow-text">{arenaName}</h3>
 
 							<div className="card-content input-field container">
 								<input onClick = { () => {STORE._set({"edit_arena": arenaId })} } className="white-text" name = "name" placeholder = "rename arena" />
