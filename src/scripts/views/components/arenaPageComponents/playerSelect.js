@@ -221,6 +221,7 @@ const PlayerChoiceComponent = React.createClass({
 	render: function(){
 
 		var suggestions = STORE.data.suggested_players ? STORE.data.suggested_players : ''
+		var selectedInput = STORE.data.selected_player_input
 
 		if(this.props.gameType === 'dual'){
 
@@ -232,11 +233,13 @@ const PlayerChoiceComponent = React.createClass({
 
 						<div className='card-content container' name='player-select-wrapper'>
 
-							<div>{suggestions}</div>
+							<div className={selectedInput === 'player1' ? '' : 'hide'}>{suggestions}</div>
 							
 							<div className="input-field card-content ">
 								<input className="" onClick={this._handleClick} onKeyUp = {this._handleKeyPress} name = "addPlayer1" placeholder = "player1" />
 							</div>
+
+							<div className={selectedInput === 'player2' ? '' : 'hide'}>{suggestions}</div>
 
 							<div className="input-field card-content ">
 								<input className="" onClick={this._handleClick} onKeyUp = {this._handleKeyPress} name = "addPlayer2" placeholder = "player2" />

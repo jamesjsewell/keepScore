@@ -78,9 +78,6 @@ const LeaderBoardComponent = React.createClass({
 
 			<div className="row container">
 
-				
-				
-
 					<h2 className="white-text center-align">leaderboard</h2>
 
 					<div className="col s12 m6 l6">
@@ -100,10 +97,6 @@ const LeaderBoardComponent = React.createClass({
 						
 					</ul>
 					</div>
-
-				
-
-			
 
 			</div>
 
