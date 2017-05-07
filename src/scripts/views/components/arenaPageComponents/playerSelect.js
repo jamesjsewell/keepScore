@@ -117,6 +117,7 @@ const PlayerChoiceComponent = React.createClass({
 
 		}
 
+
 	},
 
 	_handleKeyPress: function(evt){
@@ -261,6 +262,8 @@ const PlayerChoiceComponent = React.createClass({
 
 			var suggestions = STORE.data.match_suggested_teams
 
+			var selectedTeamInput = STORE.data.team_input_select
+
 			return(
 
 			<div className="col s6 container center-align m6 offset-m3 green accent-4">
@@ -269,11 +272,13 @@ const PlayerChoiceComponent = React.createClass({
 
 						<div name='card-content container center-align'>
 
-							<div>{suggestions}</div>
+							<div className={selectedTeamInput === 'team1' ? '' : 'hide'} >{suggestions}</div>
 
 							<div className="input-field card-content">
 								<input onClick={function(){STORE._set({team_input_select: "team1"}); console.log(STORE.data.team_input_select)}} onKeyUp = {this._handleKeyPress} name = "team1" placeholder = "team 1" />
 							</div>
+
+							<div className={selectedTeamInput === 'team2' ? '' : 'hide'} >{suggestions}</div>
 
 							<div className="input-field card-content">
 								<input onClick={function(){STORE._set({team_input_select: "team2"}); console.log(STORE.data.team_input_select)}} onKeyUp = {this._handleKeyPress} name = "team2" placeholder = "team 2" />
