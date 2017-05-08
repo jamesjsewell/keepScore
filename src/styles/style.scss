@@ -97,7 +97,6 @@ label[for]{
 
 button.btn, a.btn, .button.green.accent-1, .btn.green.accent-1.green-text.flow-text, .card-content.waves-effect.waves-light.green.accent-1.green-text.btn{
 	padding: 1rem 2rem;
-    padding-bottom: .5rem !important;
     margin: 1rem;
 	height: auto;
     border-radius: 1rem;
@@ -107,6 +106,8 @@ button.btn, a.btn, .button.green.accent-1, .btn.green.accent-1.green-text.flow-t
     background: $accent-color !important;
 
 }
+
+
 
 button#game-type.btn-floating{
     background: $accent-color !important;  
