@@ -41,7 +41,7 @@ const TeamBuilderPage = React.createClass({
 		 		<div className='blue-grey darken-4 page-container'>
 		 			
 		 			<Navbar />
-		 			<h2 className="white-text center-align">Create Teams</h2>
+		 			<h3 className="white-text center-align">create teams</h3>
 		 			
 
 		 				<CreateTeamComponent arena={this.state.current_arena[0]} />

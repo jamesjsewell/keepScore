@@ -78,10 +78,10 @@ const LeaderBoardComponent = React.createClass({
 
 			<div className="row container">
 
-					<h2 className="white-text center-align">leaderboard</h2>
+					<h3 className="white-text center-align">leaderboard</h3>
 
 					<div className="col s12 m6 l6">
-					<h3 className="white-text center-align">Players</h3>
+					<h3 className="white-text flow-text center-align">players</h3>
 					<ul className="collection" name='player-select-wrapper'>
 
 						{this._makePlayers(this.props.players)}
@@ -90,7 +90,7 @@ const LeaderBoardComponent = React.createClass({
 					</div>
 
 					<div className="col s12 m6 l6">
-					<h3 className="white-text center-align">Teams</h3>
+					<h3 className="white-text flow-text center-align">teams</h3>
 					<ul className="collection" name='player-select-wrapper'>
 
 						{this._makeTeams(this.props.teams)}

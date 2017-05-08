@@ -99,9 +99,9 @@ const Navbar = React.createClass({
  		}
  		return (
  			<div>
-				<h1 id='app-title' className='flow-text'>GameTally</h1>
+				<h1 id='app-title' className='z-depth-5 flow-text'>GameTally</h1>
 	 			<div className="container center-align col s12 offset-m3 green accent-3">
-		 			<nav id="navBar" className="nav-scrolled green accent-3">
+		 			<nav id="navBar" className="nav-scrolled green accent-3 z-depth-5">
 			 			<div className="nav-wrapper green accent-3">
 			 			  <a data-activates="mobile-demo" className="button-collapse"><i className="material-icons">menu</i></a>
 					 	  <ul className='green accent-3 left hide-on-med-and-down'>

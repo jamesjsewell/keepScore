@@ -74,7 +74,7 @@ const ProfilePage = React.createClass({
 
 		 			<div className="col s12 container center-align m6 offset-m3 green accent-4">
 						<div className = 'card green accent-3'>
-		 					<h4 className="card-content white-text center-align">{User.getCurrentUser().attributes.name}</h4>
+		 					<h3 className="card-content white-text center-align">{User.getCurrentUser().attributes.name}</h3>
 				 			<div>
 				 				<img id="profile-pic" className = "responsive-img" src={imgUrl} />
 				 			</div>

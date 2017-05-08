@@ -57,7 +57,7 @@ const ArenasPage = React.createClass({
 		 			
 		 			<Navbar />
 
-		 			<h2 className="center-align white-text">create a new arena</h2>
+		 			<h3 className="center-align white-text">create a new arena</h3>
 		 			<div className='arena-create-wrapper'>
 		 				
 		 				<CreateArenaComponent />

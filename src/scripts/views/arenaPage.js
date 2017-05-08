@@ -76,7 +76,7 @@ const ArenaPage = React.createClass({
 	 		<div className='blue-grey darken-4 page-container'>
 	 			
 	 			<Navbar />
-	 			<h2 className="white-text center-align">{this.state.current_arena[0].attributes.name}</h2>
+	 			<h3 className="white-text center-align">{this.state.current_arena[0].attributes.name}</h3>
 	 			<div className="row m6">
 
 	 				<div className="col s9 m6 offset-m3 center-align">
