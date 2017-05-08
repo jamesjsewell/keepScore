@@ -107,6 +107,21 @@ button.btn, a.btn, .button.green.accent-1, .btn.green.accent-1.green-text.flow-t
 
 }
 
+.btn {
+  overflow: hidden !important;
+}
+button.btn:hover, a.btn:hover, .button.green.accent-1:hover, .btn.green.accent-1.green-text.flow-text:hover, .card-content.waves-effect.waves-light.green.accent-1.green-text.btn:hover{
+  opacity:1 !important;
+  background: none !important;
+}
+
+#game-type.btn-floating {
+  overflow: hidden !important;
+}
+#game-type.btn-floating:hover{
+  opacity:1 !important;
+  background: none !important;
+}
 
 
 button#game-type.btn-floating{
