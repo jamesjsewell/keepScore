@@ -64,10 +64,14 @@ html, body, .page-container{
     vertical-align: bottom;
 }
 
-input:not([type]), input[type=text], textarea, button.btn, button, .btn, .password-input, .email-input, .username-input {
+input:not([type]), input[type=text], textarea, .password-input, .email-input, .username-input {
 	font-size: 2rem !important;
     color: white !important;
 }
+
+ button.btn, button, .btn{
+    color: white !important;
+ }
 
 /* label underline focus color */
    .input-field input:focus {
@@ -93,6 +97,7 @@ label[for]{
 
 button.btn, a.btn, .button.green.accent-1, .btn.green.accent-1.green-text.flow-text, .card-content.waves-effect.waves-light.green.accent-1.green-text.btn{
 	padding: 1rem 2rem;
+    padding-bottom: .5rem !important;
     margin: 1rem;
 	height: auto;
     border-radius: 1rem;

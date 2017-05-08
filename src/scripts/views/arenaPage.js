@@ -77,13 +77,13 @@ const ArenaPage = React.createClass({
 	 			
 	 			<Navbar />
 	 			<h3 className="white-text center-align">{this.state.current_arena[0].attributes.name}</h3>
-	 			<div className="row m6">
+	 			<div className="row container center-align">
 
-	 				<div className="col s9 m6 offset-m3 center-align">
+	 				<div className="col s12 center-align container">
 
-	 					<button className='btn transparent white-text flow-text' onClick={function(){location.hash="leaderboard"}} type='submit'>view leaderboard</button>
+	 					<button className='btn transparent white-text flow-text center-align' onClick={function(){location.hash="leaderboard"}} type='submit'>view leaderboard</button>
 	 					<br />
-	 					<button className='btn transparent white-text flow-text' onClick={function(){location.hash="teams"}} type='submit'>create teams</button>
+	 					<button className='btn transparent white-text flow-text center-align' onClick={function(){location.hash="teams"}} type='submit'>create teams</button>
 	 				</div>
 
 	 			</div>
