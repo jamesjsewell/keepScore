@@ -735,6 +735,8 @@ const ACTIONS = {
 
 							var thePlayer = losingTeam[k]
 
+							var playerScore = scoresObj[thePlayer._id]
+
 							console.log(thePlayer)
 
 							if(accumulativePlayerScores[thePlayer._id] != undefined){
